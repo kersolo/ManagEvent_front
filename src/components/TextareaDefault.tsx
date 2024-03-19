@@ -15,9 +15,9 @@ export function TextareaDefault({
   return (
     <div className="w-96">
       <Textarea
+        {...register(name)}
         label={label}
         name={name}
-        {...register(name)}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       />

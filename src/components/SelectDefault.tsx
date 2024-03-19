@@ -11,9 +11,9 @@ export function SelectDefault({ label, name, register }: SelectDefaultProps) {
   return (
     <div className="w-72">
       <Select
+        {...register(name)}
         label={label}
         name={name}
-        {...register(name)}
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
