@@ -16,18 +16,18 @@ export default function ButtonDefault({
   let buttonTheme;
   switch (variant) {
     case "primary":
-      buttonTheme = "bg-orangeDP text-darkBlueDP text-md hover:bg-darkOrangeDP";
+      buttonTheme = "bg-orangeDP text-darkBlueDP hover:bg-darkOrangeDP";
       break;
     case "secondary":
       buttonTheme =
-        "bg-darkBlueDP text-orangeDP text-md border-2 border-orangeDP hover:border-darkOrangeDP hover:text-darkOrangeDP";
+        "bg-darkBlueDP text-orangeDP border-2 border-orangeDP hover:border-darkOrangeDP hover:text-darkOrangeDP";
       break;
     case "tertiary":
       buttonTheme =
-        "bg-darkBlueDP text-orangeDP text-md underline underline-offset-4 hover:bg-mediumBlueDP";
+        "bg-darkBlueDP text-orangeDP underline underline-offset-4 hover:bg-mediumBlueDP";
       break;
     case "delete":
-      buttonTheme = "bg-red-500 text-white text-md hover:bg-red-700";
+      buttonTheme = "bg-red-500 text-white hover:bg-red-700";
       break;
   }
 
@@ -37,7 +37,7 @@ export default function ButtonDefault({
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
       fullWidth={true}
-      className={`capitalize ${buttonTheme}`}
+      className={`capitalize text-xl ${buttonTheme}`}
       type={type}
     >
       {children}
