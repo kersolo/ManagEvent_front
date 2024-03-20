@@ -16,11 +16,18 @@ export default function ContactPage() {
             rgpd: false,
         })
 
-    function handleSubmit(event: contactForm) {
+    function handleSubmit(event) {
         console.log(event)
         event.preventDefault();
 
         setForm({...form})
+    }
+
+    function handleChange = (event) => {
+
+        const [name, value] = event.target;
+
+        setForm({...form, [name]:value})
     }
 
     return (
@@ -36,7 +43,8 @@ export default function ContactPage() {
                     htmlFor="name">Nom et Prénom</label>
                 <input className="rounded-lg px-8 py-2 mb-6"
                     type="text"
-                    name="name" />
+                    name="name"
+                    onChange={handleChange} />
                 <label className="text-white"
                     htmlFor="email"
                 >Adresse Email</label>
