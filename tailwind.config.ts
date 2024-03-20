@@ -9,22 +9,16 @@ export default withMT({
         DEFAULT: "#FFB647",
       },
       darkOrangeDP: {
-        DEFAULT: "#c47600",
+        DEFAULT: "#ff9c06",
       },
       darkBlueDP: {
         DEFAULT: "#0B1247",
       },
+      mediumBlueDP: {
+        DEFAULT: "#111b6c",
+      },
       lightBlueDP: {
         DEFAULT: "#02b2dc",
-      },
-    },
-    button: {
-      styles: {
-        base: {
-          initial: {
-            textTransform: "capitalize",
-          },
-        },
       },
     },
   },

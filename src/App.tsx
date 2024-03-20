@@ -3,11 +3,11 @@ import "./App.css";
 
 function App() {
   return (
-    <>
+    <div className="bg-darkBlueDP h-lvh p-10">
       <Routes>
         <Route path="" element="" />
       </Routes>
-    </>
+    </div>
   );
 }
 
