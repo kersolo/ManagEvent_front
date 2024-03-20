@@ -15,7 +15,7 @@ export default function ButtonDefault({
 }: ButtonDefaultProps) {
   let buttonTheme;
   switch (variant) {
-    case "primary":
+    default:
       buttonTheme = "bg-orangeDP text-darkBlueDP hover:bg-darkOrangeDP";
       break;
     case "secondary":
@@ -27,7 +27,7 @@ export default function ButtonDefault({
         "bg-darkBlueDP text-orangeDP underline underline-offset-4 hover:bg-mediumBlueDP";
       break;
     case "delete":
-      buttonTheme = "bg-red-500 text-white hover:bg-red-700";
+      buttonTheme = "bg-redDP text-white hover:bg-darkRedDP";
       break;
   }
 
