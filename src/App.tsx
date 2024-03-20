@@ -4,11 +4,11 @@ import SignUpPage from './pages/SignUp/SignUpPage';
 
 function App() {
   return (
-    <>
+    <div className="bg-darkBlueDP h-lvh p-10">
       <Routes>
         <Route path="/inscription" element={<SignUpPage />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
