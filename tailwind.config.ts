@@ -21,6 +21,11 @@ export default withMT({
         DEFAULT: "#02b2dc",
       },
     },
+    button: {
+      valid: {
+        type: "submit",
+      },
+    },
   },
   plugins: [],
 });

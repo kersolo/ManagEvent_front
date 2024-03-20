@@ -5,11 +5,13 @@ type Variant = "primary" | "secondary" | "tertiary" | "delete";
 
 type ButtonDefaultProps = PropsWithChildren<{
   variant?: Variant;
+  type?: "submit";
 }>;
 
 export default function ButtonDefault({
   children,
   variant = "primary",
+  type,
 }: ButtonDefaultProps) {
   let buttonTheme;
   switch (variant) {
@@ -36,6 +38,7 @@ export default function ButtonDefault({
       onPointerLeaveCapture={undefined}
       fullWidth={true}
       className={`capitalize ${buttonTheme}`}
+      type={type}
     >
       {children}
     </Button>
