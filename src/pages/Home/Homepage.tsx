@@ -20,7 +20,6 @@ export default function Homepage() {
             <Link to={"/Contactez-nous"} className="mx-auto mt-20 border-b-2 text-white ">
                 <ContactUs />
             </Link>
-            
         </div>
 
     )
