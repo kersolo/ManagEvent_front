@@ -1,25 +1,35 @@
 import { Select } from '@material-tailwind/react';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-interface SelectDefaultProps {
+type SelectDefaultProps<T extends FieldValues> = {
   label: string;
-  name: string;
+  name: Path<T>;
+  register: UseFormRegister<T>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: any;
-}
+  onChange?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  errors?: any;
+};
 
-export function SelectDefault({ label, name, register }: SelectDefaultProps) {
+export function SelectDefault<T extends FieldValues>({
+  label,
+  name,
+  register,
+  onChange,
+  errors
+}: SelectDefaultProps<T>) {
   return (
     <div className="w-72">
       <Select
-        {...register(name)}
+        children={undefined}
+        {...(register(name), { onChange: onChange })}
         label={label}
         name={name}
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
-        children={undefined}
       >
-        {/* Les options seront dans le .map */}
+        {/* Les options seront dans le .map ou children */}
 
         {/* {datas.map((data) => (
           <>
@@ -29,6 +39,7 @@ export function SelectDefault({ label, name, register }: SelectDefaultProps) {
           </>
         ))} */}
       </Select>
+      {errors && <p>{errors[name]?.message}</p>}
     </div>
   );
 }
