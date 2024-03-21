@@ -1,4 +1,11 @@
-import { Avatar } from '@material-tailwind/react';
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader
+} from '@material-tailwind/react';
 import { InputDefault } from '../../components/InputDefault';
 import ButtonDefault from '../../components/ButtonDefault';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -40,39 +47,63 @@ export default function UpdateProfilePage() {
       firstname: data.firstname,
       lastname: data.lastname,
       nickname: data.nickname,
-      avatar_url: data.avatar_url,
       email: data.email
     };
-    console.log('data:', UpdateProfile);
+    console.log('UpdateProfile:', UpdateProfile);
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(!open);
   };
 
   return (
     <>
       <Link to="/profile">
-        <div className="flex">
+        <div className="flex pt-2">
           <img src={BackIcon} alt="" />
           <p>Retour</p>
         </div>
       </Link>
-      {/* <Link to="/profile">{`${BackIcon} Retour`}</Link> */}
-      {/* <Link to="/profile">`${BackIcon} Retour`</Link> */}
       <div className="flex flex-col items-center gap-14 mt-10 ">
         {usersProfile?.map((infos) => (
           <>
             <div className="flex">
-              <Avatar
-                src={infos.avatar_url}
-                alt="avatar"
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-              <img src={Pencil} alt="" />
+              <Avatar id="avatar_url" src={infos.avatar_url} alt="avatar_url" />
+              <button onClick={handleOpen}>
+                <img src={Pencil} alt="" />
+              </button>
+              <Dialog open={open} handler={handleOpen}>
+                <form action="" onSubmit={handleSubmit(onSubmit)}>
+                  <DialogHeader>Veuillez Uploader votre image</DialogHeader>
+                  <DialogBody>
+                    <input type="file" {...register('avatar_url')} />
+                  </DialogBody>
+                  <DialogFooter>
+                    <Button
+                      variant="text"
+                      color="red"
+                      onClick={handleOpen}
+                      className="mr-1"
+                    >
+                      <span>Cancel</span>
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="gradient"
+                      color="green"
+                      onClick={handleOpen}
+                    >
+                      <span>Confirm</span>
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </Dialog>
             </div>
-            <div className="border rounded-lg border-gray-800 p-6">
+            <div className="flex flex-col gap-3">
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col justify-center gap-6"
+                className="flex flex-col justify-center gap-4"
                 action=""
               >
                 <InputDefault
@@ -107,14 +138,19 @@ export default function UpdateProfilePage() {
                   register={register}
                   errors={errors}
                 />
+                <div className="mt-5 mb-5">
+                  <ButtonDefault variant="secondary">
+                    Modifier mot de passe
+                  </ButtonDefault>
+                </div>
 
                 <ButtonDefault type="submit">
                   Valider les modifications
                 </ButtonDefault>
-                <ButtonDefault variant="delete">
-                  Supprimer mon compte
-                </ButtonDefault>
               </form>
+              <ButtonDefault variant="delete">
+                Supprimer mon compte
+              </ButtonDefault>
             </div>
           </>
         ))}

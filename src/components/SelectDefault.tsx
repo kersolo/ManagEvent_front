@@ -11,6 +11,7 @@ type SelectDefaultProps<T extends FieldValues> = {
   onChange?: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors?: any;
+  className?: string;
 };
 
 export function SelectDefault<T extends FieldValues>({
@@ -20,7 +21,8 @@ export function SelectDefault<T extends FieldValues>({
   onChange,
   errors,
   value,
-  defaultValue
+  defaultValue,
+  className
 }: SelectDefaultProps<T>) {
   return (
     <div className="w-72">
@@ -31,9 +33,7 @@ export function SelectDefault<T extends FieldValues>({
         name={name}
         value={value}
         defaultValue={defaultValue}
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
+        className={className}
       >
         {/* Les options seront dans le .map ou children */}
 
@@ -45,7 +45,7 @@ export function SelectDefault<T extends FieldValues>({
           </>
         ))} */}
       </Select>
-      {errors && <p>{errors[name]?.message}</p>}
+      {errors && <p className="text-red-600">{errors[name]?.message}</p>}
     </div>
   );
 }

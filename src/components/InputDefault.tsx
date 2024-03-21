@@ -10,6 +10,7 @@ type InputDefaultProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors?: any;
+  className?: string;
 };
 
 export function InputDefault<T extends FieldValues>({
@@ -19,7 +20,8 @@ export function InputDefault<T extends FieldValues>({
   register,
   errors,
   value,
-  defaultValue
+  defaultValue,
+  className
 }: InputDefaultProps<T>) {
   return (
     <div className="w-72">
@@ -30,11 +32,9 @@ export function InputDefault<T extends FieldValues>({
         type={type}
         value={value}
         defaultValue={defaultValue}
-        crossOrigin={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
+        className={className}
       />
-      {errors && <p>{errors[name]?.message}</p>}
+      {errors && <p className="text-red-600">{errors[name]?.message}</p>}
     </div>
   );
 }

@@ -9,6 +9,7 @@ type TextareaDefaultProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors?: any;
+  className?: string;
 };
 
 export function TextareaDefault<T extends FieldValues>({
@@ -17,7 +18,8 @@ export function TextareaDefault<T extends FieldValues>({
   register,
   errors,
   value,
-  defaultValue
+  defaultValue,
+  className
 }: TextareaDefaultProps<T>) {
   return (
     <div className="w-96">
@@ -27,10 +29,9 @@ export function TextareaDefault<T extends FieldValues>({
         name={name}
         value={value}
         defaultValue={defaultValue}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
+        className={className}
       />
-      {errors && <p>{errors[name]?.message}</p>}
+      {errors && <p className="text-red-600">{errors[name]?.message}</p>}
     </div>
   );
 }
