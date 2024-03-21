@@ -17,16 +17,6 @@ export default withMT({
       darkRedDP: "#be1818",
       greenDP: "#0bb55b",
     },
-    extend: {
-      fontFamily: {
-        inter: ['"Inter"', "sans-serif"],
-      },
-    },
-    button: {
-      valid: {
-        type: "submit",
-      },
-    },
   },
   plugins: [],
 });
