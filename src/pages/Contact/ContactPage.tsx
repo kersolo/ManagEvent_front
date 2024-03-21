@@ -31,9 +31,19 @@ export default function ContactPage() {
         console.log(form.rgpd, form.name, form.email, form.message)
     }
 
+    function handleClick(event: any): void {
+
+        const check = form.rgpd
+
+        if (check = false) {
+            console.log('checkbox si check') 
+        }
+    }
+    console.log(form)
+
     return (
 
-        <div className="bg-gradient-to-r from-cyan-500 to-purple-500 h-screen mobileBgDp bg-cover">
+        <div className="bg-gradient-to-r from-cyan-500 to-purple-500 h-screen">
             <h1 className="text-center text-xl text-white font-medium">Contact</h1>
 
             <form className="flex flex-col m-6 p-4 border-orange-300 border-2 rounded-lg backdrop-blur-lg"
@@ -66,7 +76,7 @@ export default function ContactPage() {
                         type="checkbox"
                         name="rgpd"
                         id="rgpd"
-                        onClick={handleChange} />
+                        onClick={handleClick} />
                     <label className="text-white ml-2"
                         htmlFor="info">
                         En cochant cette case vous acceptez que vos informations soient envoyées et stockées dans notre base de données.
