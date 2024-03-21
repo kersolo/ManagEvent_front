@@ -12,6 +12,7 @@ export default withMT({
       darkOrangeDP: "#ff9c06",
       darkBlueDP: "#0B1247",
       mediumBlueDP: "#111b6c",
+      navBarBlueDP: "#2e3461",
       lightBlueDP: "#00D7FF",
       redDP: "#e42828",
       darkRedDP: "#be1818",
