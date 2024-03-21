@@ -5,6 +5,6 @@
     background-repeat:no-repeat;
     witdh:100%;
     background-size: cover;
-    background-position: center;   
-    background-attachment:initial;
+    background-position: bottom;   
+    background-attachment:fixed;
 }
