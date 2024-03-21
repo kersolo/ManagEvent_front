@@ -1,17 +1,26 @@
 import { Button } from "@material-tailwind/react";
-import { PropsWithChildren } from "react";
+import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+
+// Doc Composant Bouton :
+
+// - Le composant est conçu pour prendre toute la largeur de son parent.
+//   (Pour changer sa largeur, vous pouvez par exemple le mettre dans une div avec une largeur définie)
+// - Utilisez la props "variant" avec la valeur "primary", "secondary", "tertiary" ou "delete", pour appliquer l'un des 4 styles de boutons de la maquette.
+// - Le composant accepte également tous les attributs html d'un <button> : onClick, type:'submit', etc...
+// - Utiliser la props "className" uniquement pour les autres cas de figure.
 
 type Variant = "primary" | "secondary" | "tertiary" | "delete";
 
-type ButtonDefaultProps = PropsWithChildren<{
-  variant?: Variant;
-  type?: "submit";
-}>;
+type ButtonDefaultProps = ComponentPropsWithoutRef<"button"> &
+  PropsWithChildren<{
+    variant?: Variant;
+    className?: string;
+  }>;
 
 export default function ButtonDefault({
   children,
   variant = "primary",
-  type,
+  className,
 }: ButtonDefaultProps) {
   let buttonTheme;
   switch (variant) {
@@ -37,8 +46,7 @@ export default function ButtonDefault({
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
       fullWidth={true}
-      className={`capitalize text-xl ${buttonTheme}`}
-      type={type}
+      className={`capitalize text-lg ${buttonTheme} ${className}`}
     >
       {children}
     </Button>
