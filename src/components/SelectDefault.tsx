@@ -4,6 +4,8 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 type SelectDefaultProps<T extends FieldValues> = {
   label: string;
   name: Path<T>;
+  value?: string;
+  defaultValue?: string;
   register: UseFormRegister<T>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: any;
@@ -16,7 +18,9 @@ export function SelectDefault<T extends FieldValues>({
   name,
   register,
   onChange,
-  errors
+  errors,
+  value,
+  defaultValue
 }: SelectDefaultProps<T>) {
   return (
     <div className="w-72">
@@ -25,6 +29,8 @@ export function SelectDefault<T extends FieldValues>({
         {...(register(name), { onChange: onChange })}
         label={label}
         name={name}
+        value={value}
+        defaultValue={defaultValue}
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
