@@ -28,16 +28,13 @@ export default function ContactPage() {
         const { name, value } = event.target;
 
         setForm({ ...form, [name]: value })
-        console.log(form.rgpd, form.name, form.email, form.message)
+        // console.log(form.rgpd, form.name, form.email, form.message)
     }
 
     function handleClick(event: any): void {
 
-        const check = form.rgpd
-
-        if (check = false) {
-            console.log('checkbox si check') 
-        }
+        console.log("test", event.target)
+         setForm({...form, ["rgpd"]:event.target.checked}) 
     }
     console.log(form)
 
