@@ -1,14 +1,14 @@
-import ContactPage from './pages/Contact/ContactPage';
+import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
+import NavBar from "./components/NavBar/navbar";
+import ContactPage from "./pages/Contact/ContactPage";
 import CheckEmailPage from "./pages/Login/CheckEmailPage";
 import ResetPassPage from "./pages/Login/ResetPassPage";
-import SignUpPage, { NewUserProps } from './pages/SignUp/SignUpPage';
-import { useEffect, useState } from 'react';
-import { getUsers } from './services/api/user';
-import UpdateProfilePage from './pages/Profil/UpdateProfilePage';
+import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
+import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
+import { getUsers } from "./services/api/user";
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -35,7 +35,6 @@ export default function App() {
     loadUser();
   }, []);
 
-
   return (
     <>
       {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
@@ -51,7 +50,5 @@ export default function App() {
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
       </Routes>
     </>
-    );
-  }
-
-
+  );
+}
