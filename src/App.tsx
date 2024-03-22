@@ -1,12 +1,16 @@
-import { useState } from "react";
+
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
 import CheckEmailPage from "./pages/Login/CheckEmailPage";
 import ResetPassPage from "./pages/Login/ResetPassPage";
+import SignUpPage, { NewUserProps } from './pages/SignUp/SignUpPage';
+import { useEffect, useState } from 'react';
+import { getUsers } from './services/api/user';
+import UpdateProfilePage from './pages/Profil/UpdateProfilePage';
 
-function App() {
+export default function App() {
   // checking route path to display NavBar or NavBarAdmin
   const { pathname } = useLocation();
   const isAdminPath = new RegExp("^/admin");
@@ -17,6 +21,21 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   ////
 
+  const [users, setUsers] = useState<NewUserProps[] | undefined>([]);
+
+  function handleSubmitUser(newUser: NewUserProps): void {
+    setUsers([...(users as []), newUser]);
+  }
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const response = await getUsers();
+      setUsers(response);
+    };
+    loadUser();
+  }, []);
+
+
   return (
     <>
       {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
@@ -24,9 +43,14 @@ function App() {
         <Route path="/" element={""} />
         <Route path="/login/reset-pass" element={<ResetPassPage />}></Route>
         <Route path="/login/check-email" element={<CheckEmailPage />}></Route>
+        <Route
+          path="/inscription"
+          element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
+        />
+        <Route path="/profile/modifications" element={<UpdateProfilePage />} />
       </Routes>
     </>
-  );
-}
+    );
+  }
 
-export default App;
+
