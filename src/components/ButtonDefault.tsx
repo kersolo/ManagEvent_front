@@ -43,9 +43,6 @@ export default function ButtonDefault({
 
   return (
     <Button
-      placeholder={undefined}
-      onPointerEnterCapture={undefined}
-      onPointerLeaveCapture={undefined}
       fullWidth={true}
       className={`capitalize text-lg rounded-xl ${buttonTheme} ${className}`}
       onClick={onClick}
