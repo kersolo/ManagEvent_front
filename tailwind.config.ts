@@ -4,27 +4,19 @@ import withMT from "@material-tailwind/react/utils/withMT";
 export default withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    colors: {
-      orangeDP: {
-        DEFAULT: "#FFB647",
-      },
-      darkOrangeDP: {
-        DEFAULT: "#ff9c06",
-      },
-      darkBlueDP: {
-        DEFAULT: "#0B1247",
-      },
-      mediumBlueDP: {
-        DEFAULT: "#111b6c",
-      },
-      lightBlueDP: {
-        DEFAULT: "#02b2dc",
-      },
+    fontFamily: {
+      sans: ['"Inter"', "sans-serif"],
     },
-    button: {
-      valid: {
-        type: "submit",
-      },
+    colors: {
+      orangeDP: "#FFB647",
+      darkOrangeDP: "#ff9c06",
+      darkBlueDP: "#0B1247",
+      mediumBlueDP: "#111b6c",
+      navBarBlueDP: "#2e3461",
+      lightBlueDP: "#00D7FF",
+      redDP: "#e42828",
+      darkRedDP: "#be1818",
+      greenDP: "#0bb55b",
     },
   },
   plugins: [],

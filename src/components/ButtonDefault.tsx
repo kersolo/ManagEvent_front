@@ -1,22 +1,32 @@
-import { Button } from '@material-tailwind/react';
-import { PropsWithChildren } from 'react';
+import { Button } from "@material-tailwind/react";
+import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+
+// Doc Composant Bouton :
+
+// - Le composant est conçu pour prendre toute la largeur de son parent.
+//   (Pour changer sa largeur, vous pouvez par exemple le mettre dans une div avec une largeur définie)
+// - Utilisez la props "variant" avec la valeur "primary", "secondary", "tertiary" ou "delete", pour appliquer l'un des 4 styles de boutons de la maquette.
+// - Le composant accepte également tous les attributs html d'un <button> : onClick, type:'submit', etc...
+// - Utiliser la props "className" uniquement pour les autres cas de figure.
 
 type Variant = 'primary' | 'secondary' | 'tertiary' | 'delete';
 
-type ButtonDefaultProps = PropsWithChildren<{
-  variant?: Variant;
-  type?: 'submit';
-}>;
+type ButtonDefaultProps = ComponentPropsWithoutRef<"button"> &
+  PropsWithChildren<{
+    variant?: Variant;
+  }>;
 
 export default function ButtonDefault({
   children,
-  variant = 'primary',
-  type
+  variant = "primary",
+  className,
+  type,
+  onClick,
 }: ButtonDefaultProps) {
   let buttonTheme;
   switch (variant) {
-    case 'primary':
-      buttonTheme = 'bg-orangeDP text-darkBlueDP hover:bg-darkOrangeDP';
+    default:
+      buttonTheme = "bg-orangeDP text-darkBlueDP hover:bg-darkOrangeDP";
       break;
     case 'secondary':
       buttonTheme =
@@ -26,18 +36,16 @@ export default function ButtonDefault({
       buttonTheme =
         'bg-darkBlueDP text-orangeDP underline underline-offset-4 hover:bg-mediumBlueDP';
       break;
-    case 'delete':
-      buttonTheme = 'bg-red-500 text-white hover:bg-red-700';
+    case "delete":
+      buttonTheme = "bg-redDP text-white hover:bg-darkRedDP";
       break;
   }
 
   return (
     <Button
-      placeholder={undefined}
-      onPointerEnterCapture={undefined}
-      onPointerLeaveCapture={undefined}
       fullWidth={true}
-      className={`capitalize text-xl ${buttonTheme}`}
+      className={`capitalize text-lg rounded-xl ${buttonTheme} ${className}`}
+      onClick={onClick}
       type={type}
     >
       {children}
