@@ -1,4 +1,4 @@
-
+import ContactPage from './pages/Contact/ContactPage';
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
@@ -41,8 +41,9 @@ export default function App() {
       {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
       <Routes>
         <Route path="/" element={""} />
-        <Route path="/login/reset-pass" element={<ResetPassPage />}></Route>
-        <Route path="/login/check-email" element={<CheckEmailPage />}></Route>
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login/reset-pass" element={<ResetPassPage />} />
+        <Route path="/login/check-email" element={<CheckEmailPage />} />
         <Route
           path="/inscription"
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
