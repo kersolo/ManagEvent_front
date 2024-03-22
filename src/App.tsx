@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
+
+import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
-import NavBar from "./components/NavBar/navbar";
 import ContactPage from "./pages/Contact/ContactPage";
 import CheckEmailPage from "./pages/Login/CheckEmailPage";
 import ResetPassPage from "./pages/Login/ResetPassPage";
