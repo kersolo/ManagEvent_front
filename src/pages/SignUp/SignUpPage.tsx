@@ -60,7 +60,7 @@ export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
 
   return (
     <div className="flex flex-col items-center gap-14 mt-10 ">
-      <Typography variant="h1" color="black">
+      <Typography variant="h1" color="white">
         S'inscrire
       </Typography>
       <div className="border rounded-lg border-gray-800 p-6">
