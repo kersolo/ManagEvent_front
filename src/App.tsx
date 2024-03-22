@@ -3,6 +3,8 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
+import CheckEmailPage from "./pages/Login/CheckEmailPage";
+import ResetPassPage from "./pages/Login/ResetPassPage";
 
 function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -20,6 +22,8 @@ function App() {
       {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
       <Routes>
         <Route path="/" element={""} />
+        <Route path="/login/reset-pass" element={<ResetPassPage />}></Route>
+        <Route path="/login/check-email" element={<CheckEmailPage />}></Route>
       </Routes>
     </>
   );
