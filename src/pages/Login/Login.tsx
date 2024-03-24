@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup"
 import { useState } from "react";
-import { FormValues } from "../../services/interfaces/FormValues";
+import { LoginForm } from "../../services/interfaces/LoginForm";
+
 
 
 const dataSchema = yup.object({
@@ -22,20 +23,20 @@ const dataSchema = yup.object({
 
 export default function Login() {
 
-    const [form, setForm] = useState<FormValues>({
+    const [form, setForm] = useState<LoginForm>({
         email: "",
         password: "",
         checkbox: false
     });
 
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
         defaultValues: form,
         resolver: yupResolver(dataSchema),
     });
 
     //console.log(errors);
-    const onSubmit = (values: FormValues) => {
+    const onSubmit = (values: LoginForm) => {
         console.log(values);
     }
 
