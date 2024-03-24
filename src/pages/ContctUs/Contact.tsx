@@ -14,7 +14,7 @@ const dataSchema = yup.object({
     email: yup.string().email("Votre e-mail n'est pas valide").required("Ce champ est obligatoire"),
     message: yup.string().required("Ce champ est obligatoire").min(10, "message très court, 10 caractères minimum"),
     checkbox: yup.boolean(),
-  
+
 })
 
 export default function Contact() {
@@ -52,14 +52,15 @@ export default function Contact() {
                             <Input {...register("email",)} label="Votre Email" type="email" name="email" />
                             <small className="text-sm text-red-500">{errors.email?.message}</small>
                             <Textarea  {...register("message")} label="message" name="message" />
-                            <small className="text-sm text-red-500">{errors.message?.message}</small>  
-                        </div>   
+                            <small className="text-sm text-red-500">{errors.message?.message}</small>
+                        </div>
                         <Checkbox type="checkbox"  {...register("checkbox")} label="En cochant la case vous acceptez les conditions" name="checkbox" /><br />
-                               <small className="text-sm text-red-500">{errors.checkbox?.message}</small>
+                        <small className="text-sm text-red-500">{errors.checkbox?.message}</small>
                         <ButtonDefault type="submit">Envoyer</ButtonDefault>
                     </div>
                 </form>
             </div>
         </>
+        
     )
 }
