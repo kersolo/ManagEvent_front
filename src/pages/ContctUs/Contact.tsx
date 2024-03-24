@@ -54,7 +54,7 @@ export default function Contact() {
                             <Textarea  {...register("message")} label="message" name="message" />
                             <small className="text-sm text-red-500">{errors.message?.message}</small>
                         </div>
-                        <Checkbox type="checkbox"  {...register("checkbox")} label="En cochant la case vous acceptez les conditions" name="checkbox" /><br />
+                        <Checkbox type="checkbox" {...register("checkbox")} label="En cochant la case vous acceptez les conditions" name="checkbox" /><br />
                         <small className="text-sm text-red-500">{errors.checkbox?.message}</small>
                         <ButtonDefault type="submit">Envoyer</ButtonDefault>
                     </div>
