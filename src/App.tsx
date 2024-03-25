@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
+import NavBar from "./components/NavBar/navbar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
 import ContactPage from "./pages/Contact/ContactPage";
 import CheckEmailPage from "./pages/Login/CheckEmailPage";
@@ -9,7 +9,7 @@ import ResetPassPage from "./pages/Login/ResetPassPage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
 import { getUsers } from "./services/api/user";
-import {Popup} from './components/Popup';
+
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -42,7 +42,6 @@ export default function App() {
 
   return (
     <>
-
       {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
       <Routes>
         <Route path="/" element={""} />
@@ -54,7 +53,6 @@ export default function App() {
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
         />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
-
       </Routes>
       
 

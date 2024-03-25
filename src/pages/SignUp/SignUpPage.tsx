@@ -5,6 +5,7 @@ import { InputDefault } from '../../components/InputDefault';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-tailwind/react';
 import ButtonDefault from '../../components/ButtonDefault';
+import PopupDefault from '../../components/PopupDefault';
 
 export type NewUserProps = {
   email: string;
@@ -58,7 +59,10 @@ export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
     handleSubmitUser(newUser);
   };
 
+  
+
   return (
+
     <div className="flex flex-col items-center gap-14 mt-10 ">
       <Typography variant="h1" color="black">
         S'inscrire
@@ -91,7 +95,7 @@ export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
             register={register}
             errors={errors}
           />
-          <ButtonDefault type="submit">M'inscrire</ButtonDefault>
+          <ButtonDefault type="submit" >M'inscrire</ButtonDefault>
         </form>
         <div className="flex justify-between mt-6">
           <p>Déjà un compte ?</p>
