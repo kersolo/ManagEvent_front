@@ -29,7 +29,7 @@ export default function ResetPassPage() {
   const onSubmit: SubmitHandler<Input> = async (data) => {
     console.log(data);
     // const response = await postData(data);
-    // if (response.status === succes) {
+    // if (response.status === 200) {
     navigate("/login/check-email");
     // }
   };

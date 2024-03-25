@@ -76,8 +76,9 @@ export default function NewPasswordPage() {
     //   const response = await axios.put(`/user/${userId}`, {
     //     password: watch("password"),
     //   });
-    //   if (response.status === 400) {
-    //     navigate("/login")
+    //   if (response.status === 200) {
+    // modale ("Votre mot de passe a bien été modifié") + bouton vers page de connexion
+    navigate("/login");
     //   }
     // };
   };
