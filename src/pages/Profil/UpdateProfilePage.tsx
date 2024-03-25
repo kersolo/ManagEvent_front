@@ -9,19 +9,21 @@ import { InputDefault } from '../../components/InputDefault';
 import ButtonDefault from '../../components/ButtonDefault';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { getUserProfile } from '../../services/api/profile';
+import { getUserProfile, putPorfileUser } from '../../services/api/profile';
 import Pencil from '../../assets/pencil.svg';
 import BackIcon from '../../assets/back-icon.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { DialogDeleteUser } from '../../components/DialogDeleteUser';
+import { DialogDeleteUser } from '../../components/Dialog/DialogDeleteUser';
+import { DialogUpdatePassword } from '../../components/Dialog/DialogUpdatePassword';
 
-interface ProfileInfosProps {
+export interface ProfileInfosProps {
   id?: number;
   firstname: string;
   lastname: string;
   nickname: string;
   email: string;
-  avatar_url: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  avatar_url: any;
 }
 
 export default function UpdateProfilePage() {
@@ -45,34 +47,18 @@ export default function UpdateProfilePage() {
     formState: { errors }
   } = useForm<ProfileInfosProps>();
 
-  // async function putPorfileUser(UpdateProfile: ProfileInfosProps) {
-  //   try {
-  //     const { data } = await axios.put(`/user`, UpdateProfile);
-  //     return data;
-  //   } catch (err) {
-  //     console.log('ERROR');
-  //     console.log(err);
-  //   }
-  // }
-
   const onSubmit: SubmitHandler<ProfileInfosProps> = (data) => {
+    const file = !data.avatar_url ? data.avatar_url : data.avatar_url[0]?.name;
     const UpdateProfile = {
       firstname: data.firstname,
       lastname: data.lastname,
       nickname: data.nickname,
       email: data.email,
-      avatar_url: data.avatar_url
+      avatar_url: file
     };
     console.log('UpdateProfile:', UpdateProfile);
-    // putPorfileUser(UpdateProfile);
+    putPorfileUser(UpdateProfile);
   };
-  // const onSubmitTest: SubmitHandler<ProfileInfosProps> = (data) => {
-  //   const bibi = {
-  //     avatar_url: data.avatar_url[0]?.name
-  //   };
-  //   handleOpen();
-  //   console.log('onSubmitTest:', bibi);
-  // };
 
   const handleOpen = () => {
     setOpen(!open);
@@ -166,11 +152,12 @@ export default function UpdateProfilePage() {
                     register={register}
                     errors={errors}
                   />
-                  <div className="mt-5 mb-5">
+                  <DialogUpdatePassword />
+                  {/* <div className="mt-5 mb-5">
                     <ButtonDefault variant="secondary">
                       Modifier mot de passe
                     </ButtonDefault>
-                  </div>
+                  </div> */}
 
                   <ButtonDefault type="submit">
                     Valider les modifications

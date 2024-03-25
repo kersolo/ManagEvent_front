@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, DialogHeader, DialogFooter } from '@material-tailwind/react';
-import ButtonDefault from './ButtonDefault';
+import ButtonDefault from '../ButtonDefault';
 
 interface DialogDeleteUserProps {
   handleDelete: () => void;
@@ -17,7 +17,7 @@ export function DialogDeleteUser({ handleDelete }: DialogDeleteUserProps) {
         Supprimer mon compte
       </ButtonDefault>
 
-      <Dialog className="bg-darkBlueDP" open={open} handler={handleOpen}>
+      <Dialog className="bg-darkBlueDP p-10" open={open} handler={handleOpen}>
         <DialogHeader className="text-white">
           Êtes vous sur de vouloir supprimer votre compte ?
         </DialogHeader>
