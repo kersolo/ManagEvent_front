@@ -42,34 +42,38 @@ export default function Login() {
 
     return (
         <>
-            <div className="">
-                <form className=" p-5" onSubmit={handleSubmit(onSubmit)} >
-                    <div className="sm:w-full md:w-4/5 md:mx-auto lg:w-3/5 lg:mx-auto xl:w-2/5 xl:mx-auto xxl:w-1/5 xxl:mx-auto border-2 border-orange-300 rounded p-6">
-                        <h2 className="mb-3 flex justify-center">Connexion</h2>
-                        <div className="mb-1 flex flex-col gap-3">
-                            <Input {...register("email",)} label="Votre Email" type="email" name="email" />
-                            <small className="text-sm text-red-500">{errors.email?.message}</small>
-                            <Input  {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
-                            <small className="text-sm text-red-500">{errors.password?.message}</small>
-                        </div>
-                        <div className="flex flex-col justify-center items-center gap-1">
-                            <div className="">
-                                <Checkbox type="checkbox"  {...register("checkbox")} label="Se souvenir de moi" name="checkbox" /><br />
-                                <small className="text-sm text-red-500">{errors.checkbox?.message}</small>
+            <div className="flex flex-col justify-items-center ">
+                <div className=" mt-10">
+                    <form className=" p-5" onSubmit={handleSubmit(onSubmit)} >
+                        <div className="sm:w-full md:w-6/12 md:mx-auto lg:w-4/12 lg:mx-auto border-2 border-orange-300 rounded p-6 mt-10">
+                            <h2 className="mb-3 flex justify-center">Connexion</h2>
+                            <div className="mb-1 flex flex-col gap-3">
+                                <Input {...register("email",)} label="Votre Email" type="email" name="email" />
+                                <small className="text-sm text-red-500">{errors.email?.message}</small>
+                                <Input  {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
+                                <small className="text-sm text-red-500">{errors.password?.message}</small>
                             </div>
-                            <div className=" mb-3">
-                                <Link to="" className="font-medium text-gray-900">  Mot de passe oublié? </Link>
+                            <div className="flex flex-col justify-center items-center gap-1">
+                                <div className="">
+                                    <Checkbox type="checkbox"  {...register("checkbox")} label="Se souvenir de moi" name="checkbox" /><br />
+                                    <small className="text-sm text-red-500">{errors.checkbox?.message}</small>
+                                </div>
+                                <div className="mb-3">
+                                    <Link to="" className="font-medium text-gray-900">  Mot de passe oublié? </Link>
+                                </div>
+                            </div>
+                            <div className="sm:w-full sm:mx-auto md:w-7/12 md:mx-auto lg:w-8/12 lg:mx-auto ">
+                            <ButtonDefault type="submit">Se connecter</ButtonDefault>
+                            </div>
+                            <div>
+                                <Typography color="gray" className="mt-4 text-center font-normal">
+                                    Vous n'avez pas de compte?
+                                    <Link to="" className="font-medium text-gray-900">Inscrivez-vous</Link>
+                                </Typography>
                             </div>
                         </div>
-                        <ButtonDefault type="submit">Se connecter</ButtonDefault>
-                        <div>
-                            <Typography color="gray" className="mt-4 text-center font-normal">
-                                Vous n'avez pas de compte?
-                                <Link to="" className="font-medium text-gray-900">Inscrivez-vous</Link>
-                            </Typography>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </>
     )

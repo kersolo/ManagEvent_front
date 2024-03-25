@@ -39,7 +39,7 @@ export default function ButtonDefault({
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
             fullWidth={true}
-            className={`capitalize text-xl ${buttonTheme}`}
+            className={`capitalize text-md ${buttonTheme}`}
             type={type}
         >
             {children}
