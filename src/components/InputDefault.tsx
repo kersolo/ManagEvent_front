@@ -1,5 +1,5 @@
-import { Input } from '@material-tailwind/react';
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { Input } from "@material-tailwind/react";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
 type InputDefaultProps<T extends FieldValues> = {
   label: string;
@@ -21,10 +21,10 @@ export function InputDefault<T extends FieldValues>({
   errors,
   value,
   defaultValue,
-  className
+  className,
 }: InputDefaultProps<T>) {
   return (
-    <div className="w-72">
+    <>
       <Input
         {...register(name)}
         label={label}
@@ -35,6 +35,6 @@ export function InputDefault<T extends FieldValues>({
         className={className}
       />
       {errors && <p className="text-red-600">{errors[name]?.message}</p>}
-    </div>
+    </>
   );
 }

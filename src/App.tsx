@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
 import ContactPage from "./pages/Contact/ContactPage";
 import CheckEmailPage from "./pages/Login/CheckEmailPage";
+import NewPasswordPage from "./pages/Login/NewPasswordPage";
 import ResetPassPage from "./pages/Login/ResetPassPage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
@@ -43,6 +44,10 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login/reset-pass" element={<ResetPassPage />} />
         <Route path="/login/check-email" element={<CheckEmailPage />} />
+        <Route
+          path="/login/new-password/:token"
+          element={<NewPasswordPage />}
+        />
         <Route
           path="/inscription"
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
