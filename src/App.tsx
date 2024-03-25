@@ -7,6 +7,7 @@ import ContactPage from "./pages/Contact/ContactPage";
 import CheckEmailPage from "./pages/Login/CheckEmailPage";
 import NewPasswordPage from "./pages/Login/NewPasswordPage";
 import ResetPassPage from "./pages/Login/ResetPassPage";
+import ProfilePage from "./pages/Profil/ProfilePage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
 import { getUsers } from "./services/api/user";
@@ -52,6 +53,8 @@ export default function App() {
           path="/inscription"
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
         />
+
+        <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
       </Routes>
     </>
