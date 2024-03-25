@@ -1,0 +1,10 @@
+
+.homepage {
+    background-image: url('./HomePage.jpg');
+    height:100vh;
+    background-repeat: no-repeat;
+    witdh:100%;
+    background-size: cover;
+    background-position: bottom;   
+    background-attachment: fixed;
+}

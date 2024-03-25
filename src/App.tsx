@@ -8,6 +8,10 @@ import CheckEmailPage from "./pages/Login/CheckEmailPage";
 import ResetPassPage from "./pages/Login/ResetPassPage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
+import Login from "./pages/Login/Login"
+import Contact from './pages/ContctUs/Contact';
+import Homepage from './pages/Home/Homepage';
+
 import { getUsers } from "./services/api/user";
 
 export default function App() {
@@ -19,7 +23,7 @@ export default function App() {
 
   // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
   const [isAdmin, setIsAdmin] = useState(false);
-  ////
+
 
   const [users, setUsers] = useState<NewUserProps[] | undefined>([]);
 
@@ -39,7 +43,7 @@ export default function App() {
     <>
       {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
       <Routes>
-        <Route path="/" element={""} />
+          <Route path="/" element={<Homepage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login/reset-pass" element={<ResetPassPage />} />
         <Route path="/login/check-email" element={<CheckEmailPage />} />
@@ -48,6 +52,8 @@ export default function App() {
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
         />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
+         <Route path="/se-connecter" element={<Login />} />
+        <Route path="/contactez-nous" element={<Contact/>} />
       </Routes>
     </>
   );
