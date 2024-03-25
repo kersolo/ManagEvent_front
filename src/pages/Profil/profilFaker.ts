@@ -1,5 +1,6 @@
 const profileFaker = [
   {
+    id: 1,
     firstname: 'Taylor',
     lastname: 'Swift',
     nickname: 'TS',

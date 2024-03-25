@@ -22,7 +22,7 @@ export function TextareaDefault<T extends FieldValues>({
   className
 }: TextareaDefaultProps<T>) {
   return (
-    <div className="w-96">
+    <div>
       <Textarea
         {...register(name)}
         label={label}

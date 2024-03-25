@@ -4,7 +4,7 @@ export async function getUserProfile() {
   try {
     const data = await profileFaker;
 
-    //const { data } = await axios.get("/message");
+    //const { data } = await axios.get("/user");
     return data;
   } catch (err) {
     console.log('ERROR');

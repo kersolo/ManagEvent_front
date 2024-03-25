@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Dialog,
   DialogBody,
   DialogFooter,
@@ -13,17 +12,21 @@ import { useEffect, useState } from 'react';
 import { getUserProfile } from '../../services/api/profile';
 import Pencil from '../../assets/pencil.svg';
 import BackIcon from '../../assets/back-icon.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { DialogDeleteUser } from '../../components/DialogDeleteUser';
 
 interface ProfileInfosProps {
+  id?: number;
   firstname: string;
   lastname: string;
   nickname: string;
-  avatar_url: string;
   email: string;
+  avatar_url: string;
 }
 
 export default function UpdateProfilePage() {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const [usersProfile, setUsersProfile] = useState<
     ProfileInfosProps[] | undefined
   >([]);
@@ -42,19 +45,43 @@ export default function UpdateProfilePage() {
     formState: { errors }
   } = useForm<ProfileInfosProps>();
 
+  // async function putPorfileUser(UpdateProfile: ProfileInfosProps) {
+  //   try {
+  //     const { data } = await axios.put(`/user`, UpdateProfile);
+  //     return data;
+  //   } catch (err) {
+  //     console.log('ERROR');
+  //     console.log(err);
+  //   }
+  // }
+
   const onSubmit: SubmitHandler<ProfileInfosProps> = (data) => {
     const UpdateProfile = {
       firstname: data.firstname,
       lastname: data.lastname,
       nickname: data.nickname,
-      email: data.email
+      email: data.email,
+      avatar_url: data.avatar_url
     };
     console.log('UpdateProfile:', UpdateProfile);
+    // putPorfileUser(UpdateProfile);
   };
+  // const onSubmitTest: SubmitHandler<ProfileInfosProps> = (data) => {
+  //   const bibi = {
+  //     avatar_url: data.avatar_url[0]?.name
+  //   };
+  //   handleOpen();
+  //   console.log('onSubmitTest:', bibi);
+  // };
 
-  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(!open);
+  };
+
+  const handleDelete = () => {
+    // axios.delete('/user/id');
+    console.log('Votre compte a bien été supprimé');
+    navigate('/');
   };
 
   return (
@@ -65,96 +92,95 @@ export default function UpdateProfilePage() {
           <p>Retour</p>
         </div>
       </Link>
-      <div className="flex flex-col items-center gap-14 mt-10 ">
-        {usersProfile?.map((infos) => (
-          <>
-            <div className="flex">
-              <Avatar id="avatar_url" src={infos.avatar_url} alt="avatar_url" />
-              <button onClick={handleOpen}>
-                <img src={Pencil} alt="" />
-              </button>
-              <Dialog open={open} handler={handleOpen}>
-                <form action="" onSubmit={handleSubmit(onSubmit)}>
-                  <DialogHeader>Veuillez Uploader votre image</DialogHeader>
-                  <DialogBody>
-                    <input type="file" {...register('avatar_url')} />
-                  </DialogBody>
-                  <DialogFooter>
-                    <Button
-                      variant="text"
-                      color="red"
-                      onClick={handleOpen}
-                      className="mr-1"
+      {/* {usersProfile?.filter((user)=>user.id === id)} */}
+      {usersProfile
+        ?.filter((user) => user.id === 1)
+        .map((infos, index) => (
+          <div key={index} className="flex flex-col items-center gap-14 mt-10 ">
+            <>
+              <div className="flex flex-col gap-3">
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="flex flex-col justify-center gap-4"
+                  action=""
+                >
+                  <div className="flex justify-center mb-10 ">
+                    <Avatar
+                      id="avatar_url"
+                      src={infos.avatar_url}
+                      alt="avatar"
+                    />
+                    <button onClick={handleOpen}>
+                      <img src={Pencil} alt="" />
+                    </button>
+                    <Dialog
+                      className="bg-darkBlueDP"
+                      open={open}
+                      handler={handleOpen}
                     >
-                      <span>Cancel</span>
-                    </Button>
-                    <Button
-                      type="submit"
-                      variant="gradient"
-                      color="green"
-                      onClick={handleOpen}
-                    >
-                      <span>Confirm</span>
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </Dialog>
-            </div>
-            <div className="flex flex-col gap-3">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col justify-center gap-4"
-                action=""
-              >
-                <InputDefault
-                  label="Votre Prénom"
-                  name="firstname"
-                  type="text"
-                  defaultValue={infos.firstname}
-                  register={register}
-                  errors={errors}
-                />
-                <InputDefault
-                  label="Votre Nom"
-                  name="lastname"
-                  type="text"
-                  defaultValue={infos.lastname}
-                  register={register}
-                  errors={errors}
-                />
-                <InputDefault
-                  label="Votre Pseudo"
-                  name="nickname"
-                  type="text"
-                  defaultValue={infos.nickname}
-                  register={register}
-                  errors={errors}
-                />
-                <InputDefault
-                  label="Votre email"
-                  name="email"
-                  type="email"
-                  defaultValue={infos.email}
-                  register={register}
-                  errors={errors}
-                />
-                <div className="mt-5 mb-5">
-                  <ButtonDefault variant="secondary">
-                    Modifier mot de passe
-                  </ButtonDefault>
-                </div>
+                      <DialogHeader className="text-white">
+                        Veuillez Uploader votre image
+                      </DialogHeader>
+                      <DialogBody>
+                        <input {...register('avatar_url')} type="file" />
+                      </DialogBody>
+                      <DialogFooter>
+                        <ButtonDefault onClick={handleOpen}>
+                          Valider
+                        </ButtonDefault>
+                        <ButtonDefault variant="secondary" onClick={handleOpen}>
+                          Annuler
+                        </ButtonDefault>
+                      </DialogFooter>
+                    </Dialog>
+                  </div>
+                  <InputDefault
+                    label="Votre Prénom"
+                    name="firstname"
+                    type="text"
+                    defaultValue={infos.firstname}
+                    register={register}
+                    errors={errors}
+                  />
+                  <InputDefault
+                    label="Votre Nom"
+                    name="lastname"
+                    type="text"
+                    defaultValue={infos.lastname}
+                    register={register}
+                    errors={errors}
+                  />
+                  <InputDefault
+                    label="Votre Pseudo"
+                    name="nickname"
+                    type="text"
+                    defaultValue={infos.nickname}
+                    register={register}
+                    errors={errors}
+                  />
+                  <InputDefault
+                    label="Votre email"
+                    name="email"
+                    type="email"
+                    defaultValue={infos.email}
+                    register={register}
+                    errors={errors}
+                  />
+                  <div className="mt-5 mb-5">
+                    <ButtonDefault variant="secondary">
+                      Modifier mot de passe
+                    </ButtonDefault>
+                  </div>
 
-                <ButtonDefault type="submit">
-                  Valider les modifications
-                </ButtonDefault>
-              </form>
-              <ButtonDefault variant="delete">
-                Supprimer mon compte
-              </ButtonDefault>
-            </div>
-          </>
+                  <ButtonDefault type="submit">
+                    Valider les modifications
+                  </ButtonDefault>
+                </form>
+                <DialogDeleteUser handleDelete={handleDelete} />
+              </div>
+            </>
+          </div>
         ))}
-      </div>
     </>
   );
 }

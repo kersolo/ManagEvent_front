@@ -16,9 +16,6 @@ export type Inputs = {
   password: string;
   confirmPassword: string;
 };
-interface SignUpPageProps {
-  handleSubmitUser: (newUser: NewUserProps) => void;
-}
 
 const schema = yup
   .object({
@@ -38,7 +35,7 @@ const schema = yup
 
   .required();
 
-export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
+export default function SignUpPage() {
   const {
     register,
     handleSubmit,
@@ -46,6 +43,16 @@ export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
   } = useForm<Inputs>({
     resolver: yupResolver(schema)
   });
+
+  // async function postUsers(newUser: NewUserProps) {
+  //   try {
+  //     const { data } = await axios.post(`/user`, newUser);
+  //     return data;
+  //   } catch (err) {
+  //     console.log('ERROR');
+  //     console.log(err);
+  //   }
+  // }
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const newUser = {
@@ -55,7 +62,7 @@ export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
     };
     console.log('data:', newUser);
 
-    handleSubmitUser(newUser);
+    // postUsers(newUser);
   };
 
   return (
@@ -66,7 +73,7 @@ export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
       <div className="border rounded-lg border-gray-800 p-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col justify-center gap-6"
+          className="flex flex-col justify-center gap-6 w-72"
           action=""
           aria-label="Inscription"
         >

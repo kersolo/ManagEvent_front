@@ -1,5 +1,5 @@
-import { Button } from "@material-tailwind/react";
-import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import { Button } from '@material-tailwind/react';
+import { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
 
 // Doc Composant Bouton :
 
@@ -11,22 +11,22 @@ import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 type Variant = 'primary' | 'secondary' | 'tertiary' | 'delete';
 
-type ButtonDefaultProps = ComponentPropsWithoutRef<"button"> &
+type ButtonDefaultProps = ComponentPropsWithoutRef<'button'> &
   PropsWithChildren<{
     variant?: Variant;
   }>;
 
 export default function ButtonDefault({
   children,
-  variant = "primary",
+  variant = 'primary',
   className,
   type,
-  onClick,
+  onClick
 }: ButtonDefaultProps) {
   let buttonTheme;
   switch (variant) {
     default:
-      buttonTheme = "bg-orangeDP text-darkBlueDP hover:bg-darkOrangeDP";
+      buttonTheme = 'bg-orangeDP text-darkBlueDP hover:bg-darkOrangeDP';
       break;
     case 'secondary':
       buttonTheme =
@@ -36,8 +36,8 @@ export default function ButtonDefault({
       buttonTheme =
         'bg-darkBlueDP text-orangeDP underline underline-offset-4 hover:bg-mediumBlueDP';
       break;
-    case "delete":
-      buttonTheme = "bg-redDP text-white hover:bg-darkRedDP";
+    case 'delete':
+      buttonTheme = 'bg-redDP text-white hover:bg-darkRedDP';
       break;
   }
 

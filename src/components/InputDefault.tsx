@@ -24,7 +24,7 @@ export function InputDefault<T extends FieldValues>({
   className
 }: InputDefaultProps<T>) {
   return (
-    <div className="w-72">
+    <div>
       <Input
         {...register(name)}
         label={label}

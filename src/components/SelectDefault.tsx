@@ -25,7 +25,7 @@ export function SelectDefault<T extends FieldValues>({
   className
 }: SelectDefaultProps<T>) {
   return (
-    <div className="w-72">
+    <div>
       <Select
         children={undefined}
         {...(register(name), { onChange: onChange })}
