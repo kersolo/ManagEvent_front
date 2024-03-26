@@ -6,10 +6,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-interface NavBarProps {
-  isAdmin: boolean;
-}
+import { NavBarProps } from "../../services/interfaces/NavBarInterface";
 
 export default function NavBar({ isAdmin }: NavBarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

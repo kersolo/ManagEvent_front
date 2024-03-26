@@ -1,17 +1,6 @@
 import { Input } from "@material-tailwind/react";
-import { FieldValues, Path, UseFormRegister } from "react-hook-form";
-
-type InputDefaultProps<T extends FieldValues> = {
-  label: string;
-  name: Path<T>;
-  type: string;
-  value?: string;
-  defaultValue?: string;
-  register: UseFormRegister<T>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  errors?: any;
-  className?: string;
-};
+import { FieldValues } from "react-hook-form";
+import { InputDefaultProps } from "../services/types/components-types/InputType";
 
 export function InputDefault<T extends FieldValues>({
   label,

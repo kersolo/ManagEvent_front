@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import { ButtonDefaultProps } from "../services/types/components-types/ButtonType";
 
 // Doc Composant Bouton :
 
@@ -8,13 +8,6 @@ import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 // - Utilisez la props "variant" avec la valeur "primary", "secondary", "tertiary" ou "delete", pour appliquer l'un des 4 styles de boutons de la maquette.
 // - Le composant accepte également tous les attributs html d'un <button> : onClick, type:'submit', etc...
 // - Utiliser la props "className" uniquement pour les autres cas de figure.
-
-type Variant = 'primary' | 'secondary' | 'tertiary' | 'delete';
-
-type ButtonDefaultProps = ComponentPropsWithoutRef<"button"> &
-  PropsWithChildren<{
-    variant?: Variant;
-  }>;
 
 export default function ButtonDefault({
   children,
@@ -28,13 +21,13 @@ export default function ButtonDefault({
     default:
       buttonTheme = "bg-orangeDP text-darkBlueDP hover:bg-darkOrangeDP";
       break;
-    case 'secondary':
+    case "secondary":
       buttonTheme =
-        'bg-darkBlueDP text-orangeDP border-2 border-orangeDP hover:border-darkOrangeDP hover:text-darkOrangeDP';
+        "bg-darkBlueDP text-orangeDP border-2 border-orangeDP hover:border-darkOrangeDP hover:text-darkOrangeDP";
       break;
-    case 'tertiary':
+    case "tertiary":
       buttonTheme =
-        'bg-darkBlueDP text-orangeDP underline underline-offset-4 hover:bg-mediumBlueDP';
+        "bg-darkBlueDP text-orangeDP underline underline-offset-4 hover:bg-mediumBlueDP";
       break;
     case "delete":
       buttonTheme = "bg-redDP text-white hover:bg-darkRedDP";
