@@ -1,7 +1,5 @@
-import axios from 'axios';
-
-import { profileFaker } from '../../pages/Profil/profilFaker';
 import { ProfileInfosProps } from '../../pages/Profil/UpdateProfilePage';
+import { profileFaker } from '../../pages/Profil/profilFaker';
 
 export async function getUserProfile() {
   try {
@@ -27,10 +25,15 @@ export async function getUserProfileId() {
   }
 }
 
-export async function putPorfileUser(UpdateProfile: ProfileInfosProps) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function putPorfileUser(updateProfile: any) {
   try {
-    const { data } = await axios.put(`/profile`, UpdateProfile);
-    return data;
+    // const { data } = await axios.put(`/profile`, UpdateProfile);
+    const data = profileFaker.filter((user) => user.id === 1);
+    const newUserProfile = data.fill(updateProfile);
+
+    console.log(newUserProfile);
+    return newUserProfile;
   } catch (err) {
     console.log('ERROR');
     console.log(err);
