@@ -1,4 +1,3 @@
-import { ProfileInfosProps } from '../../pages/Profil/UpdateProfilePage';
 import { profileFaker } from '../../pages/Profil/profilFaker';
 
 export async function getUserProfile() {
@@ -12,12 +11,13 @@ export async function getUserProfile() {
     console.log(err);
   }
 }
+
 export async function getUserProfileId() {
   try {
     const data = await profileFaker;
     const dataId = data.filter((profile) => profile.id === 1);
 
-    //const { data } = await axios.get("/profile");
+    //const { data } = await axios.get("/profile/id");
     return dataId;
   } catch (err) {
     console.log('ERROR');
@@ -32,7 +32,7 @@ export async function putPorfileUser(updateProfile: any) {
     const data = profileFaker.filter((user) => user.id === 1);
     const newUserProfile = data.fill(updateProfile);
 
-    console.log(newUserProfile);
+    console.log('newUserProfile::', newUserProfile);
     return newUserProfile;
   } catch (err) {
     console.log('ERROR');

@@ -44,16 +44,6 @@ export default function SignUpPage() {
     resolver: yupResolver(schema)
   });
 
-  // async function postUsers(newUser: NewUserProps) {
-  //   try {
-  //     const { data } = await axios.post(`/user`, newUser);
-  //     return data;
-  //   } catch (err) {
-  //     console.log('ERROR');
-  //     console.log(err);
-  //   }
-  // }
-
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const newUser = {
       email: data.email,

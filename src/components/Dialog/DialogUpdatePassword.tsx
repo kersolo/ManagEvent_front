@@ -31,7 +31,7 @@ export function DialogUpdatePassword() {
     loadUser();
   }, []);
 
-  const userPassword = user?.map((eee) => eee.password);
+  const userPassword = user?.map((user) => user.password);
   const goodPassword = userPassword && userPassword[0];
 
   const handleOpen = () => setOpen(!open);
@@ -116,7 +116,9 @@ export function DialogUpdatePassword() {
               register={register}
               errors={errors}
             />
-            <ButtonDefault type="submit">Valider</ButtonDefault>
+            <ButtonDefault onClick={handleOpen} type="submit">
+              Valider
+            </ButtonDefault>
             <ButtonDefault variant="secondary" onClick={handleOpen}>
               Annuler
             </ButtonDefault>

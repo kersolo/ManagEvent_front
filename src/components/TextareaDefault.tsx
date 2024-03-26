@@ -1,7 +1,7 @@
 import { Textarea } from '@material-tailwind/react';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-type TextareaDefaultProps<T extends FieldValues> = {
+export type TextareaDefaultProps<T extends FieldValues> = {
   label: string;
   name: Path<T>;
   value?: string;

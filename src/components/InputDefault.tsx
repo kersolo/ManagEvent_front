@@ -1,7 +1,7 @@
 import { Input } from '@material-tailwind/react';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-type InputDefaultProps<T extends FieldValues> = {
+export type InputDefaultProps<T extends FieldValues> = {
   label: string;
   name: Path<T>;
   type: string;

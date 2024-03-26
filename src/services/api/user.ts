@@ -26,7 +26,19 @@ export async function getUsersId() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function postUser(newUser: any) {
   try {
-    const { data } = await axios.put(`/user`, newUser);
+    // const { data } = await axios.put(`/user`, newUser);
+    const data = usersFaker.push(newUser);
+    return data;
+  } catch (err) {
+    console.log('ERROR');
+    console.log(err);
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function deleteUser(id: any) {
+  try {
+    const { data } = await axios.delete(`/user`, id);
     return data;
   } catch (err) {
     console.log('ERROR');
