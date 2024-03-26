@@ -13,48 +13,52 @@ import Contact from './pages/ContctUs/Contact';
 import Homepage from './pages/Home/Homepage';
 
 import { getUsers } from "./services/api/user";
+import TaskCreate from "./pages/Admin/HandleTask/TaskCreate";
+import TaskList from "./pages/Admin/HandleTask/TaskList";
 
 export default function App() {
-  // checking route path to display NavBar or NavBarAdmin
-  const { pathname } = useLocation();
-  const isAdminPath = new RegExp("^/admin");
-  const isPanelAdmin = pathname.match(isAdminPath);
-  //
+    // checking route path to display NavBar or NavBarAdmin
+    const { pathname } = useLocation();
+    const isAdminPath = new RegExp("^/admin");
+    const isPanelAdmin = pathname.match(isAdminPath);
+    //
 
-  // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
-  const [isAdmin, setIsAdmin] = useState(false);
+    // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
+    const [isAdmin, setIsAdmin] = useState(false);
 
 
-  const [users, setUsers] = useState<NewUserProps[] | undefined>([]);
+    const [users, setUsers] = useState<NewUserProps[] | undefined>([]);
 
-  function handleSubmitUser(newUser: NewUserProps): void {
-    setUsers([...(users as []), newUser]);
-  }
+    function handleSubmitUser(newUser: NewUserProps): void {
+        setUsers([...(users as []), newUser]);
+    }
 
-  useEffect(() => {
-    const loadUser = async () => {
-      const response = await getUsers();
-      setUsers(response);
-    };
-    loadUser();
-  }, []);
+    useEffect(() => {
+        const loadUser = async () => {
+            const response = await getUsers();
+            setUsers(response);
+        };
+        loadUser();
+    }, []);
 
-  return (
-    <>
-      {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
-      <Routes>
-          <Route path="/" element={<Homepage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login/reset-pass" element={<ResetPassPage />} />
-        <Route path="/login/check-email" element={<CheckEmailPage />} />
-        <Route
-          path="/inscription"
-          element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
-        />
-        <Route path="/profile/modifications" element={<UpdateProfilePage />} />
-         <Route path="/se-connecter" element={<Login />} />
-        <Route path="/contactez-nous" element={<Contact/>} />
-      </Routes>
-    </>
-  );
+    return (
+        <>
+            {isPanelAdmin ? <NavBarAdmin /> : <NavBar isAdmin={isAdmin} />}
+            <Routes>
+                <Route path="/" element={<Homepage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/login/reset-pass" element={<ResetPassPage />} />
+                <Route path="/login/check-email" element={<CheckEmailPage />} />
+                <Route path="/admin/liste-des-taches" element={<TaskList />} />
+                   <Route path="/admin/liste-des-taches/créer-une-tache" element={<TaskCreate/>} />
+                <Route
+                    path="/inscription"
+                    element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
+                />
+                <Route path="/profile/modifications" element={<UpdateProfilePage />} />
+                <Route path="/se-connecter" element={<Login />} />
+                <Route path="/contactez-nous" element={<Contact />} />
+            </Routes>
+        </>
+    );
 }
