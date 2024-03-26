@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ButtonDefault from "../../components/ButtonDefault";
 import { getProfileById } from "../../services/api/profile";
 import { useRequiredParams } from "../../services/hooks/useRequiredParams";
@@ -8,6 +9,7 @@ import ProfileSkills from "./ProfileSkills";
 
 export default function ProfilePage() {
   const { id } = useRequiredParams<{ id: string }>();
+  const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState<"events" | "skills">("events");
   const [isUser, setIsUser] = useState(false);
   const [profile, setProfile] = useState<ProfileInterface>({
@@ -38,8 +40,8 @@ export default function ProfilePage() {
   }, [id]);
 
   return isUser ? (
-    <div className="flex flex-col md:w-2/3 m-large md:my-20 md:mx-auto gap-16">
-      <section className="flex p-12 bg-mediumBlueDP rounded-xl">
+    <div className="flex flex-col md:w-2/3 m-large md:my-16 md:mx-auto gap-12 ">
+      <section className="flex p-small lg:p-12 bg-mediumBlueDP rounded-xl">
         <div className="shrink-0 w-32 mr-12 md:mr-24">
           <img
             className="w-32 h-32 rounded-full"
@@ -56,7 +58,10 @@ export default function ProfilePage() {
             <div className="italic">{email}</div>
           </div>
           <div className="mt-4 flex lg:justify-end">
-            <ButtonDefault className="h-12 w-32 text-sm md:text-lg">
+            <ButtonDefault
+              onClick={() => navigate("/profile/modifications")}
+              className="h-12 w-32 text-sm md:text-lg"
+            >
               Modifier
             </ButtonDefault>
           </div>

@@ -34,3 +34,33 @@ export const profilesFaker = [
     email: "Julie@mail.com",
   },
 ];
+
+export const eventsProfileFaker = [
+  {
+    date: new Date(),
+    title: "Match",
+  },
+  {
+    date: new Date(),
+    title: "Réunion bureau",
+  },
+  {
+    date: new Date(),
+    title: "Apéro",
+  },
+];
+
+export const skillsProfileFaker = [
+  {
+    name: "Buvette",
+    level: 3,
+  },
+  {
+    name: "Gestion des maillots",
+    level: 1,
+  },
+  {
+    name: "Billeterie",
+    level: 2,
+  },
+];
