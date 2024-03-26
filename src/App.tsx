@@ -9,6 +9,7 @@ import ResetPassPage from './pages/Login/ResetPassPage';
 import UpdateProfilePage from './pages/Profil/UpdateProfilePage';
 import SignUpPage from './pages/SignUp/SignUpPage';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import DetailEventPage from './pages/Events/DetailEventPage';
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/login/check-email" element={<CheckEmailPage />} />
         <Route path="/inscription" element={<SignUpPage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
+        <Route path="/event/detail" element={<DetailEventPage />} />
       </Routes>
       <ReactQueryDevtools />
     </>
