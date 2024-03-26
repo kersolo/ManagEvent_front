@@ -10,18 +10,11 @@ import { LoginForm } from "../../services/interfaces/LoginForm";
 
 const dataSchema = yup.object({
     email: yup.string().email("Votre e-mail n'est pas valide").required("Ce champ est obligatoire"),
-    password: yup.string()
-        .required()
-        .min(8, "Ve mot de passe doit contenir minimum 8 caractères")
-        .matches(RegExp('(.*[a-z].*)'), 'Votre mot de passe doit contenir au moins une miniscule')
-        .matches(RegExp('(.*[A-Z].*)'), 'Votre mot de passe doit contenir au moins une majuscule')
-        .matches(RegExp('(.*\\d.*)'), 'Votre mot de passe doit contenir au moins un chiffre')
-        .matches(RegExp('[!@#$%^&*(),.?":{}|<>]'), 'Votre mot de passe doit contenir au moins un caracteère special !@#$%^&*(),.?":{}|<>'),
-    checkbox: yup.boolean(),
+    password: yup.string().required(),
+    checkbox: yup.boolean()
 })
 
 export default function Login() {
-
 
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
         defaultValues: {
@@ -47,20 +40,19 @@ export default function Login() {
                             <div className="mb-1 flex flex-col gap-3">
                                 <Input onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register("email")} label="Votre Email" type="email" name="email" />
                                 <small className="text-sm text-red-500">{errors.email?.message}</small>
-                                <Input  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
+                                <Input onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
                                 <small className="text-sm text-red-500">{errors.password?.message}</small>
                             </div>
                             <div className="flex flex-col justify-center items-center gap-1">
                                 <div className="">
                                     <Checkbox onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} type="checkbox" {...register("checkbox")} label="Se souvenir de moi" name="checkbox" /><br />
-                                    <small className="text-sm text-red-500">{errors.checkbox?.message}</small>
                                 </div>
                                 <div className="mb-3">
                                     <Link to="" className="font-medium text-gray-900">  Mot de passe oublié? </Link>
                                 </div>
                             </div>
                             <div className="sm:w-full sm:mx-auto md:w-7/12 md:mx-auto lg:w-8/12 lg:mx-auto ">
-                            <ButtonDefault type="submit">Se connecter</ButtonDefault>
+                                <ButtonDefault type="submit">Se connecter</ButtonDefault>
                             </div>
                             <div>
                                 <Typography color="gray" className="mt-4 text-center font-normal" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>

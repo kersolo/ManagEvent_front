@@ -3,5 +3,5 @@ export interface ContactForm {
     prenom: string,
     email: string,
     message: string,
-    checkbox: boolean,
+    checkbox?: boolean,
 }
