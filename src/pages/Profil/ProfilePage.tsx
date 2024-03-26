@@ -1,25 +1,16 @@
 import { useEffect, useState } from "react";
+import ButtonDefault from "../../components/ButtonDefault";
 import { getProfileById } from "../../services/api/profile";
 import { useRequiredParams } from "../../services/hooks/useRequiredParams";
+import ProfileInterface from "../../services/interfaces/ProfileInterface";
 import ProfileEvents from "./ProfileEvents";
 import ProfileSkills from "./ProfileSkills";
 
-interface Profile {
-  id: string;
-  firstname: string;
-  lastname: string;
-  nickname: string;
-  avatar_url: string;
-  email: string;
-}
-type ActiveLink = "events" | "skills";
-
 export default function ProfilePage() {
   const { id } = useRequiredParams<{ id: string }>();
-  const [activeLink, setActiveLink] = useState<ActiveLink>("events");
+  const [activeLink, setActiveLink] = useState<"events" | "skills">("events");
   const [isUser, setIsUser] = useState(false);
-
-  const [profile, setProfile] = useState<Profile>({
+  const [profile, setProfile] = useState<ProfileInterface>({
     id: "",
     firstname: "",
     lastname: "",
@@ -27,33 +18,51 @@ export default function ProfilePage() {
     avatar_url: "",
     email: "",
   });
+  const { firstname, lastname, nickname, avatar_url, email } = profile;
 
   useEffect(() => {
     const getData = async () => {
-      const response = await getProfileById(id);
-      if (response) {
-        setIsUser(true);
-        setProfile(response);
-      } else {
-        console.log("no user with this id");
+      try {
+        const response = await getProfileById(id);
+        if (response) {
+          setIsUser(true);
+          setProfile(response);
+        } else {
+          console.log("Profile not found");
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
     getData();
   }, [id]);
 
-  // get request on profile/:id
-
   return isUser ? (
-    <div className="flex flex-col justify-center text-center gap-5 p-12">
-      <section>
-        <h1>Infos user</h1>
-        <div>{profile.firstname}</div>
-        <div>{profile.lastname}</div>
-        <div>{profile.nickname}</div>
-        <div>{profile.avatar_url}</div>
-        <div>{profile.email}</div>
+    <div className="flex flex-col md:w-2/3 m-large md:my-20 md:mx-auto gap-16">
+      <section className="flex p-12 bg-mediumBlueDP rounded-xl">
+        <div className="shrink-0 w-32 mr-12 md:mr-24">
+          <img
+            className="w-32 h-32 rounded-full"
+            src={avatar_url}
+            alt="Image de profil"
+          />
+        </div>
+        <div className="flex flex-col w-full gap-2 md:gap-4 justify-center">
+          <h1 className="h1-size mb-2">{nickname}</h1>
+          <div className="flex flex-col">
+            <div>
+              {firstname} {lastname}
+            </div>
+            <div className="italic">{email}</div>
+          </div>
+          <div className="mt-4 flex lg:justify-end">
+            <ButtonDefault className="h-12 w-32 text-sm md:text-lg">
+              Modifier
+            </ButtonDefault>
+          </div>
+        </div>
       </section>
-      <nav className="flex justify-center gap-3">
+      <nav className="flex justify-around md:text-xl">
         <button
           onClick={() => {
             setActiveLink("events");
@@ -64,7 +73,7 @@ export default function ProfilePage() {
               : "text-orangeDP hover:underline"
           }
         >
-          Evénements
+          Mes Evénements
         </button>
         <button
           onClick={() => {
@@ -76,10 +85,14 @@ export default function ProfilePage() {
               : "text-orangeDP hover:underline"
           }
         >
-          Compétences
+          Mes Compétences
         </button>
       </nav>
-      {activeLink === "events" ? <ProfileEvents /> : <ProfileSkills />}
+      {activeLink === "events" ? (
+        <ProfileEvents id={id} />
+      ) : (
+        <ProfileSkills id={id} />
+      )}
     </div>
   ) : (
     <h1>Profile not found</h1>

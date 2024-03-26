@@ -1,3 +1,3 @@
-export default function ProfileEvents() {
-  return <div>ProfileEvents</div>;
+export default function ProfileEvents({ id }: { id: string }) {
+  return <div>ProfileEvents du user {id}</div>;
 }

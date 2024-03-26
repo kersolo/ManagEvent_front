@@ -1,3 +1,3 @@
-export default function ProfileSkills() {
-  return <div>ProfileSkills</div>;
+export default function ProfileSkills({ id }: { id: string }) {
+  return <div>ProfileSkills du user {id}</div>;
 }
