@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ButtonDefault from "../../components/ButtonDefault";
+import ButtonDefault from "../../../components/ButtonDefault";
 
 export default function CheckEmailPage() {
   return (

@@ -3,14 +3,16 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
+import CreateEventPage from "./pages/Admin/HandleEvent/CreateEventPage";
 import ContactPage from "./pages/Contact/ContactPage";
-import CheckEmailPage from "./pages/Login/CheckEmailPage";
-import NewPasswordPage from "./pages/Login/NewPasswordPage";
-import ResetPassPage from "./pages/Login/ResetPassPage";
+import CheckEmailPage from "./pages/Login/ResetPassword/CheckEmailPage";
+import NewPasswordPage from "./pages/Login/ResetPassword/NewPasswordPage";
+import ResetPassPage from "./pages/Login/ResetPassword/ResetPassPage";
 import ProfilePage from "./pages/Profil/ProfilePage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
 import { getUsers } from "./services/api/user";
+import PrivateAdminRoute from "./services/utils/PrivateAdminRoute";
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -53,9 +55,11 @@ export default function App() {
           path="/inscription"
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
         />
-
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
+        <Route element={<PrivateAdminRoute />}>
+          <Route path="/admin/create-event" element={<CreateEventPage />} />
+        </Route>
       </Routes>
     </>
   );

@@ -1,12 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import ButtonDefault from "../../components/ButtonDefault";
+import ButtonDefault from "../../../components/ButtonDefault";
+import { Input } from "../../../services/types/ResetPasswordPagesType";
 export default function ResetPassPage() {
   const navigate = useNavigate();
 
-  type Input = {
-    email: string;
-  };
   const {
     register,
     handleSubmit,

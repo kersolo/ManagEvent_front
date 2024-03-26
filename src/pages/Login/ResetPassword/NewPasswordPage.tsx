@@ -4,21 +4,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
-import ButtonDefault from "../../components/ButtonDefault";
-import { InputDefault } from "../../components/InputDefault";
-
-type Token = {
-  token: string;
-};
-
-type UserId = {
-  id: string;
-};
-
-type Inputs = {
-  password: string;
-  confirmPassword: string;
-};
+import ButtonDefault from "../../../components/ButtonDefault";
+import { InputDefault } from "../../../components/InputDefault";
+import {
+  Inputs,
+  Token,
+  UserId,
+} from "../../../services/types/ResetPasswordPagesType";
 
 const InputsSchema = yup.object({
   password: yup
