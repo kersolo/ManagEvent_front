@@ -15,7 +15,7 @@ import Pencil from '../../assets/pencil.svg';
 import BackIcon from '../../assets/back-icon.svg';
 import { Link } from 'react-router-dom';
 
-interface ProfileInfosProps {
+interface ProfileInfosPropsInterface {
   firstname: string;
   lastname: string;
   nickname: string;
@@ -25,7 +25,7 @@ interface ProfileInfosProps {
 
 export default function UpdateProfilePage() {
   const [usersProfile, setUsersProfile] = useState<
-    ProfileInfosProps[] | undefined
+    ProfileInfosPropsInterface[] | undefined
   >([]);
 
   useEffect(() => {
@@ -40,9 +40,9 @@ export default function UpdateProfilePage() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<ProfileInfosProps>();
+  } = useForm<ProfileInfosPropsInterface>();
 
-  const onSubmit: SubmitHandler<ProfileInfosProps> = (data) => {
+  const onSubmit: SubmitHandler<ProfileInfosPropsInterface> = (data) => {
     const UpdateProfile = {
       firstname: data.firstname,
       lastname: data.lastname,

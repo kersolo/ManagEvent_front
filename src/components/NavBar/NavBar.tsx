@@ -5,7 +5,7 @@ import { faUserShield } from "@fortawesome/free-solid-svg-icons/faUserShield";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavBarProps {
   isAdmin: boolean;
@@ -14,9 +14,14 @@ interface NavBarProps {
 export default function NavBar({ isAdmin }: NavBarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navigate = useNavigate()
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+   function handleClick() {
+    navigate("/NotificationPage")
+   }
 
   return (
     <nav className="flex justify-around md:justify-between items-center bg-navBarBlueDP opacity-95 text-white p-large fixed inset-x-0 bottom-0 md:sticky md:top-0">
@@ -36,7 +41,7 @@ export default function NavBar({ isAdmin }: NavBarProps) {
         <Link to={"/"} className="hover:text-lightBlueDP">
           Mes infos
         </Link>
-        <Link to={"/"} className="hover:text-lightBlueDP">
+        <Link to={"/NotificationPage"} className="hover:text-lightBlueDP">
           Notifications
         </Link>
         <Link to={"/"} className="hover:text-lightBlueDP">
@@ -87,6 +92,7 @@ export default function NavBar({ isAdmin }: NavBarProps) {
             size="lg"
             cursor="pointer"
             className=" hover:text-lightBlueDP"
+            onClick={handleClick}
           />
           <FontAwesomeIcon
             icon={faBars}

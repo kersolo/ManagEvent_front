@@ -9,6 +9,7 @@ import ResetPassPage from "./pages/Login/ResetPassPage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
 import { getUsers } from "./services/api/user";
+import NotificationPage from "./pages/Notification/NotificationPage";
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -48,6 +49,7 @@ export default function App() {
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
         />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
+        <Route path="/NotificationPage" element={<NotificationPage />}></Route>
       </Routes>
     </>
   );
