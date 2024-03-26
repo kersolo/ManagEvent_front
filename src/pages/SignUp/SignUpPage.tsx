@@ -26,10 +26,42 @@ const schema = yup
     password: yup
       .string()
       .required('Le mot de passe est requis')
-      .min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
+      .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+      .matches(
+        RegExp('(.*[a-z].*)'),
+        'Votre mot de passe doit contenir au moins une miniscule'
+      )
+      .matches(
+        RegExp('(.*[A-Z].*)'),
+        'Votre mot de passe doit contenir au moins une majuscule'
+      )
+      .matches(
+        RegExp('(.*\\d.*)'),
+        'Votre mot de passe doit contenir au moins un chiffre'
+      )
+      .matches(
+        RegExp('[!@#$%^&*(),.?":{}|<>]'),
+        'Votre mot de passe doit contenir au moins un caracteère special'
+      ),
     confirmPassword: yup
       .string()
       .required('La confirmation du mot de passe est requise')
+      .matches(
+        RegExp('(.*[a-z].*)'),
+        'Votre mot de passe doit contenir au moins une miniscule'
+      )
+      .matches(
+        RegExp('(.*[A-Z].*)'),
+        'Votre mot de passe doit contenir au moins une majuscule'
+      )
+      .matches(
+        RegExp('(.*\\d.*)'),
+        'Votre mot de passe doit contenir au moins un chiffre'
+      )
+      .matches(
+        RegExp('[!@#$%^&*(),.?":{}|<>]'),
+        'Votre mot de passe doit contenir au moins un caracteère special !@#$%^&*(),.?":{}|<>'
+      )
       .oneOf([yup.ref('password')], 'Le mot de passe ne correspond pas')
   })
 

@@ -22,6 +22,7 @@ export type UserProps = {
 export function DialogUpdatePassword() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<UserProps[] | undefined>([]);
+  const handleOpen = () => setOpen(!open);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -34,23 +35,52 @@ export function DialogUpdatePassword() {
   const userPassword = user?.map((user) => user.password);
   const goodPassword = userPassword && userPassword[0];
 
-  const handleOpen = () => setOpen(!open);
-
   const schema = yup
     .object({
       actualPassword: yup
         .string()
         .required('Le mot de passe est requis')
-        .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
         .oneOf([goodPassword!], "Ceci n'est pas votre mot de passe actuel"),
       newPassword: yup
         .string()
         .required('Le mot de passe est requis')
-        .min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
+        .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+        .matches(
+          RegExp('(.*[a-z].*)'),
+          'Votre mot de passe doit contenir au moins une miniscule'
+        )
+        .matches(
+          RegExp('(.*[A-Z].*)'),
+          'Votre mot de passe doit contenir au moins une majuscule'
+        )
+        .matches(
+          RegExp('(.*\\d.*)'),
+          'Votre mot de passe doit contenir au moins un chiffre'
+        )
+        .matches(
+          RegExp('[!@#$%^&*(),.?":{}|<>]'),
+          'Votre mot de passe doit contenir au moins un caracteère special'
+        ),
       confirmNewPassword: yup
         .string()
         .required('La confirmation du mot de passe est requise')
         .oneOf([yup.ref('newPassword')], 'Le mot de passe ne correspond pas')
+        .matches(
+          RegExp('(.*[a-z].*)'),
+          'Votre mot de passe doit contenir au moins une miniscule'
+        )
+        .matches(
+          RegExp('(.*[A-Z].*)'),
+          'Votre mot de passe doit contenir au moins une majuscule'
+        )
+        .matches(
+          RegExp('(.*\\d.*)'),
+          'Votre mot de passe doit contenir au moins un chiffre'
+        )
+        .matches(
+          RegExp('[!@#$%^&*(),.?":{}|<>]'),
+          'Votre mot de passe doit contenir au moins un caracteère special'
+        )
     })
 
     .required();
@@ -58,7 +88,8 @@ export function DialogUpdatePassword() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm<Inputs>({
     resolver: yupResolver(schema)
   });
@@ -72,6 +103,12 @@ export function DialogUpdatePassword() {
     }
 
     // postUser(newPassword);
+    handleOpen();
+  };
+
+  const handleResetForm = () => {
+    reset();
+    handleOpen();
   };
 
   return (
@@ -84,7 +121,11 @@ export function DialogUpdatePassword() {
         Modifier mot de passe
       </ButtonDefault>
 
-      <Dialog className="bg-darkBlueDP p-10" open={open} handler={handleOpen}>
+      <Dialog
+        className="bg-darkBlueDP p-10 flex flex-col items-center"
+        open={open}
+        handler={handleResetForm}
+      >
         <DialogHeader className="text-white">
           Modifier mot de passe
         </DialogHeader>
@@ -116,10 +157,8 @@ export function DialogUpdatePassword() {
               register={register}
               errors={errors}
             />
-            <ButtonDefault onClick={handleOpen} type="submit">
-              Valider
-            </ButtonDefault>
-            <ButtonDefault variant="secondary" onClick={handleOpen}>
+            <ButtonDefault type="submit">Valider</ButtonDefault>
+            <ButtonDefault variant="secondary" onClick={handleResetForm}>
               Annuler
             </ButtonDefault>
           </form>

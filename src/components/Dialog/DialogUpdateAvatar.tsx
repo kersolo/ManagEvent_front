@@ -54,7 +54,11 @@ export function DialogUpdateAvatar() {
         <img src={Pencil} alt="" />
       </button>
 
-      <Dialog className="bg-darkBlueDP p-10" open={open} handler={handleOpen}>
+      <Dialog
+        className="bg-darkBlueDP p-10 flex flex-col items-center"
+        open={open}
+        handler={handleOpen}
+      >
         <DialogHeader className="text-white">
           Veuillez Uploader votre image
         </DialogHeader>
