@@ -1,4 +1,4 @@
-import { usersFaker } from '../../pages/SignUp/usersFaker';
+import { usersFaker } from "../../pages/SignUp/usersFaker";
 
 export async function getUsers() {
   try {
@@ -6,7 +6,7 @@ export async function getUsers() {
     //const { data } = await axios.get("/message");
     return data;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }
