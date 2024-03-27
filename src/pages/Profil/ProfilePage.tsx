@@ -31,7 +31,7 @@ export default function ProfilePage() {
   ) : (
     <div className="flex flex-col md:w-2/3 m-large md:my-16 md:mx-auto gap-12 ">
       <section className="flex p-small lg:p-12 bg-mediumBlueDP rounded-xl">
-        <div className="shrink-0 w-32 mr-12 md:mr-24">
+        <div className="shrink-0 w-32 mr-8 sm:mr-12 md:mr-24">
           <img
             className="w-32 h-32 rounded-full"
             src={avatar_url}

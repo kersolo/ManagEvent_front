@@ -24,7 +24,7 @@ export default function DatePickerDefault({
             setValue("endDate", update[1]);
           }
         }}
-        className="border-dp bg-darkBlueDP text-sm p-3"
+        className="border-dp border-[1px] rounded-[7px] bg-darkBlueDP text-sm p-3 placeholder-white"
         placeholderText="Date de début - Date de fin"
         dateFormat="dd/MM/yyyy"
       />
