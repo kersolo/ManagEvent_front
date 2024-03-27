@@ -65,7 +65,7 @@ export default function CreateEventPage() {
             setValue("endDate", update[1]);
           }
         }}
-        className="border-dp bg-darkBlueDP text-sm py-2 px-4"
+        className="border-dp bg-darkBlueDP text-sm p-3"
         placeholderText="Date de début - Date de fin"
         dateFormat="dd/MM/yyyy"
       />

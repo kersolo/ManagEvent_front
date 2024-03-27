@@ -44,7 +44,7 @@ export default function NavBarAdmin() {
         </Link>
 
         {isMenuOpen ? (
-          <div className="md:hidden flex flex-col gap-8 justify-center items-center pt-4 ">
+          <div className="md:hidden flex flex-col gap-8 justify-center items-center pt-4 text-base">
             <Link to={"/"} className="hover:text-lightBlueDP">
               Gestion événements
             </Link>
@@ -67,7 +67,7 @@ export default function NavBarAdmin() {
             />
           </div>
         ) : (
-          <div className="md:hidden flex w-full justify-around ">
+          <div className="md:hidden flex w-full justify-around text-base">
             <FontAwesomeIcon
               icon={faUserShield}
               size="lg"

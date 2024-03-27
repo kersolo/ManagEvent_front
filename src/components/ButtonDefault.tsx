@@ -37,7 +37,7 @@ export default function ButtonDefault({
   return (
     <Button
       fullWidth={true}
-      className={`normal-case text-lg rounded-xl ${buttonTheme} ${className}`}
+      className={`normal-case text-base rounded-xl ${buttonTheme} ${className}`}
       onClick={onClick}
       type={type}
     >

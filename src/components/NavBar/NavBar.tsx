@@ -16,7 +16,7 @@ export default function NavBar({ isAdmin }: NavBarProps) {
   };
 
   return (
-    <nav className="flex justify-around md:justify-between items-center bg-navBarBlueDP opacity-95 text-white p-large fixed inset-x-0 bottom-0 md:sticky md:top-0">
+    <nav className="flex justify-around md:justify-between items-center bg-navBarBlueDP opacity-95 text-white text-sm lg:text-base p-large fixed inset-x-0 bottom-0 md:sticky md:top-0">
       <div className="hidden md:flex gap-8 xl:gap-12 ">
         <Link
           to={"/admin"}
@@ -46,7 +46,7 @@ export default function NavBar({ isAdmin }: NavBarProps) {
       </Link>
 
       {isMenuOpen ? (
-        <div className="md:hidden flex flex-col gap-8 justify-center items-center pt-4 ">
+        <div className="md:hidden flex flex-col gap-8 justify-center items-center text-base pt-4 ">
           <Link
             to={"/admin"}
             className={`${
@@ -78,7 +78,7 @@ export default function NavBar({ isAdmin }: NavBarProps) {
           />
         </div>
       ) : (
-        <div className="md:hidden flex w-full justify-around ">
+        <div className="md:hidden flex w-full justify-around text-base">
           <FontAwesomeIcon
             icon={faBell}
             size="lg"
