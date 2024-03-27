@@ -9,6 +9,8 @@ import ButtonDefault from "../../components/ButtonDefault";
 export default function NotificationPage() {
     const [notifs, setNotifs] = useState(NotiFaker.notiFaker);
 
+    const path = window.URL()
+
     useEffect(() => {
         console.log(NotiFaker.notiFaker);
         async function loadNotifications() {
@@ -23,6 +25,7 @@ export default function NotificationPage() {
     return (
         <div className="m-6 flex flex-col gap-4">
             <div className="h-12 flex flex-row justify-center gap-2">
+                {}
                 <ButtonDefault className="">Notifications</ButtonDefault>
                 <ButtonDefault
                     variant="secondary"
