@@ -7,8 +7,8 @@ const eventsFaker = [
     // date_end: 'Samedi 27 Février 18:00',
     location: 'Stade Roudourou',
     description:
-      'BlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlablaBlabla',
-    status: 'open' || 'close'
+      'BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli BlablaBla Blivlivli ',
+    status: 'open'
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const eventsFaker = [
     date_end: 'Samedi 03 Mars 17:00',
     location: 'Salle de la Lune',
     description: 'BlablaBlablaBlablaBlablaBlablaBlablaBlablaBlabla',
-    status: 'open' || 'close'
+    status: 'close'
   }
 ];
 

@@ -18,5 +18,17 @@ export const themeProvider = {
         }
       }
     }
+  },
+  radio: {
+    styles: {
+      base: {
+        input: {
+          bg: 'bg-white'
+        },
+        label: {
+          color: 'text-white'
+        }
+      }
+    }
   }
 };

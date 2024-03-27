@@ -9,7 +9,7 @@ import { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
 // - Le composant accepte également tous les attributs html d'un <button> : onClick, type:'submit', etc...
 // - Utiliser la props "className" uniquement pour les autres cas de figure.
 
-type Variant = 'primary' | 'secondary' | 'tertiary' | 'delete';
+type Variant = 'primary' | 'secondary' | 'tertiary' | 'delete' | 'disabled';
 
 type ButtonDefaultProps = ComponentPropsWithoutRef<'button'> &
   PropsWithChildren<{
@@ -38,6 +38,10 @@ export default function ButtonDefault({
       break;
     case 'delete':
       buttonTheme = 'bg-redDP text-white hover:bg-darkRedDP';
+      break;
+    case 'disabled':
+      buttonTheme =
+        'bg-orangeDP text-darkBlueDP active:opacity-40 focus:opacity-40 opacity-40 cursor-not-allowed';
       break;
   }
 
