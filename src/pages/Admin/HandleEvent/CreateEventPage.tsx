@@ -1,14 +1,12 @@
-import DatePicker from "react-datepicker";
+import { yupResolver } from "@hookform/resolvers/yup";
+import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import ButtonDefault from "../../../components/ButtonDefault";
+import DatePickerDefault from "../../../components/DatePicker";
 import { InputDefault } from "../../../components/InputDefault";
 import { TextareaDefault } from "../../../components/TextareaDefault";
-
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
 import { CreateEventFormType } from "../../../services/types/CreateEventPage";
 
 const CreateEventFormSchema = yup.object({
@@ -36,13 +34,10 @@ export default function CreateEventPage() {
     // post sur /events avec body = data
   };
 
-  const [dateRange, setDateRange] = useState<(Date | null)[]>([null, null]);
-  const [startDate, endDate] = dateRange;
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 mx-large w-96 m-auto my-12 md:my-16"
+      className="flex flex-col gap-4 mx-large w-80 sm:w-96 m-auto my-12 md:my-16"
     >
       <h1 className="h1-size mb-4">Créer un événement</h1>
       <InputDefault
@@ -52,29 +47,11 @@ export default function CreateEventPage() {
         register={register}
         errors={errors}
       />
-
-      <DatePicker
-        selectsRange={true}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={(update) => {
-          setError("endDate", { message: "" });
-          setDateRange(update);
-          if (update[0] !== null && update[1] !== null) {
-            setValue("startDate", update[0]);
-            setValue("endDate", update[1]);
-          }
-        }}
-        className="border-dp bg-darkBlueDP text-sm p-3"
-        placeholderText="Date de début - Date de fin"
-        dateFormat="dd/MM/yyyy"
+      <DatePickerDefault
+        errors={errors}
+        setError={setError}
+        setValue={setValue}
       />
-      {errors && (
-        <small className="text-red-600 ml-small">
-          {errors["endDate"]?.message}
-        </small>
-      )}
-
       <InputDefault
         label="Adresse"
         name="adress"
