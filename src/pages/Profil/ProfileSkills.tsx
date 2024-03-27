@@ -1,40 +1,39 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getSkillsByUserIdForProfilePage } from "../../services/api/profile";
-
-interface SkillProfileType {
-  name: string;
-  level: number;
-}
+import { SkillInProfilePageInterface } from "../../services/interfaces/ProfileInterface";
 
 export default function ProfileSkills({ id }: { id: string }) {
-  const [skills, setEvents] = useState<SkillProfileType[]>([]);
+  const {
+    data: skills,
+    isLoading,
+    isError,
+  } = useQuery<SkillInProfilePageInterface[] | undefined>({
+    queryKey: ["events"],
+    queryFn: () => getSkillsByUserIdForProfilePage(id),
+    staleTime: 0,
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await getSkillsByUserIdForProfilePage(id);
-        if (response) {
-          setEvents(response);
-        } else {
-          console.log("Profile not found");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, [id]);
-
-  return (
+  return isLoading ? (
+    <p>Loader</p>
+  ) : isError ? (
+    <p>Une erreur s'est produite</p>
+  ) : (
     <div className="flex flex-col gap-4 md:gap-6">
-      {skills.map((skill, index) => (
-        <div key={index} className="flex justify-start gap-4 border-dp p-large">
-          <h3 className="h3-size ml-large">{skill.name}</h3>
-          <div className="flex grow justify-end">
-            <p className="underline">level : {skill.level}</p>
+      {skills && skills.length > 0 ? (
+        skills.map((skill, index) => (
+          <div
+            key={index}
+            className="flex justify-start gap-4 border-dp p-large"
+          >
+            <h3 className="h3-size ml-large">{skill.name}</h3>
+            <div className="flex grow justify-end">
+              <p className="underline">level : {skill.level}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>Vous n'avez aucun badge de compétence pour le moment</p>
+      )}
     </div>
   );
 }

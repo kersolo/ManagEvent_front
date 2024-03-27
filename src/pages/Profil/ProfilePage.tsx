@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonDefault from "../../components/ButtonDefault";
 import { getProfileById } from "../../services/api/profile";
 import { useRequiredParams } from "../../services/hooks/useRequiredParams";
-import ProfileInterface from "../../services/interfaces/ProfileInterface";
+import { ProfileInterface } from "../../services/interfaces/ProfileInterface";
 import ProfileEvents from "./ProfileEvents";
 import ProfileSkills from "./ProfileSkills";
 
@@ -11,35 +12,23 @@ export default function ProfilePage() {
   const { id } = useRequiredParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState<"events" | "skills">("events");
-  const [isUser, setIsUser] = useState(false);
-  const [profile, setProfile] = useState<ProfileInterface>({
-    id: "",
-    firstname: "",
-    lastname: "",
-    nickname: "",
-    avatar_url: "",
-    email: "",
+
+  const {
+    data: profile,
+    isLoading,
+    isError,
+  } = useQuery<ProfileInterface | undefined>({
+    queryKey: ["profile"],
+    queryFn: () => getProfileById(id),
+    staleTime: 0,
   });
-  const { firstname, lastname, nickname, avatar_url, email } = profile;
+  const { firstname, lastname, nickname, avatar_url, email } = { ...profile };
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await getProfileById(id);
-        if (response) {
-          setIsUser(true);
-          setProfile(response);
-        } else {
-          console.log("Profile not found");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, [id]);
-
-  return isUser ? (
+  return isLoading ? (
+    <p>Loader</p>
+  ) : isError ? (
+    <p>Profile not found</p>
+  ) : (
     <div className="flex flex-col md:w-2/3 m-large md:my-16 md:mx-auto gap-12 ">
       <section className="flex p-small lg:p-12 bg-mediumBlueDP rounded-xl">
         <div className="shrink-0 w-32 mr-12 md:mr-24">
@@ -99,7 +88,5 @@ export default function ProfilePage() {
         <ProfileSkills id={id} />
       )}
     </div>
-  ) : (
-    <h1>Profile not found</h1>
   );
 }

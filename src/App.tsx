@@ -12,6 +12,7 @@ import ProfilePage from "./pages/Profil/ProfilePage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
 import { getUsers } from "./services/api/user";
+import Page404 from "./services/utils/Page404";
 import PrivateAdminRoute from "./services/utils/PrivateAdminRoute";
 
 export default function App() {
@@ -60,6 +61,8 @@ export default function App() {
         <Route element={<PrivateAdminRoute />}>
           <Route path="/admin/create-event" element={<CreateEventPage />} />
         </Route>
+
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );
