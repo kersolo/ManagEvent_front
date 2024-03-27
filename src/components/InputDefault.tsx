@@ -23,7 +23,9 @@ export function InputDefault<T extends FieldValues>({
         defaultValue={defaultValue}
         className={className}
       />
-      {errors && <p className="text-red-600">{errors[name]?.message}</p>}
+      {errors && (
+        <small className="text-red-600 ml-small">{errors[name]?.message}</small>
+      )}
     </>
   );
 }

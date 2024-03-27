@@ -16,8 +16,8 @@ export default function NavBarAdmin() {
 
   return (
     <>
-      <nav className="flex justify-around md:justify-between items-center bg-navBarBlueDP opacity-95 text-white p-large fixed inset-x-0 bottom-0 md:sticky md:top-0">
-        <div className="hidden md:flex gap-8 xl:gap-12 ">
+      <nav className="flex justify-around text-sm lg:text-base md:justify-between items-center bg-navBarBlueDP opacity-95 text-white p-large fixed inset-x-0 bottom-0 md:sticky md:top-0 ">
+        <div className="hidden md:flex gap-8 lg:gap-12 ">
           <Link
             to={"/"}
             className={`text-orangeDP hover:text-darkOrangeDP flex gap-2`}

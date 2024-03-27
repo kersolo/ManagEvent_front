@@ -33,7 +33,9 @@ export function SelectDefault<T extends FieldValues>({
           </>
         ))} */}
       </Select>
-      {errors && <p className="text-red-600">{errors[name]?.message}</p>}
+      {errors && (
+        <small className="text-red-600 ml-small">{errors[name]?.message}</small>
+      )}
     </div>
   );
 }

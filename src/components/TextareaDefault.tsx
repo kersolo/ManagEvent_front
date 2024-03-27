@@ -12,7 +12,7 @@ export function TextareaDefault<T extends FieldValues>({
   className,
 }: TextareaDefaultProps<T>) {
   return (
-    <div className="w-96">
+    <>
       <Textarea
         {...register(name)}
         label={label}
@@ -21,7 +21,9 @@ export function TextareaDefault<T extends FieldValues>({
         defaultValue={defaultValue}
         className={className}
       />
-      {errors && <p className="text-red-600">{errors[name]?.message}</p>}
-    </div>
+      {errors && (
+        <small className="text-red-600 ml-small">{errors[name]?.message}</small>
+      )}
+    </>
   );
 }
