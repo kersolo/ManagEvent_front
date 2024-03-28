@@ -14,12 +14,10 @@ export default function NotificationPage() {
     const [showMessage, setShowMessage] = useState(true);
 
     function handleClickNotif() {
-        console.log("clicked");
         setShowNotif(true)
         setShowMessage(false)
     }
     function handleClickMessage() {
-        console.log("clicked");
         setShowNotif(false)
         setShowMessage(true)
     }
