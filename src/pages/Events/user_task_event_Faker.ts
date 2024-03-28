@@ -14,23 +14,26 @@ const user_task_event_Faker = [
       },
       tasks: [
         {
+          id: 1,
           title: 'Buvette',
           description: 'Tenir la buvette',
           skill_name: "Serveur de l'extrème"
         },
         {
+          id: 2,
           title: 'Stand crèpes',
           description: 'Tenir le stand de crèpes',
           skill_name: 'Crépier Breton'
         },
         {
+          id: 3,
           title: 'Tickets',
           description: 'Vendre les tickets',
           skill_name: 'the commercial'
         }
       ]
     },
-    statut: 'close'
+    statut: 'open'
   }
 ];
 

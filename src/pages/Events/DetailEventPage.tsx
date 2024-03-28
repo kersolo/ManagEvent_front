@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getuser_task_event } from '../../services/api/user_task_event';
-import DetailEvent from '../../components/DetailEvent';
+import TaskEvent from '../../components/TaskEvent';
+
+// import { useNavigate } from 'react-router-dom';
 
 export type userTaskEventPropsType = {
   user: {
@@ -19,6 +21,7 @@ export type userTaskEventPropsType = {
       status: string;
     };
     tasks: {
+      id: number;
       title: string;
       description: string;
       skill_name: string;
@@ -31,6 +34,8 @@ export default function DetailEventPage() {
   const [userTaskEvents, setUserTaskEvents] = useState<
     userTaskEventPropsType[] | undefined
   >([]);
+  const [value, setValue] = useState<number | null>(null);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const loadEvent = async () => {
@@ -43,16 +48,27 @@ export default function DetailEventPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Test');
+    if (value === null) {
+      alert('Veuillez choisir une tâche pour cet évènement');
+    } else {
+      console.log(value);
+      // navigate('/EVENT_DEVPUNK-65');
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(e.target.value));
   };
 
   return (
     <>
       {userTaskEvents?.map((userTaskEvent, index) => (
-        <DetailEvent
+        <TaskEvent
           userTaskEvent={userTaskEvent}
           key={index}
           handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          value={value}
         />
       ))}
     </>

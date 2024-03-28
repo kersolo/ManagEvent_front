@@ -6,6 +6,7 @@ import { Dialog, DialogHeader, DialogBody } from '@material-tailwind/react';
 import ButtonDefault from '../ButtonDefault';
 import { InputDefault } from '../InputDefault';
 import { getUsersId } from '../../services/api/user';
+import close_icon from '../../assets/close_icon.svg';
 
 export type Inputs = {
   actualPassword: string;
@@ -121,48 +122,47 @@ export function DialogUpdatePassword() {
         Modifier mot de passe
       </ButtonDefault>
 
-      <Dialog
-        className="bg-darkBlueDP p-10 flex flex-col items-center"
-        open={open}
-        handler={handleResetForm}
-      >
-        <DialogHeader className="text-white">
-          Modifier mot de passe
-        </DialogHeader>
-        <DialogBody>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col justify-center gap-6 w-72"
-            action=""
-            aria-label="Inscription"
-          >
-            <InputDefault
-              label="Mot de passe actuel"
-              name="actualPassword"
-              type="password"
-              register={register}
-              errors={errors}
-            />
-            <InputDefault
-              label="Nouveau mot de passe"
-              name="newPassword"
-              type="password"
-              register={register}
-              errors={errors}
-            />
-            <InputDefault
-              label="Confirmer le nouveau mot de passe"
-              name="confirmNewPassword"
-              type="password"
-              register={register}
-              errors={errors}
-            />
-            <ButtonDefault type="submit">Valider</ButtonDefault>
-            <ButtonDefault variant="secondary" onClick={handleResetForm}>
-              Annuler
-            </ButtonDefault>
-          </form>
-        </DialogBody>
+      <Dialog open={open} handler={handleResetForm}>
+        <button onClick={handleOpen} className="flex justify-end mr-3 mt-3">
+          <img src={close_icon} alt="" />
+        </button>
+        <div className="flex flex-col items-center gap-6">
+          <DialogHeader>Modifier mot de passe</DialogHeader>
+          <DialogBody>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col justify-center gap-6 w-72"
+              action=""
+              aria-label="Inscription"
+            >
+              <InputDefault
+                label="Mot de passe actuel"
+                name="actualPassword"
+                type="password"
+                register={register}
+                errors={errors}
+              />
+              <InputDefault
+                label="Nouveau mot de passe"
+                name="newPassword"
+                type="password"
+                register={register}
+                errors={errors}
+              />
+              <InputDefault
+                label="Confirmer le nouveau mot de passe"
+                name="confirmNewPassword"
+                type="password"
+                register={register}
+                errors={errors}
+              />
+              <ButtonDefault type="submit">Valider</ButtonDefault>
+              <ButtonDefault variant="secondary" onClick={handleResetForm}>
+                Annuler
+              </ButtonDefault>
+            </form>
+          </DialogBody>
+        </div>
       </Dialog>
     </>
   );

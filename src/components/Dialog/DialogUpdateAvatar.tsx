@@ -11,6 +11,7 @@ import Pencil from '../../assets/pencil.svg';
 import { getUserProfileId, putPorfileUser } from '../../services/api/profile';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
+import close_icon from '../../assets/close_icon.svg';
 
 export type TestDialogProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,36 +55,35 @@ export function DialogUpdateAvatar() {
         <img src={Pencil} alt="" />
       </button>
 
-      <Dialog
-        className="bg-darkBlueDP p-10 flex flex-col items-center"
-        open={open}
-        handler={handleOpen}
-      >
-        <DialogHeader className="text-white">
-          Veuillez Uploader votre image
-        </DialogHeader>
-        <DialogBody>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col justify-center gap-6 w-72"
-            action=""
-          >
-            <input
-              {...register('avatar_url')}
-              type="file"
-              name="avatar_url"
-              id="avatar_url"
-              accept="image/*"
-            />
+      <Dialog open={open} handler={handleOpen}>
+        <button onClick={handleOpen} className="flex justify-end mr-3 mt-3">
+          <img src={close_icon} alt="" />
+        </button>
+        <div className="flex flex-col items-center gap-6">
+          <DialogHeader>Veuillez Uploader votre image</DialogHeader>
+          <DialogBody>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col justify-center gap-6 w-72"
+              action=""
+            >
+              <input
+                {...register('avatar_url')}
+                type="file"
+                name="avatar_url"
+                id="avatar_url"
+                accept="image/*"
+              />
 
-            <ButtonDefault type="submit" onClick={handleOpen}>
-              Valider
-            </ButtonDefault>
-            <ButtonDefault variant="secondary" onClick={handleOpen}>
-              Annuler
-            </ButtonDefault>
-          </form>
-        </DialogBody>
+              <ButtonDefault type="submit" onClick={handleOpen}>
+                Valider
+              </ButtonDefault>
+              <ButtonDefault variant="secondary" onClick={handleOpen}>
+                Annuler
+              </ButtonDefault>
+            </form>
+          </DialogBody>
+        </div>
       </Dialog>
     </>
   );

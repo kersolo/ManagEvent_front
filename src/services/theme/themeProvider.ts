@@ -30,5 +30,45 @@ export const themeProvider = {
         }
       }
     }
+  },
+  dialog: {
+    styles: {
+      base: {
+        container: {
+          bg: 'bg-darkBlueDP',
+          border: 'border-solid',
+          borderWidth: 'border-2',
+          borderRadius: 'rounded-xl',
+          borderColor: 'border-orangeDP',
+          display: 'flex',
+          flexDirection: 'flex-col',
+          paddingBottom: 'pb-10'
+        }
+      }
+    }
+  },
+  dialogHeader: {
+    styles: {
+      base: {
+        color: 'text-white'
+      }
+    }
+  },
+  dialogBody: {
+    styles: {
+      base: {
+        initial: { color: 'text-white' },
+        divider: { color: 'text-white' }
+      }
+    }
+  },
+  dialogFooter: {
+    styles: {
+      base: {
+        display: 'flex',
+        flexDirection: 'flex-col',
+        gap: 'gap-7'
+      }
+    }
   }
 };

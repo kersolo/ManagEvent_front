@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dialog, DialogHeader, DialogFooter } from '@material-tailwind/react';
 import ButtonDefault from '../ButtonDefault';
+import close_icon from '../../assets/close_icon.svg';
 
 interface DialogDeleteUserProps {
   handleDelete: () => void;
@@ -17,11 +18,14 @@ export function DialogDeleteUser({ handleDelete }: DialogDeleteUserProps) {
         Supprimer mon compte
       </ButtonDefault>
 
-      <Dialog className="bg-darkBlueDP p-10" open={open} handler={handleOpen}>
-        <DialogHeader className="text-white">
+      <Dialog open={open} handler={handleOpen}>
+        <button onClick={handleOpen} className="flex justify-end mr-3 mt-3">
+          <img src={close_icon} alt="" />
+        </button>
+        <DialogHeader>
           Êtes vous sur de vouloir supprimer votre compte ?
         </DialogHeader>
-        <DialogFooter className="flex flex-col gap-7">
+        <DialogFooter>
           <ButtonDefault onClick={handleDelete}>Valider</ButtonDefault>
           <ButtonDefault variant="secondary" onClick={handleOpen}>
             Annuler
