@@ -2,7 +2,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import "react-datepicker/dist/react-datepicker.css";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
 import ButtonDefault from "../../../components/ButtonDefault";
 import DatePickerDefault from "../../../components/DatePickerDefault";
 import { InputDefault } from "../../../components/InputDefault";
@@ -14,38 +13,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dialog, Input } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { getTasksNames } from "../../../services/api/task";
-
-const CreateEventFormSchema = yup.object({
-  title: yup.string().required("Veuillez remplir ce champ"),
-  startDate: yup.date().required(""),
-  endDate: yup.date().required("Veuillez remplir ce champ"),
-  adress: yup.string().required("Veuillez remplir ce champ"),
-  description: yup.string().required("Veuillez remplir ce champ"),
-  tasks: yup
-    .array()
-    .of(
-      yup.object().shape({
-        taskName: yup.string().required(),
-        volunteerNumber: yup.number().required().min(1),
-      })
-    )
-    .min(1, "Veuillez ajouter au moins une tâche"),
-});
+import { getTasksList } from "../../../services/api/task";
+import { CreateEventFormSchema } from "../../../services/schemas/CreateEventFormSchema";
 
 export default function CreateEventPage() {
   const navigate = useNavigate();
+  //modal handling
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-
-  const { data: tasks } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: () => getTasksNames(),
+  //tasksList request
+  const { data: tasksList } = useQuery({
+    queryKey: ["tasksList"],
+    queryFn: () => getTasksList(),
     staleTime: 0,
   });
-
+  // react-hook-form and yup validation
   const {
     control,
+    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -55,15 +40,20 @@ export default function CreateEventPage() {
   } = useForm<CreateEventFormType>({
     resolver: yupResolver(CreateEventFormSchema),
   });
-
+  // add modal inputs to react-hook-form in an array "tasks"
   const { fields, append, remove } = useFieldArray({
     control,
     name: "tasks",
   });
+  // variables to display registered tasks on primary form
+  const registeredTasks = watch("tasks");
+  const registeredTaskNames = registeredTasks?.map(
+    (regTask) => regTask.taskName
+  );
 
   const onSubmit = (data: CreateEventFormType) => {
     console.log(data);
-    // post sur /events avec body = data
+    // request post on "/events" with body = data
   };
 
   return (
@@ -97,7 +87,14 @@ export default function CreateEventPage() {
         register={register}
         errors={errors}
       />
-      <p>Aucune tâche associée à cet événement</p>
+
+      {registeredTasks && registeredTasks.length > 0 ? (
+        registeredTasks.map((registeredTask, index) => (
+          <p key={index}>{registeredTask.taskName}</p>
+        ))
+      ) : (
+        <p>Aucune tâche associée à cet événement</p>
+      )}
       {errors && (
         <small className="text-red-600 ml-small">
           {errors.tasks?.root?.message}
@@ -142,8 +139,8 @@ export default function CreateEventPage() {
             {...register(`tasks.${fields.length - 1}.taskName`)}
             className="border-dp p-2 bg-darkBlueDP"
           >
-            {tasks?.map((task, index) => (
-              <option key={index} value={task.name} className="capitalize">
+            {tasksList?.map((task) => (
+              <option key={task.id} value={task.name} className="capitalize">
                 {task.name}
               </option>
             ))}

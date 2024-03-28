@@ -1,8 +1,8 @@
-import { taskListFaker } from "../../pages/Admin/HandleEvent/TaskListFaker";
+import { tasksListFaker } from "../../pages/Admin/HandleEvent/TasksListFaker";
 
-export async function getTasksNames() {
+export async function getTasksList() {
   try {
-    const data = taskListFaker;
+    const data = tasksListFaker;
     // REMPLACER par requete get sur task
     //
     // const {data} = await axios.get(`/task`)
