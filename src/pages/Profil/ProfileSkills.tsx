@@ -8,7 +8,7 @@ export default function ProfileSkills({ id }: { id: string }) {
     isLoading,
     isError,
   } = useQuery<SkillInProfilePageInterface[] | undefined>({
-    queryKey: ["events"],
+    queryKey: ["skills"],
     queryFn: () => getSkillsByUserIdForProfilePage(id),
     staleTime: 0,
   });
