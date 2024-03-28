@@ -1,4 +1,4 @@
-import { TaskInterface } from "../../../services/interfaces/TaskInterface";
+import { TaskInterface } from "../interfaces/TaskInterface";
 
 export const tasksListFaker: TaskInterface[] = [
   {

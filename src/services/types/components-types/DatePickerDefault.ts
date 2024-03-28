@@ -5,4 +5,6 @@ export type DatePIckerDefaultPropsType = {
   errors: FieldErrors<CreateEventFormType>;
   setError: UseFormSetError<CreateEventFormType>;
   setValue: UseFormSetValue<CreateEventFormType>;
+  startDateWhenUpdate?: Date;
+  endDateWhenUpdate?: Date;
 };

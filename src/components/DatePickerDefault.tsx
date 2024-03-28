@@ -7,8 +7,15 @@ export default function DatePickerDefault({
   errors,
   setError,
   setValue,
+  startDateWhenUpdate,
+  endDateWhenUpdate,
 }: DatePIckerDefaultPropsType) {
-  const [dateRange, setDateRange] = useState<(Date | null)[]>([null, null]);
+  const [dateRange, setDateRange] = useState<(Date | null)[]>([
+    startDateWhenUpdate || null,
+    endDateWhenUpdate || null,
+  ]);
+  console.log("start", startDateWhenUpdate);
+  console.log("range", dateRange);
   const [startDate, endDate] = dateRange;
   return (
     <>

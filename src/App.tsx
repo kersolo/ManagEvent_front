@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
-import CreateEventPage from "./pages/Admin/HandleEvent/CreateEventPage";
+import CreateUpdateEventPage from "./pages/Admin/HandleEvent/CreateUpdateEventPage";
 import ContactPage from "./pages/Contact/ContactPage";
 import CheckEmailPage from "./pages/Login/ResetPassword/CheckEmailPage";
 import NewPasswordPage from "./pages/Login/ResetPassword/NewPasswordPage";
@@ -59,7 +59,14 @@ export default function App() {
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
         <Route element={<PrivateAdminRoute />}>
-          <Route path="/admin/create-event" element={<CreateEventPage />} />
+          <Route
+            path="/admin/event/create"
+            element={<CreateUpdateEventPage />}
+          />
+          <Route
+            path="/admin/event/update/:eventId"
+            element={<CreateUpdateEventPage />}
+          />
         </Route>
 
         <Route path="*" element={<Page404 />} />

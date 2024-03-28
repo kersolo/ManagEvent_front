@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import "react-datepicker/dist/react-datepicker.css";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonDefault from "../../../components/ButtonDefault";
 import DatePickerDefault from "../../../components/DatePickerDefault";
 import { InputDefault } from "../../../components/InputDefault";
@@ -12,25 +12,39 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dialog, Input } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getEventDataForUpdateEventPage } from "../../../services/api/event";
 import { getTasksList } from "../../../services/api/task";
 import { CreateEventFormSchema } from "../../../services/schemas/CreateEventFormSchema";
 
-export default function CreateEventPage() {
+export default function CreateUpdateEventPage() {
   const navigate = useNavigate();
   //modal handling
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  //switch Create/Update Forms
+  const { eventId } = useParams();
+  const isUpdateForm = !eventId;
+
   //tasksList request
   const { data: tasksList } = useQuery({
     queryKey: ["tasksList"],
     queryFn: () => getTasksList(),
     staleTime: 0,
   });
+
+  const { data: eventData } = useQuery({
+    queryKey: ["eventData"],
+    queryFn: () => getEventDataForUpdateEventPage(Number(eventId)),
+    staleTime: 0,
+    enabled: !isUpdateForm,
+  });
+
   // react-hook-form and yup validation
   const {
     control,
     watch,
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -47,13 +61,22 @@ export default function CreateEventPage() {
   });
   // variables to display registered tasks on primary form
   const registeredTasks = watch("tasks");
-  const registeredTaskNames = registeredTasks?.map(
-    (regTask) => regTask.taskName
-  );
+
+  useEffect(() => {
+    if (!isUpdateForm) {
+      reset(eventData);
+    }
+  }, [eventData, isUpdateForm, reset]);
 
   const onSubmit = (data: CreateEventFormType) => {
     console.log(data);
-    // request post on "/events" with body = data
+    // if (isUpdateMode) {
+    //   const response = axios.put(`/event/${eventId}`, data)
+    //   }
+    // else {
+    //   const response = axios.post("/event", data)
+    //   }
+    // navigate("/admin");
   };
 
   return (
@@ -69,11 +92,15 @@ export default function CreateEventPage() {
         register={register}
         errors={errors}
       />
-      <DatePickerDefault
-        errors={errors}
-        setError={setError}
-        setValue={setValue}
-      />
+      {eventData && (
+        <DatePickerDefault
+          errors={errors}
+          setError={setError}
+          setValue={setValue}
+          startDateWhenUpdate={eventData.startDate}
+          endDateWhenUpdate={eventData.endDate}
+        />
+      )}
       <InputDefault
         label="Adresse"
         name="adress"
@@ -88,9 +115,13 @@ export default function CreateEventPage() {
         errors={errors}
       />
 
+      <p className="underline">Tâches préselectionnées : </p>
       {registeredTasks && registeredTasks.length > 0 ? (
         registeredTasks.map((registeredTask, index) => (
-          <p key={index}>{registeredTask.taskName}</p>
+          <li key={index}>
+            {registeredTask.taskName} - {registeredTask.volunteerNumber}{" "}
+            bénévole(s)
+          </li>
         ))
       ) : (
         <p>Aucune tâche associée à cet événement</p>

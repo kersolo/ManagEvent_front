@@ -1,4 +1,4 @@
-import { tasksListFaker } from "../../pages/Admin/HandleEvent/TasksListFaker";
+import { tasksListFaker } from "../fakers/tasksFaker";
 
 export async function getTasksList() {
   try {
