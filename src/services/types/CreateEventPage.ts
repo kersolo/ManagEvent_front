@@ -1,4 +1,4 @@
-import { TaskInterface } from "../interfaces/TaskInterface";
+import { TaskCreateEventInterface } from "../interfaces/TaskInterface";
 
 export type CreateEventFormType = {
   title: string;
@@ -6,5 +6,5 @@ export type CreateEventFormType = {
   endDate: Date;
   adress: string;
   description: string;
-  tasks?: TaskInterface[] | undefined;
+  tasks?: TaskCreateEventInterface[] | undefined;
 };

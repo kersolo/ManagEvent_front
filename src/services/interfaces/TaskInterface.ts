@@ -3,3 +3,8 @@ export interface TaskInterface {
   name: string;
   description?: string;
 }
+
+export interface TaskCreateEventInterface {
+  taskName: string;
+  volunteerNumber: number;
+}
