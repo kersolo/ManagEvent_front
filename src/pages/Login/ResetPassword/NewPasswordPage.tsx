@@ -3,25 +3,14 @@ import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import * as yup from "yup";
 import ButtonDefault from "../../../components/ButtonDefault";
 import { InputDefault } from "../../../components/InputDefault";
+import { NewPasswordFormSchema } from "../../../services/schemas/NewPasswordFormSchema";
 import {
-  Inputs,
+  NewPasswordForm,
   Token,
   UserId,
 } from "../../../services/types/ResetPasswordPagesType";
-
-const InputsSchema = yup.object({
-  password: yup
-    .string()
-    .required("Veuillez remplir ce champ")
-    .min(8, "Le mot de passe doit faire au moins 8 caractères"),
-  confirmPassword: yup
-    .string()
-    .required("Veuillez remplir ce champ")
-    .oneOf([yup.ref("password")], "Les mots de passe ne correspondent pas"),
-});
 
 export default function NewPasswordPage() {
   const navigate = useNavigate();
@@ -34,8 +23,8 @@ export default function NewPasswordPage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>({
-    resolver: yupResolver(InputsSchema),
+  } = useForm<NewPasswordForm>({
+    resolver: yupResolver(NewPasswordFormSchema),
   });
 
   useEffect(() => {

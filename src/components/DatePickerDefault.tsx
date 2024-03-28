@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { DatePIckerDefaultPropsType } from "../services/types/components-types/DatePickerDefault";
+import { DatePIckerDefaultPropsType } from "../services/types/components-types/DatePickerType";
 
 export default function DatePickerDefault({
   errors,

@@ -6,11 +6,11 @@ export type UserId = {
   id: string;
 };
 
-export type Inputs = {
+export type NewPasswordForm = {
   password: string;
   confirmPassword: string;
 };
 
-export type Input = {
+export type ResetPasswordForm = {
   email: string;
 };

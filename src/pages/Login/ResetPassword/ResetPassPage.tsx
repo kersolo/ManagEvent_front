@@ -1,7 +1,11 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ButtonDefault from "../../../components/ButtonDefault";
-import { Input } from "../../../services/types/ResetPasswordPagesType";
+import { InputDefault } from "../../../components/InputDefault";
+import { ResetPassFormSchema } from "../../../services/schemas/ResetPasswordFormSchema";
+import { ResetPasswordForm } from "../../../services/types/ResetPasswordPagesType";
+
 export default function ResetPassPage() {
   const navigate = useNavigate();
 
@@ -9,7 +13,9 @@ export default function ResetPassPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Input>();
+  } = useForm<ResetPasswordForm>({
+    resolver: yupResolver(ResetPassFormSchema),
+  });
 
   // A DECOMMENTER AU CABLAGE :
 
@@ -24,7 +30,7 @@ export default function ResetPassPage() {
   //   }
   // };
 
-  const onSubmit: SubmitHandler<Input> = async (data) => {
+  const onSubmit: SubmitHandler<ResetPasswordForm> = async (data) => {
     console.log(data);
     // const response = await postData(data);
     // if (response.status === 200) {
@@ -49,19 +55,13 @@ export default function ResetPassPage() {
             vous sera communiqué par mail.
           </p>
         </div>
-        <label htmlFor="email" className="px-small">
-          Email
-        </label>
-        <input
-          type="email"
-          className="w-full h-12 p-small border-dp bg-darkBlueDP"
-          {...register("email", { required: true })}
+        <InputDefault
+          label={"Votre email"}
+          name={"email"}
+          type={"email"}
+          register={register}
+          errors={errors}
         />
-        {errors.email ? (
-          <small className="text-redDP p-1">Veuillez renseigner ce champ</small>
-        ) : (
-          <small className="h-6"></small>
-        )}
         <ButtonDefault type="submit" className="mt-small">
           Valider
         </ButtonDefault>
