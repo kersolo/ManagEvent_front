@@ -20,7 +20,6 @@ export type TestDialogProps = {
 
 export function DialogUpdateAvatar() {
   const [open, setOpen] = useState(false);
-
   const [avatar, setAvatar] = useState<TestDialogProps[] | undefined>([]);
 
   useEffect(() => {

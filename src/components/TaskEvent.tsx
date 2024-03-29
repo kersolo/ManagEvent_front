@@ -1,31 +1,30 @@
 import { Typography } from '@material-tailwind/react';
 import ButtonDefault from './ButtonDefault';
-import { userTaskEventPropsType } from '../pages/Events/DetailEventPage';
+import { DetailEventPagePropsType } from '../pages/Events/DetailEventPage';
 import RadioDefault from './RadioDefault';
 import EventDetail from './EventDetail';
 
-export type TestComponentPropsType = {
-  userTaskEvent: userTaskEventPropsType;
+export type TaskEventPropsType = {
+  taskEvent: DetailEventPagePropsType;
   handleSubmit: (e: React.FormEvent) => void;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   value: number | null;
 };
 
 export default function TaskEvent({
-  userTaskEvent,
+  taskEvent,
   handleSubmit,
   handleChange,
   value
-}: TestComponentPropsType) {
-  const { task_event } = userTaskEvent;
-  const { tasks } = task_event;
+}: TaskEventPropsType) {
+  const { tasks, event } = taskEvent;
 
   return (
     <>
       <div className="flex flex-col gap-7 items-center text-center mt-8 w-3/4 m-auto ">
-        {userTaskEvent.statut === 'open' && (
+        {event.status === 'open' && (
           <>
-            <EventDetail userTaskEvent={userTaskEvent} />
+            <EventDetail taskEvent={taskEvent} />
             <form className="w-full" action="" onSubmit={handleSubmit}>
               <div className="mb-5 flex flex-col items-center">
                 <Typography className="underline font-normal mb-5" variant="h6">
@@ -37,10 +36,10 @@ export default function TaskEvent({
                       key={index}
                       name="task"
                       value={task.id}
-                      id={task.title}
+                      id={task.name}
                       checked={value === task.id}
                       onChange={handleChange}
-                      label={task.title}
+                      label={task.name}
                       taskInfos={task}
                     />
                   ))}
@@ -50,9 +49,9 @@ export default function TaskEvent({
             </form>
           </>
         )}
-        {userTaskEvent.statut === 'close' && (
+        {event.status === 'close' && (
           <>
-            <EventDetail userTaskEvent={userTaskEvent} />
+            <EventDetail taskEvent={taskEvent} />
             <ButtonDefault variant="disabled">Je participe</ButtonDefault>
           </>
         )}

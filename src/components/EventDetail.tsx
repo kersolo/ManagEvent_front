@@ -1,14 +1,23 @@
 import { Typography } from '@material-tailwind/react';
 import nextIcon from '../assets/nextIcon.svg';
-import { userTaskEventPropsType } from '../pages/Events/DetailEventPage';
+import { DetailEventPagePropsType } from '../pages/Events/DetailEventPage';
+import { useState } from 'react';
+import { DialogLocationEvent } from './Dialog/DialogLocationEvent';
 
 export type EventDetailPropsType = {
-  userTaskEvent: userTaskEventPropsType;
+  taskEvent: DetailEventPagePropsType;
 };
 
-export default function EventDetail({ userTaskEvent }: EventDetailPropsType) {
-  const { task_event } = userTaskEvent;
-  const { event } = task_event;
+export default function EventDetail({ taskEvent }: EventDetailPropsType) {
+  const { event } = taskEvent;
+
+  const [showComponent, setShowComponent] = useState(false);
+  const buttonNameClose = 'voir plus';
+  const buttonNameOpen = 'voir moins';
+
+  const handleClick = () => {
+    setShowComponent(!showComponent);
+  };
   return (
     <>
       <Typography variant="h1">{event.title}</Typography>
@@ -19,16 +28,41 @@ export default function EventDetail({ userTaskEvent }: EventDetailPropsType) {
             <img src={nextIcon} alt="" />
             <Typography variant="paragraph">{event.date_end}</Typography>
           </div>
-          <Typography className="text-center" variant="paragraph">
+
+          <Typography className="flex gap-5 m-auto" variant="paragraph">
+            <DialogLocationEvent event={event} />
             {event.location}
           </Typography>
-          <Typography
-            className="h-12 text-ellipsis overflow-hidden"
-            variant="paragraph"
-          >
-            {event.description}
-          </Typography>
-          {userTaskEvent.statut === 'close' && (
+          {event.description.length > 100 ? (
+            <>
+              {showComponent ? (
+                <>
+                  <Typography variant="paragraph">
+                    {event.description}
+                  </Typography>
+                  <button className="text-lightBlueDP" onClick={handleClick}>
+                    {buttonNameOpen}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Typography
+                    className="h-12 text-ellipsis overflow-hidden "
+                    variant="paragraph"
+                  >
+                    {event.description}
+                  </Typography>
+                  <button className="text-lightBlueDP" onClick={handleClick}>
+                    {buttonNameClose}
+                  </button>
+                </>
+              )}
+            </>
+          ) : (
+            <Typography variant="paragraph">{event.description}</Typography>
+          )}
+
+          {event.status === 'close' && (
             <Typography className="mb-5 mt-7" variant="paragraph">
               Cet évènement est complet !
             </Typography>

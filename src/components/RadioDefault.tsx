@@ -2,7 +2,7 @@ import { Radio } from '@material-tailwind/react';
 import { DialogDetailTask } from './Dialog/DialogDetailTask';
 
 export type TaskInfosPropsType = {
-  title: string;
+  name: string;
   description: string;
 };
 

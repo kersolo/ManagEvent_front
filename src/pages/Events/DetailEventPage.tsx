@@ -1,47 +1,39 @@
 import { useEffect, useState } from 'react';
-import { getuser_task_event } from '../../services/api/user_task_event';
 import TaskEvent from '../../components/TaskEvent';
+import { get_task_event } from '../../services/api/task_event';
 
 // import { useNavigate } from 'react-router-dom';
 
-export type userTaskEventPropsType = {
-  user: {
-    email: string;
-    password: string;
-    role: string;
+export type DetailEventPagePropsType = {
+  volunteers_number: number;
+  event: {
+    title: string;
+    date_start: string;
+    date_end: string;
+    location: string;
+    description: string;
+    status: string;
   };
-  task_event: {
-    volunteers_number: number;
-    event: {
-      title: string;
-      date_start: string;
-      date_end: string;
-      location: string;
-      description: string;
-      status: string;
-    };
-    tasks: {
-      id: number;
-      title: string;
-      description: string;
-      skill_name: string;
-    }[];
-  };
-  statut: string;
+  tasks: {
+    id: number;
+    name: string;
+    description: string;
+    skill_name: string;
+  }[];
 };
 
 export default function DetailEventPage() {
-  const [userTaskEvents, setUserTaskEvents] = useState<
-    userTaskEventPropsType[] | undefined
+  const [taskEvents, setTaskEvents] = useState<
+    DetailEventPagePropsType[] | undefined
   >([]);
   const [value, setValue] = useState<number | null>(null);
   // const navigate = useNavigate();
 
   useEffect(() => {
     const loadEvent = async () => {
-      const response = await getuser_task_event();
+      const response = await get_task_event();
 
-      setUserTaskEvents(response);
+      setTaskEvents(response);
     };
     loadEvent();
   }, []);
@@ -51,7 +43,17 @@ export default function DetailEventPage() {
     if (value === null) {
       alert('Veuillez choisir une tâche pour cet évènement');
     } else {
-      console.log(value);
+      const newUserTaskEvent = {
+        user_id: 1, // 1:token_User
+        event_id: 1, // 1:id de l'URL
+        task_event_id: {
+          volunteers_number: 4 - 1, // 4:previousValue
+          event_id: 1, // 1:id de l'URL
+          task_id: value
+        }
+      };
+      console.log(newUserTaskEvent);
+      // postUser_task_event(newUserTaskEvent);
       // navigate('/EVENT_DEVPUNK-65');
     }
   };
@@ -62,9 +64,9 @@ export default function DetailEventPage() {
 
   return (
     <>
-      {userTaskEvents?.map((userTaskEvent, index) => (
+      {taskEvents?.map((taskEvent, index) => (
         <TaskEvent
-          userTaskEvent={userTaskEvent}
+          taskEvent={taskEvent}
           key={index}
           handleSubmit={handleSubmit}
           handleChange={handleChange}

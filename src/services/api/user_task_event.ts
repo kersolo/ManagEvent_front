@@ -1,6 +1,6 @@
 import { user_task_event_Faker } from '../../pages/Events/user_task_event_Faker';
 
-export async function getuser_task_event() {
+export async function get_user_task_event() {
   try {
     const data = await user_task_event_Faker;
 

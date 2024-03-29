@@ -33,7 +33,7 @@ const user_task_event_Faker = [
         }
       ]
     },
-    statut: 'open'
+    status: 'A venir'
   }
 ];
 

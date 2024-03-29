@@ -5,16 +5,22 @@ import {
   DialogBody,
   DialogFooter
 } from '@material-tailwind/react';
-import bubble_message from '../../assets/bubble_message.svg';
 import close_icon from '../../assets/close_icon.svg';
-import { TaskInfosPropsType } from '../RadioDefault';
 import ButtonDefault from '../ButtonDefault';
+import location_icon from '../../assets/location_icon.svg';
 
-export type DialogDetailTaskPropsType = {
-  taskInfos: TaskInfosPropsType;
+export type DialogLocationEventPropsType = {
+  event: {
+    title: string;
+    date_start: string;
+    date_end: string;
+    location: string;
+    description: string;
+    status: string;
+  };
 };
 
-export function DialogDetailTask({ taskInfos }: DialogDetailTaskPropsType) {
+export function DialogLocationEvent({ event }: DialogLocationEventPropsType) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -22,15 +28,15 @@ export function DialogDetailTask({ taskInfos }: DialogDetailTaskPropsType) {
   return (
     <>
       <button type="button" onClick={handleOpen}>
-        <img src={bubble_message} alt="" />
+        <img src={location_icon} alt="" />
       </button>
       <Dialog open={open} handler={handleOpen}>
         <button onClick={handleOpen} className="flex justify-end mr-3 mt-3">
           <img src={close_icon} alt="" />
         </button>
         <div className="flex flex-col items-center gap-6">
-          <DialogHeader>{taskInfos.name} </DialogHeader>
-          <DialogBody>{taskInfos.description}</DialogBody>
+          <DialogHeader>{event.title}</DialogHeader>
+          <DialogBody>Indiquer l'adresse complete du lieu</DialogBody>
           <DialogFooter>
             <ButtonDefault onClick={handleOpen}>
               Retour à l'évènement
