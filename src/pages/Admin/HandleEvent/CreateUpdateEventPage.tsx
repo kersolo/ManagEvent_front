@@ -92,15 +92,15 @@ export default function CreateUpdateEventPage() {
         register={register}
         errors={errors}
       />
-      {eventData && (
-        <DatePickerDefault
-          errors={errors}
-          setError={setError}
-          setValue={setValue}
-          startDateWhenUpdate={eventData.startDate}
-          endDateWhenUpdate={eventData.endDate}
-        />
-      )}
+
+      <DatePickerDefault
+        errors={errors}
+        setError={setError}
+        setValue={setValue}
+        startDateWhenUpdate={eventData?.startDate}
+        endDateWhenUpdate={eventData?.endDate}
+      />
+
       <InputDefault
         label="Adresse"
         name="adress"
@@ -115,7 +115,7 @@ export default function CreateUpdateEventPage() {
         errors={errors}
       />
 
-      <p className="underline">Tâches préselectionnées : </p>
+      <p className="underline">Tâches associées : </p>
       {registeredTasks && registeredTasks.length > 0 ? (
         registeredTasks.map((registeredTask, index) => (
           <li key={index}>
@@ -135,7 +135,7 @@ export default function CreateUpdateEventPage() {
         variant="tertiary"
         className="mb-6"
         onClick={() => {
-          append({ taskName: "", volunteerNumber: 0 });
+          append({ taskName: "", volunteerNumber: 1 });
           handleOpen();
         }}
       >
@@ -169,6 +169,7 @@ export default function CreateUpdateEventPage() {
             id="taskName"
             {...register(`tasks.${fields.length - 1}.taskName`)}
             className="border-dp p-2 bg-darkBlueDP"
+            defaultValue={tasksList && tasksList[0].name}
           >
             {tasksList?.map((task) => (
               <option key={task.id} value={task.name} className="capitalize">
@@ -176,12 +177,11 @@ export default function CreateUpdateEventPage() {
               </option>
             ))}
           </select>
-
           <Input
             {...register(`tasks.${fields.length - 1}.volunteerNumber`)}
             type="number"
             label="Choisir un nombre de bénévoles nécessaires"
-            onFocus={(e) => (e.target.value = "1")}
+            defaultValue={1}
             min={1}
             className="bg-darkBlueDP border-dp text-white p-2 "
           />

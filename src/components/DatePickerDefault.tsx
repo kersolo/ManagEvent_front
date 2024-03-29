@@ -14,8 +14,6 @@ export default function DatePickerDefault({
     startDateWhenUpdate || null,
     endDateWhenUpdate || null,
   ]);
-  console.log("start", startDateWhenUpdate);
-  console.log("range", dateRange);
   const [startDate, endDate] = dateRange;
   return (
     <>
