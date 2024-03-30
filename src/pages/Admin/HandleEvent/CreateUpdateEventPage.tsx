@@ -20,26 +20,20 @@ import { CreateEventFormSchema } from "../../../services/schemas/CreateEventForm
 
 export default function CreateUpdateEventPage() {
   const navigate = useNavigate();
-  //modal handling
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(!open);
-  //switch Create/Update Forms
+
+  //switch Create/Update
   const { eventId } = useParams();
   const isCreateForm = !eventId;
 
-  //tasksList request
-  const { data: tasksList } = useQuery({
-    queryKey: ["tasksList"],
-    queryFn: () => getTasksList(),
-    staleTime: 0,
-  });
+  //modal handling
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpen = () => setIsModalOpen(!isModalOpen);
 
-  const { data: eventData } = useQuery({
-    queryKey: ["eventData"],
-    queryFn: () => getEventDataForUpdateEventPage(Number(eventId)),
-    staleTime: 0,
-    enabled: !isCreateForm,
-  });
+  // States to handle select options in modal form
+  const [selectDefaultValue, setSelectDefaultValue] = useState<string>("");
+  const [preRegisteredTaskNames, setPreRegisteredTaskNames] = useState<
+    string[]
+  >([]);
 
   // react-hook-form and yup validation
   const {
@@ -55,29 +49,71 @@ export default function CreateUpdateEventPage() {
   } = useForm<CreateEventFormType>({
     resolver: yupResolver(CreateEventFormSchema),
   });
-  // add modal inputs to react-hook-form in an array "tasks"
+
+  // display missions in main form before submit
+  const registeredTasks = watch("tasks");
+
+  // register modal inputs into react-hook-form inside a fieldArray "tasks"
   const { fields, append, remove } = useFieldArray({
     control,
     name: "tasks",
   });
-  // variables to display registered tasks on primary form
-  const registeredTasks = watch("tasks");
 
+  //tasksList request
+  const { data: tasksList } = useQuery({
+    queryKey: ["tasksList"],
+    queryFn: () => getTasksList(),
+    staleTime: 0,
+  });
+
+  //eventData request (when update form)
+  const { data: eventData } = useQuery({
+    queryKey: ["eventData"],
+    queryFn: () => getEventDataForUpdateEventPage(Number(eventId)),
+    staleTime: 0,
+    enabled: !isCreateForm,
+  });
+
+  // prefill form with eventData & init registeredTaskNames and selectDefaultValue with eventData when update
   useEffect(() => {
+    console.log(1);
     if (!isCreateForm) {
       reset(eventData);
     }
   }, [eventData, isCreateForm, reset]);
 
+  useEffect(() => {
+    console.log(2);
+    if (eventData) {
+      eventData.tasks.forEach((task) =>
+        setPreRegisteredTaskNames([...preRegisteredTaskNames, task.taskName])
+      );
+    }
+  }, [eventData]);
+
+  useEffect(() => {
+    console.log(3);
+    if (tasksList) {
+      const filteredTasksList = tasksList.filter(
+        (task) => !preRegisteredTaskNames.includes(task.name)
+      );
+      if (filteredTasksList.length > 0) {
+        setSelectDefaultValue(filteredTasksList[0].name);
+      }
+    }
+  }, [preRegisteredTaskNames, tasksList]);
+
+  // submit form
   const onSubmit = (data: CreateEventFormType) => {
     console.log(data);
+    // A DECOMMENTER AU CABLAGE:
     // if (isUpdateMode) {
     //   const response = axios.put(`/event/${eventId}`, data)
     //   }
     // else {
     //   const response = axios.post("/event", data)
     //   }
-    // navigate("/admin");
+    navigate("/admin/event");
   };
 
   return (
@@ -88,6 +124,7 @@ export default function CreateUpdateEventPage() {
       <h1 className="h1-size mb-4">
         {isCreateForm ? "Créer un événement" : "Modifier l'événement"}
       </h1>
+
       <InputDefault
         label="Nom"
         name="title"
@@ -95,7 +132,6 @@ export default function CreateUpdateEventPage() {
         register={register}
         errors={errors}
       />
-
       <DatePickerDefault
         errors={errors}
         setError={setError}
@@ -103,7 +139,6 @@ export default function CreateUpdateEventPage() {
         startDateWhenUpdate={eventData?.startDate}
         endDateWhenUpdate={eventData?.endDate}
       />
-
       <InputDefault
         label="Adresse"
         name="adress"
@@ -117,23 +152,32 @@ export default function CreateUpdateEventPage() {
         register={register}
         errors={errors}
       />
-
       <p className="underline">Tâches associées : </p>
+
       {registeredTasks && registeredTasks.length > 0 ? (
         registeredTasks.map((registeredTask, index) => (
-          <div key={index} className="flex justify-between">
-            <li>
-              {registeredTask.taskName} - {registeredTask.volunteerNumber}{" "}
-              bénévole(s)
-            </li>
-            <FontAwesomeIcon
-              onClick={(e) => {
-                e.preventDefault();
-                remove(index);
-              }}
-              icon={faTrashCan}
-              className="hover:cursor-pointer"
-            />
+          <div key={index}>
+            {registeredTask.taskName !== "" ? (
+              <li className="flex justify-between">
+                <p>
+                  {registeredTask.taskName} - {registeredTask.volunteerNumber}{" "}
+                  bénévole(s)
+                </p>
+                <FontAwesomeIcon
+                  onClick={(e) => {
+                    e.preventDefault();
+                    remove(index);
+                    setPreRegisteredTaskNames((preRegisteredTaskNames) =>
+                      preRegisteredTaskNames.filter(
+                        (taskName) => taskName !== registeredTask.taskName
+                      )
+                    );
+                  }}
+                  icon={faTrashCan}
+                  className="hover:cursor-pointer"
+                />
+              </li>
+            ) : null}
           </div>
         ))
       ) : (
@@ -144,19 +188,27 @@ export default function CreateUpdateEventPage() {
           {errors.tasks?.root?.message}
         </small>
       )}
-      <ButtonDefault
-        variant="tertiary"
-        className="mb-6"
-        onClick={() => {
-          append({ taskName: "", volunteerNumber: 1 });
-          handleOpen();
-        }}
-      >
-        Ajouter une tâche
-      </ButtonDefault>
+
+      {tasksList && preRegisteredTaskNames.length !== tasksList.length ? (
+        <ButtonDefault
+          variant="tertiary"
+          className="mb-6"
+          onClick={() => {
+            append({ taskName: "", volunteerNumber: 1 });
+            handleOpen();
+          }}
+        >
+          Ajouter une tâche
+        </ButtonDefault>
+      ) : (
+        <small className="text-redDP">
+          Pas d'autres tâches disponibles. Vous pouvez créer de nouvelles tâche
+          depuis l'espace "Gestion tâches" du panel admin.
+        </small>
+      )}
 
       <Dialog
-        open={open}
+        open={isModalOpen}
         handler={() => {
           remove(fields.length - 1);
           handleOpen();
@@ -182,13 +234,16 @@ export default function CreateUpdateEventPage() {
             id="taskName"
             {...register(`tasks.${fields.length - 1}.taskName`)}
             className="border-dp p-2 bg-darkBlueDP"
-            defaultValue={tasksList && tasksList[0].name}
+            value={selectDefaultValue}
+            onChange={(e) => setSelectDefaultValue(e.target.value)}
           >
-            {tasksList?.map((task) => (
-              <option key={task.id} value={task.name} className="capitalize">
-                {task.name}
-              </option>
-            ))}
+            {tasksList
+              ?.filter((task) => !preRegisteredTaskNames.includes(task.name))
+              .map((task) => (
+                <option key={task.id} value={task.name} className="capitalize">
+                  {task.name}
+                </option>
+              ))}
           </select>
           <Input
             {...register(`tasks.${fields.length - 1}.volunteerNumber`)}
@@ -200,7 +255,12 @@ export default function CreateUpdateEventPage() {
           />
           <div className="flex flex-col gap-4 my-8">
             <ButtonDefault
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                setPreRegisteredTaskNames([
+                  ...preRegisteredTaskNames,
+                  selectDefaultValue,
+                ]);
                 handleOpen();
                 clearErrors("tasks");
               }}

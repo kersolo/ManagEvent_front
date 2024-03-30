@@ -11,7 +11,7 @@ export const eventDataFaker = [
         volunteerNumber: 1,
       },
       {
-        taskName: "Buvette",
+        taskName: "Billeterie",
         volunteerNumber: 2,
       },
     ],
@@ -20,15 +20,15 @@ export const eventDataFaker = [
     title: "Journée portes ouvertes",
     startDate: new Date(),
     endDate: new Date(),
-    adress: "Gymnase",
-    description: "Venez découvrir la gym !",
+    adress: "Stade",
+    description: "Venez découvrir le rugby !",
     tasks: [
       {
-        taskName: "Accueil",
+        taskName: "Buvette",
         volunteerNumber: 1,
       },
       {
-        taskName: "Stand crèpes",
+        taskName: "Stand de crêpes",
         volunteerNumber: 2,
       },
     ],
