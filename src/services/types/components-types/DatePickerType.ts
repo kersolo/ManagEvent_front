@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormSetError, UseFormSetValue } from "react-hook-form";
-import { CreateEventFormType } from "../CreateEventPage";
+import { CreateEventFormType } from "../CreateEventPageType";
 
 export type DatePIckerDefaultPropsType = {
   errors: FieldErrors<CreateEventFormType>;

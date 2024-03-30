@@ -6,7 +6,7 @@ import ButtonDefault from "../../../components/ButtonDefault";
 import DatePickerDefault from "../../../components/DatePickerDefault";
 import { InputDefault } from "../../../components/InputDefault";
 import { TextareaDefault } from "../../../components/TextareaDefault";
-import { CreateEventFormType } from "../../../services/types/CreateEventPage";
+import { CreateEventFormType } from "../../../services/types/CreateEventPageType";
 
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons/faTrashCan";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
