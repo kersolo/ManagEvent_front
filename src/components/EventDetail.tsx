@@ -2,7 +2,8 @@ import { Typography } from '@material-tailwind/react';
 import nextIcon from '../assets/nextIcon.svg';
 import { DetailEventPagePropsType } from '../pages/Events/DetailEventPage';
 import { useState } from 'react';
-import { DialogLocationEvent } from './Dialog/DialogLocationEvent';
+import { Link } from 'react-router-dom';
+import location_icon from '../assets/location_icon.svg';
 
 export type EventDetailPropsType = {
   taskEvent: DetailEventPagePropsType;
@@ -18,6 +19,9 @@ export default function EventDetail({ taskEvent }: EventDetailPropsType) {
   const handleClick = () => {
     setShowComponent(!showComponent);
   };
+
+  const location_google_maps = event.location.replace(' ', '+');
+
   return (
     <>
       <Typography variant="h1">{event.title}</Typography>
@@ -28,9 +32,15 @@ export default function EventDetail({ taskEvent }: EventDetailPropsType) {
             <img src={nextIcon} alt="" />
             <Typography variant="paragraph">{event.date_end}</Typography>
           </div>
-
           <Typography className="flex gap-5 m-auto" variant="paragraph">
-            <DialogLocationEvent event={event} />
+            <Link
+              target="_blank"
+              to={`https://www.google.com/maps/search/?api=1&query=${location_google_maps}`}
+            >
+              <button type="button">
+                <img src={location_icon} alt="" />
+              </button>
+            </Link>
             {event.location}
           </Typography>
           {event.description.length > 100 ? (
