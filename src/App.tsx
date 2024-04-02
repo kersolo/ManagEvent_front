@@ -60,11 +60,7 @@ export default function App() {
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
         <Route element={<PrivateAdminRoute />}>
           <Route
-            path="/admin/event/create"
-            element={<CreateUpdateEventPage />}
-          />
-          <Route
-            path="/admin/event/update/:eventId"
+            path="/admin/event/create-update/:eventId?"
             element={<CreateUpdateEventPage />}
           />
         </Route>
