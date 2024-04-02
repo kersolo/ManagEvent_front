@@ -2,12 +2,12 @@ import { InputDefault } from '../../components/InputDefault';
 import ButtonDefault from '../../components/ButtonDefault';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { getUserProfileId, putPorfileUser } from '../../services/api/profile';
-import BackIcon from '../../assets/back-icon.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DialogDeleteUser } from '../../components/Dialog/DialogDeleteUser';
 import { DialogUpdatePassword } from '../../components/Dialog/DialogUpdatePassword';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { DialogUpdateAvatar } from '../../components/Dialog/DialogUpdateAvatar';
+import BackPreviousPage from '../../components/BackPreviousPage';
 
 export interface ProfileInfosProps {
   firstname: string;
@@ -62,13 +62,7 @@ export default function UpdateProfilePage() {
 
   return (
     <>
-      <Link to="/profile">
-        <div className="flex pt-2">
-          <img src={BackIcon} alt="" />
-          <p>Retour</p>
-        </div>
-      </Link>
-
+      <BackPreviousPage path="/profile" />
       {userProfile?.map((infos, index) => (
         <div key={index} className="flex flex-col items-center gap-14 mt-10 ">
           <>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import TaskEvent from '../../components/TaskEvent';
 import { get_task_event } from '../../services/api/task_event';
-
+import BackPreviousPage from '../../components/BackPreviousPage';
 // import { useNavigate } from 'react-router-dom';
 
 export type DetailEventPagePropsType = {
@@ -64,6 +64,7 @@ export default function DetailEventPage() {
 
   return (
     <>
+      <BackPreviousPage path="/event" />
       {taskEvents?.map((taskEvent, index) => (
         <TaskEvent
           taskEvent={taskEvent}
