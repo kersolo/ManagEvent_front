@@ -5,7 +5,7 @@ const task_event_Faker = [
     event: {
       title: 'Apéro',
       date_start: 'Samedi 27 Février 08:00',
-      date_end: 'Samedi 27 Février 08:00',
+      date_end: 'Samedi 27 Février 17:00',
       location: 'Stade Roudourou',
       description:
         "L'apéro se déroulera dans le stade du roudourou à l'adresse de micheline les bains, nous pourrons y découvrir pleins de bonnes choses à manger et à boire, KENAVO !!",

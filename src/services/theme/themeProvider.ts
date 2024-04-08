@@ -70,5 +70,23 @@ export const themeProvider = {
         gap: 'gap-7'
       }
     }
+  },
+  card: {
+    defaultProps: {
+      color: 'darkBlueDP'
+    },
+    valid: {
+      colors: ['darkBlueDP']
+    },
+    styles: {
+      variants: {
+        filled: {
+          darkBlueDP: {
+            backgroud: 'darkBlueDP',
+            color: 'text-white'
+          }
+        }
+      }
+    }
   }
 };
