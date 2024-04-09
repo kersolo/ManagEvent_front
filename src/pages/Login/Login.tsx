@@ -10,14 +10,12 @@ import { LoginForm } from "../../services/interfaces/LoginForm";
 
 const dataSchema = yup.object({
     email: yup.string().email("Votre e-mail n'est pas valide").required("Ce champ est obligatoire"),
-<<<<<<< HEAD
+
     password: yup.string()
         .required(),
     checkbox: yup.boolean(),
-=======
-    password: yup.string().required(),
-    checkbox: yup.boolean()
->>>>>>> refs/remotes/origin/Mayo
+
+   
 })
 
 export default function Login() {
@@ -46,11 +44,11 @@ export default function Login() {
                             <div className="mb-1 flex flex-col gap-3">
                                 <Input {...register("email")} label="Votre Email" type="email" name="email" />
                                 <small className="text-sm text-red-500">{errors.email?.message}</small>
-<<<<<<< HEAD
+
                                 <Input  {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
-=======
+
                                 <Input onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
->>>>>>> refs/remotes/origin/Mayo
+
                                 <small className="text-sm text-red-500">{errors.password?.message}</small>
                             </div>
                             <div className="flex flex-col justify-center items-center gap-1">
