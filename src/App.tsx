@@ -13,7 +13,7 @@ import Contact from './pages/ContctUs/Contact';
 import Homepage from './pages/Home/Homepage';
 
 import { getUsers } from "./services/api/user";
-import TaskCreate from "./pages/Admin/HandleTask/TaskCreate";
+
 import TaskList from "./pages/Admin/HandleTask/TaskList";
 
 export default function App() {
@@ -24,7 +24,9 @@ export default function App() {
     //
 
     // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin] = useState(false);
+
+   
 
 
     const [users, setUsers] = useState<NewUserProps[] | undefined>([]);
@@ -50,7 +52,7 @@ export default function App() {
                 <Route path="/login/reset-pass" element={<ResetPassPage />} />
                 <Route path="/login/check-email" element={<CheckEmailPage />} />
                 <Route path="/admin/liste-des-taches" element={<TaskList />} />
-                   <Route path="/admin/liste-des-taches/créer-une-tache" element={<TaskCreate/>} />
+                <Route path="/admin/liste-des-taches" element={<TaskList />} /> 
                 <Route
                     path="/inscription"
                     element={<SignUpPage handleSubmitUser={handleSubmitUser} />}

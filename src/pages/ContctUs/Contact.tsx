@@ -12,7 +12,7 @@ import { ContactForm } from "../../services/interfaces/ContactForm";
     prenom: yup.string().required("Ce champ est obligatoire").min(1, "1 caractère minimum"),
     email: yup.string().email("Votre e-mail n'est pas valide").required("Ce champ est obligatoire"),
     message: yup.string().required("Ce champ est obligatoire").min(10, "message très court, 10 caractères minimum"),
-     checkbox: yup.boolean()
+    checkbox: yup.boolean()
 })
 
 export default function Contact() {

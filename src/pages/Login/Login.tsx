@@ -11,8 +11,7 @@ import { LoginForm } from "../../services/interfaces/LoginForm";
 const dataSchema = yup.object({
     email: yup.string().email("Votre e-mail n'est pas valide").required("Ce champ est obligatoire"),
     password: yup.string()
-        .required()
-        .min(8, "Ve mot de passe doit contenir minimum 8 caractères"),
+        .required(),
     checkbox: yup.boolean(),
 })
 

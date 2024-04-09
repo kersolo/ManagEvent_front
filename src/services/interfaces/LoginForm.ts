@@ -1,5 +1,5 @@
  export interface LoginForm {
     email: string,
     password: string,
-    checkbox: boolean,
+    checkbox?: boolean,
 }
