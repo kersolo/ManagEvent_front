@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import "./Homepage.css";
 import ButtonDefault from "../../components/ButtonDefault";
 
+
 export default function Homepage() {
 
-    console.log("toto");
     return (
         <>
             <div className="homepage">
