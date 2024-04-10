@@ -33,7 +33,7 @@ export default function App() {
         <Route path="/login/check-email" element={<CheckEmailPage />} />
         <Route path="/inscription" element={<SignUpPage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
-        <Route path="/event/detail" element={<DetailEventPage />} />
+        <Route path="/event/detail/:id" element={<DetailEventPage />} />
         <Route path="/events" element={<EventsPage />} /> // page de Test
       </Routes>
       <ReactQueryDevtools />
