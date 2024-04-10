@@ -14,6 +14,8 @@ export type EventType = {
 
 export default function EventCardList() {
   const [events, setEvents] = useState<EventType[] | undefined>([]);
+  const eventDate = [...new Set(events?.map((event) => event.date_start))];
+
   useEffect(() => {
     const loadEvents = async () => {
       const response = await getevent();
@@ -24,8 +26,8 @@ export default function EventCardList() {
 
   return (
     <>
-      {events?.map((event, index) => (
-        <CardEvent key={index} event={event} />
+      {eventDate?.map((event, index) => (
+        <CardEvent key={index} event={event} events={events} />
       ))}
     </>
   );
