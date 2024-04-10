@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
 import CreateUpdateEventPage from "./pages/Admin/HandleEvent/CreateUpdateEventPage";
 import ContactPage from "./pages/Contact/ContactPage";
+import CalendarPage from "./pages/Events/CalendarPage";
 import CheckEmailPage from "./pages/Login/ResetPassword/CheckEmailPage";
 import NewPasswordPage from "./pages/Login/ResetPassword/NewPasswordPage";
 import ResetPassPage from "./pages/Login/ResetPassword/ResetPassPage";
@@ -23,7 +24,7 @@ export default function App() {
   //
 
   // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
-  const [isAdmin, setIsAdmin] = useState(false);
+  const isAdmin = false;
   ////
 
   const [users, setUsers] = useState<NewUserProps[] | undefined>([]);
@@ -56,6 +57,7 @@ export default function App() {
           path="/inscription"
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
         />
+        <Route path="/event/calendar" element={<CalendarPage />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
         <Route element={<PrivateAdminRoute />}>
