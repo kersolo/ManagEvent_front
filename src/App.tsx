@@ -19,6 +19,7 @@ import Homepage from './pages/Home/Homepage';
 import { getUsers } from "./services/api/user";
 import Page404 from "./services/utils/Page404";
 import PrivateAdminRoute from "./services/utils/PrivateAdminRoute";
+import NotificationPage from "./pages/Notification/NotificationPage";
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -74,6 +75,7 @@ export default function App() {
         </Route>
 
         <Route path="*" element={<Page404 />} />
+        <Route path="/NotificationPage" element={<NotificationPage />}></Route>
       </Routes>
     </>
   );
