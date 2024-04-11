@@ -22,6 +22,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import DetailEventPage from './pages/Events/DetailEventPage';
 import EventsPage from './pages/Events/EventsPage';
 
+import TaskList from "./pages/Admin/HandleTask/TaskList";
+
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
   const { pathname } = useLocation();
@@ -60,7 +62,7 @@ export default function App() {
             element={<CreateUpdateEventPage />}
           />
         </Route>
-
+                <Route path="/admin/liste-des-taches" element={<TaskList />} /> 
 
         <Route path="*" element={<Page404 />} />
         <Route path="/NotificationPage" element={<NotificationPage />}></Route>

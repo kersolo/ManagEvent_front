@@ -10,8 +10,12 @@ import { LoginForm } from "../../services/interfaces/LoginForm";
 
 const dataSchema = yup.object({
     email: yup.string().email("Votre e-mail n'est pas valide").required("Ce champ est obligatoire"),
-    password: yup.string().required(),
-    checkbox: yup.boolean()
+
+    password: yup.string()
+        .required(),
+    checkbox: yup.boolean(),
+
+   
 })
 
 export default function Login() {
@@ -38,9 +42,13 @@ export default function Login() {
                         <div className="sm:w-full md:w-6/12 md:mx-auto lg:w-4/12 lg:mx-auto xl:w-3/12 xl:mx-auto border-2 border-orange-300 rounded p-6 mt-10">
                             <h2 className="mb-3 flex justify-center">Connexion</h2>
                             <div className="mb-1 flex flex-col gap-3">
-                                <Input onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register("email")} label="Votre Email" type="email" name="email" />
+                                <Input {...register("email")} label="Votre Email" type="email" name="email" />
                                 <small className="text-sm text-red-500">{errors.email?.message}</small>
+
+                                <Input  {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
+
                                 <Input onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} {...register("password")} type="password" label="Mot de passe" name="mot de passe" />
+
                                 <small className="text-sm text-red-500">{errors.password?.message}</small>
                             </div>
                             <div className="flex flex-col justify-center items-center gap-1">

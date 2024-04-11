@@ -7,14 +7,14 @@ import { Typography } from '@material-tailwind/react';
 import ButtonDefault from '../../components/ButtonDefault';
 
 export type NewUserProps = {
-  email: string;
-  password: string;
-  role: string;
+    email: string;
+    password: string;
+    role: string;
 };
 export type Inputs = {
-  email: string;
-  password: string;
-  confirmPassword: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
 };
 
 const schema = yup
@@ -65,7 +65,7 @@ const schema = yup
       .oneOf([yup.ref('password')], 'Le mot de passe ne correspond pas')
   })
 
-  .required();
+    .required();
 
 export default function SignUpPage() {
   const {
@@ -76,13 +76,13 @@ export default function SignUpPage() {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const newUser = {
-      email: data.email,
-      password: data.password,
-      role: 'volunteer'
-    };
-    console.log('data:', newUser);
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const newUser = {
+            email: data.email,
+            password: data.password,
+            role: 'volunteer'
+        };
+        console.log('data:', newUser);
 
     // postUsers(newUser);
   };
@@ -130,5 +130,5 @@ export default function SignUpPage() {
         </div>
       </div>
     </div>
-  );
+    );
 }
