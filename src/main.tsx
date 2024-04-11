@@ -10,9 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
-// config TanQuery
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-const queryClient = new QueryClient();
+
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -22,6 +20,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <App />
         </QueryClientProvider>
       </BrowserRouter>
+
     </ThemeProvider>
+
   </React.StrictMode>
+
 );

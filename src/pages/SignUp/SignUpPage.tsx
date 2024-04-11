@@ -5,6 +5,11 @@ import { InputDefault } from '../../components/InputDefault';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-tailwind/react';
 import ButtonDefault from '../../components/ButtonDefault';
+import { PopupDefault } from  '../../components/PopupDefault';
+import {Dialog,DialogHeader,DialogBody,} from "@material-tailwind/react";
+import { useState } from 'react';
+import React from 'react';
+import { postUser } from '../../services/api/user';
 
 export type NewUserProps = {
     email: string;
@@ -76,18 +81,32 @@ export default function SignUpPage() {
     resolver: yupResolver(schema)
   });
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const newUser = {
-            email: data.email,
-            password: data.password,
-            role: 'volunteer'
-        };
-        console.log('data:', newUser);
-
-    // postUsers(newUser);
+// state d'ouverture de la modale
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(!open)
+  }
+// fonction de validation du formulaire
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (!data.email) {
+      return;
+    }
+  
+    const newUser = {
+      email: data.email,
+      password: data.password,
+      role: 'volunteer'
+    };
+    console.log('data:', newUser);
+  
+    postUser(newUser);
+    setOpen(true)
   };
 
+
+
   return (
+
     <div className="flex flex-col items-center gap-14 mt-10 ">
       <Typography variant="h1" color="white">
         S'inscrire
@@ -120,7 +139,17 @@ export default function SignUpPage() {
             register={register}
             errors={errors}
           />
-          <ButtonDefault type="submit">M'inscrire</ButtonDefault>
+
+          {/* bouton d'affichage de la modale  */}
+          <ButtonDefault type="submit">
+            M'inscrire
+      </ButtonDefault>
+          {/*Modale d'information aprés inscription */}
+      <Dialog open={open} handler={handleOpen}>
+        <DialogHeader>Validation de l'inscription</DialogHeader>
+        <DialogBody>Votre inscription à été pris en compte. Consulter vos emails pour finaliser l'inscription. </DialogBody>
+      </Dialog>
+        
         </form>
         <div className="flex justify-between mt-6">
           <p>Déjà un compte ?</p>
@@ -130,5 +159,7 @@ export default function SignUpPage() {
         </div>
       </div>
     </div>
-    );
-}
+  );
+} 
+
+

@@ -24,6 +24,7 @@ import EventsPage from './pages/Events/EventsPage';
 
 import TaskList from "./pages/Admin/HandleTask/TaskList";
 
+
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
   const { pathname } = useLocation();
@@ -33,6 +34,10 @@ export default function App() {
 
   // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
   const [isAdmin, setIsAdmin] = useState(false);
+
+
+
+
 
 
   return (
