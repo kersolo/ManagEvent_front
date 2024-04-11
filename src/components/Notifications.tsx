@@ -16,20 +16,23 @@ export default function Notification({ element }: NotifcationInterface) {
     // function LongPress() {
         // const [isLongPress, setIsLongPress] = useState(false);
         // const count = 0;
-        let timer;
-        const handleMousseDown = (timer:any) => {
+        const timer = 0;
+        console.log("Timer1",timer)
+        const handleMousseDown = (timer:Timer) => {
+            console.log("Timer2",timer)
             setInterval({timer}, 1000);
-            
+            console.log("Timer3",timer)
         };
         
-        
         const handleMouseUp = (timer:any) => {
+            console.log("Timer4",timer)
             timer++
             clearInterval(timer)
-            if (timer >= 5) {
+
+            if (timer <= 5) {
                 // timer++;
                 console.log('Coucou')
-            } else { console.log('appuyez plus longtemps')}
+            } else { console.log('appuyez plus longtemps', timer)}
         }
         const [checkBox, setCheckBox] = useState(true);
         function handleChange () {
