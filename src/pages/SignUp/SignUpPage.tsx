@@ -16,9 +16,6 @@ export type Inputs = {
   password: string;
   confirmPassword: string;
 };
-interface SignUpPageProps {
-  handleSubmitUser: (newUser: NewUserProps) => void;
-}
 
 const schema = yup
   .object({
@@ -29,16 +26,48 @@ const schema = yup
     password: yup
       .string()
       .required('Le mot de passe est requis')
-      .min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
+      .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+      .matches(
+        RegExp('(.*[a-z].*)'),
+        'Votre mot de passe doit contenir au moins une miniscule'
+      )
+      .matches(
+        RegExp('(.*[A-Z].*)'),
+        'Votre mot de passe doit contenir au moins une majuscule'
+      )
+      .matches(
+        RegExp('(.*\\d.*)'),
+        'Votre mot de passe doit contenir au moins un chiffre'
+      )
+      .matches(
+        RegExp('[!@#$%^&*(),.?":{}|<>]'),
+        'Votre mot de passe doit contenir au moins un caracteère special'
+      ),
     confirmPassword: yup
       .string()
       .required('La confirmation du mot de passe est requise')
+      .matches(
+        RegExp('(.*[a-z].*)'),
+        'Votre mot de passe doit contenir au moins une miniscule'
+      )
+      .matches(
+        RegExp('(.*[A-Z].*)'),
+        'Votre mot de passe doit contenir au moins une majuscule'
+      )
+      .matches(
+        RegExp('(.*\\d.*)'),
+        'Votre mot de passe doit contenir au moins un chiffre'
+      )
+      .matches(
+        RegExp('[!@#$%^&*(),.?":{}|<>]'),
+        'Votre mot de passe doit contenir au moins un caracteère special !@#$%^&*(),.?":{}|<>'
+      )
       .oneOf([yup.ref('password')], 'Le mot de passe ne correspond pas')
   })
 
   .required();
 
-export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
+export default function SignUpPage() {
   const {
     register,
     handleSubmit,
@@ -55,18 +84,18 @@ export default function SignUpPage({ handleSubmitUser }: SignUpPageProps) {
     };
     console.log('data:', newUser);
 
-    handleSubmitUser(newUser);
+    // postUsers(newUser);
   };
 
   return (
     <div className="flex flex-col items-center gap-14 mt-10 ">
-      <Typography variant="h1" color="black">
+      <Typography variant="h1" color="white">
         S'inscrire
       </Typography>
       <div className="border rounded-lg border-gray-800 p-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col justify-center gap-6"
+          className="flex flex-col justify-center gap-6 w-72"
           action=""
           aria-label="Inscription"
         >

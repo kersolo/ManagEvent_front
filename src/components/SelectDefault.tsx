@@ -1,6 +1,7 @@
 import { Select } from "@material-tailwind/react";
-import { FieldValues } from "react-hook-form";
+import { FieldValues } from 'react-hook-form';
 import { SelectDefaultProps } from "../services/types/components-types/SelectType";
+
 
 export function SelectDefault<T extends FieldValues>({
   label,
@@ -13,7 +14,7 @@ export function SelectDefault<T extends FieldValues>({
   className,
 }: SelectDefaultProps<T>) {
   return (
-    <div className="w-72">
+    <div>
       <Select
         children={undefined}
         {...(register(name), { onChange: onChange })}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
@@ -11,40 +11,27 @@ import NewPasswordPage from "./pages/Login/ResetPassword/NewPasswordPage";
 import ResetPassPage from "./pages/Login/ResetPassword/ResetPassPage";
 import ProfilePage from "./pages/Profil/ProfilePage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
-import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
+import SignUpPage from "./pages/SignUp/SignUpPage";
 import Login from "./pages/Login/Login"
 import Contact from './pages/ContctUs/Contact';
 import Homepage from './pages/Home/Homepage';
-
-import { getUsers } from "./services/api/user";
 import Page404 from "./services/utils/Page404";
 import PrivateAdminRoute from "./services/utils/PrivateAdminRoute";
 import NotificationPage from "./pages/Notification/NotificationPage";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import DetailEventPage from './pages/Events/DetailEventPage';
+import EventsPage from './pages/Events/EventsPage';
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
   const { pathname } = useLocation();
-  const isAdminPath = new RegExp("^/admin");
+  const isAdminPath = new RegExp('^/admin');
   const isPanelAdmin = pathname.match(isAdminPath);
   //
 
   // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
   const [isAdmin, setIsAdmin] = useState(false);
 
-
-  const [users, setUsers] = useState<NewUserProps[] | undefined>([]);
-
-  function handleSubmitUser(newUser: NewUserProps): void {
-    setUsers([...(users as []), newUser]);
-  }
-
-  useEffect(() => {
-    const loadUser = async () => {
-      const response = await getUsers();
-      setUsers(response);
-    };
-    loadUser();
-  }, []);
 
   return (
     <>
@@ -60,7 +47,7 @@ export default function App() {
         />
         <Route
           path="/inscription"
-          element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
+          element={<SignUpPage />}
         />
         <Route path="/event/calendar" element={<CalendarPage />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
@@ -74,9 +61,15 @@ export default function App() {
           />
         </Route>
 
+
         <Route path="*" element={<Page404 />} />
         <Route path="/NotificationPage" element={<NotificationPage />}></Route>
+
+        <Route path="/event/detail/:id" element={<DetailEventPage />} />
+        <Route path="/events" element={<EventsPage />} /> // page de Test
+
       </Routes>
+      <ReactQueryDevtools />
     </>
   );
 }

@@ -35,5 +35,14 @@ declare module '@material-tailwind/react' {
   export interface DialogFooterProps extends EventCapture {
     placeholder?: unknown;
   }
+  export interface RadioProps extends EventCapture {
+    crossOrigin?: unknown;
+  }
+  export interface CardProps extends EventCapture {
+    placeholder?: unknown;
+  }
+  export interface CardBodyProps extends EventCapture {
+    placeholder?: unknown;
+  }
   // more...
 }

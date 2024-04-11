@@ -1,25 +1,19 @@
-import {
-  Avatar,
-  Button,
-  Dialog,
-  DialogBody,
-  DialogFooter,
-  DialogHeader
-} from '@material-tailwind/react';
 import { InputDefault } from '../../components/InputDefault';
 import ButtonDefault from '../../components/ButtonDefault';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
-import { getUserProfile } from '../../services/api/profile';
-import Pencil from '../../assets/pencil.svg';
-import BackIcon from '../../assets/back-icon.svg';
-import { Link } from 'react-router-dom';
+import { getUserProfileId, putPorfileUser } from '../../services/api/profile';
+import { useNavigate } from 'react-router-dom';
+import { DialogDeleteUser } from '../../components/Dialog/DialogDeleteUser';
+import { DialogUpdatePassword } from '../../components/Dialog/DialogUpdatePassword';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { DialogUpdateAvatar } from '../../components/Dialog/DialogUpdateAvatar';
+import BackPreviousPage from '../../components/BackPreviousPage';
+import { useState } from 'react';
 
 interface ProfileInfosPropsInterface {
   firstname: string;
   lastname: string;
   nickname: string;
-  avatar_url: string;
   email: string;
 }
 
@@ -27,20 +21,30 @@ export default function UpdateProfilePage() {
   const [usersProfile, setUsersProfile] = useState<
     ProfileInfosPropsInterface[] | undefined
   >([]);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const loadUser = async () => {
-      const response = await getUserProfile();
-      setUsersProfile(response);
-    };
-    loadUser();
-  }, []);
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<ProfileInfosPropsInterface>();
+
+  const { data: userProfile } = useQuery({
+    queryKey: ['userProfile'],
+    queryFn: () => getUserProfileId(),
+    staleTime: 0
+  });
+
+  const add = useMutation({
+    mutationFn: (body: ProfileInfosPropsInterface) => putPorfileUser(body),
+    onSuccess: (newUserProfile: any) => {
+      const updatedTodos = [newUserProfile];
+
+      queryClient.setQueryData(['userProfile'], updatedTodos);
+    }
+  });
 
   const onSubmit: SubmitHandler<ProfileInfosPropsInterface> = (data) => {
     const UpdateProfile = {
@@ -50,57 +54,27 @@ export default function UpdateProfilePage() {
       email: data.email
     };
     console.log('UpdateProfile:', UpdateProfile);
+    // putPorfileUser(UpdateProfile);
+    add.mutate(UpdateProfile);
   };
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(!open);
+  const handleDelete = () => {
+    // deleteUser(id)
+    console.log('Votre compte a bien été supprimé');
+    navigate('/');
   };
 
   return (
     <>
-      <Link to="/profile">
-        <div className="flex pt-2">
-          <img src={BackIcon} alt="" />
-          <p>Retour</p>
-        </div>
-      </Link>
-      <div className="flex flex-col items-center gap-14 mt-10 ">
-        {usersProfile?.map((infos) => (
+      <BackPreviousPage path="/profile" />
+      {userProfile?.map((infos: any, index: number) => (
+        <div key={index} className="flex flex-col items-center gap-14 mt-10 ">
           <>
-            <div className="flex">
-              <Avatar id="avatar_url" src={infos.avatar_url} alt="avatar_url" />
-              <button onClick={handleOpen}>
-                <img src={Pencil} alt="" />
-              </button>
-              <Dialog open={open} handler={handleOpen}>
-                <form action="" onSubmit={handleSubmit(onSubmit)}>
-                  <DialogHeader>Veuillez Uploader votre image</DialogHeader>
-                  <DialogBody>
-                    <input type="file" {...register('avatar_url')} />
-                  </DialogBody>
-                  <DialogFooter>
-                    <Button
-                      variant="text"
-                      color="red"
-                      onClick={handleOpen}
-                      className="mr-1"
-                    >
-                      <span>Cancel</span>
-                    </Button>
-                    <Button
-                      type="submit"
-                      variant="gradient"
-                      color="green"
-                      onClick={handleOpen}
-                    >
-                      <span>Confirm</span>
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </Dialog>
-            </div>
             <div className="flex flex-col gap-3">
+              <div className="flex justify-center mb-10 ">
+                <DialogUpdateAvatar />
+              </div>
+              <DialogUpdatePassword />
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col justify-center gap-4"
@@ -138,23 +112,16 @@ export default function UpdateProfilePage() {
                   register={register}
                   errors={errors}
                 />
-                <div className="mt-5 mb-5">
-                  <ButtonDefault variant="secondary">
-                    Modifier mot de passe
-                  </ButtonDefault>
-                </div>
 
                 <ButtonDefault type="submit">
                   Valider les modifications
                 </ButtonDefault>
               </form>
-              <ButtonDefault variant="delete">
-                Supprimer mon compte
-              </ButtonDefault>
+              <DialogDeleteUser handleDelete={handleDelete} />
             </div>
           </>
-        ))}
-      </div>
+        </div>
+      ))}
     </>
   );
 }
