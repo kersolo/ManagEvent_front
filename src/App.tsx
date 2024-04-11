@@ -3,9 +3,13 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarAdmin from "./components/NavBar/NavBarAdmin";
+import CreateUpdateEventPage from "./pages/Admin/HandleEvent/CreateUpdateEventPage";
 import ContactPage from "./pages/Contact/ContactPage";
-import CheckEmailPage from "./pages/Login/CheckEmailPage";
-import ResetPassPage from "./pages/Login/ResetPassPage";
+import CalendarPage from "./pages/Events/CalendarPage";
+import CheckEmailPage from "./pages/Login/ResetPassword/CheckEmailPage";
+import NewPasswordPage from "./pages/Login/ResetPassword/NewPasswordPage";
+import ResetPassPage from "./pages/Login/ResetPassword/ResetPassPage";
+import ProfilePage from "./pages/Profil/ProfilePage";
 import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
 import SignUpPage, { NewUserProps } from "./pages/SignUp/SignUpPage";
 import Login from "./pages/Login/Login"
@@ -13,6 +17,8 @@ import Contact from './pages/ContctUs/Contact';
 import Homepage from './pages/Home/Homepage';
 
 import { getUsers } from "./services/api/user";
+import Page404 from "./services/utils/Page404";
+import PrivateAdminRoute from "./services/utils/PrivateAdminRoute";
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -48,12 +54,26 @@ export default function App() {
         <Route path="/login/reset-pass" element={<ResetPassPage />} />
         <Route path="/login/check-email" element={<CheckEmailPage />} />
         <Route
+          path="/login/new-password/:token"
+          element={<NewPasswordPage />}
+        />
+        <Route
           path="/inscription"
           element={<SignUpPage handleSubmitUser={handleSubmitUser} />}
         />
+        <Route path="/event/calendar" element={<CalendarPage />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
          <Route path="/se-connecter" element={<Login />} />
         <Route path="/contactez-nous" element={<Contact/>} />
+        <Route element={<PrivateAdminRoute />}>
+          <Route
+            path="/admin/event/create-update/:eventId?"
+            element={<CreateUpdateEventPage />}
+          />
+        </Route>
+
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );
