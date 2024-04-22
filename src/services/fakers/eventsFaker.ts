@@ -1,4 +1,9 @@
-export const eventDataFaker = [
+import {
+  EventDataFaker,
+  EventForCalendarInterface,
+} from "../interfaces/EventInterface";
+
+export const eventDataFaker: EventDataFaker[] = [
   {
     title: "Match",
     startDate: new Date(),
@@ -32,5 +37,29 @@ export const eventDataFaker = [
         volunteerNumber: 2,
       },
     ],
+  },
+];
+
+export const eventsForCalendarFaker: EventForCalendarInterface[] = [
+  {
+    id: "1",
+    title: "Tournoi des poussins",
+    start: "2024-04-27",
+    end: "2024-04-29",
+    url: `/event/detail/1`,
+  },
+  {
+    id: "2",
+    title: "Match des régionales",
+    start: "2024-04-25",
+    end: "2024-04-25",
+    url: `/event/detail/2`,
+  },
+  {
+    id: "3",
+    title: "Apéro",
+    start: "2024-04-25",
+    end: "2024-04-25",
+    url: `/event/detail/3`,
   },
 ];

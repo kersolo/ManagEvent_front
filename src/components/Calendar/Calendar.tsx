@@ -2,9 +2,10 @@ import allLocales from "@fullcalendar/core/locales-all.js";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
+import { CalendarPropsType } from "../../services/types/components-types/CalendarType";
 import "./Calendar.css";
 
-export default function Calendar(events) {
+export default function Calendar(events: CalendarPropsType) {
   return (
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
