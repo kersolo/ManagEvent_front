@@ -2,15 +2,31 @@ import allLocales from "@fullcalendar/core/locales-all.js";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
+import closeEvent from "../../assets/closeEvent.svg";
+import openEvent from "../../assets/openEvent.svg";
 import { CalendarPropsType } from "../../services/types/components-types/CalendarType";
 import "./Calendar.css";
 
-export default function Calendar(events: CalendarPropsType) {
+export default function Calendar({ events, isAdmin }: CalendarPropsType) {
+  function renderEventContent(eventInfo) {
+    return (
+      <div className="flex gap-2">
+        <img
+          src={
+            eventInfo.event.extendedProps.status == "open"
+              ? openEvent
+              : closeEvent
+          }
+        />
+        <p className="truncate font-bold">{eventInfo.event.title}</p>
+      </div>
+    );
+  }
   return (
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
-      editable={true}
+      editable={isAdmin}
       weekends={true}
       firstDay={1}
       events={events}
@@ -26,6 +42,7 @@ export default function Calendar(events: CalendarPropsType) {
       dayMaxEvents={true}
       locales={allLocales}
       locale={"fr"}
+      eventContent={renderEventContent}
     />
   );
 }

@@ -1,6 +1,8 @@
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import closeEvent from "../../assets/closeEvent.svg";
+import openEvent from "../../assets/openEvent.svg";
 import EventCardList from "../../components/EventCardList";
 
 export default function EventsPage() {
@@ -24,6 +26,14 @@ export default function EventsPage() {
         </Link>
       </div>
       <EventCardList />
+      <div className="my-4">
+        <p className="flex gap-2">
+          <img src={openEvent} alt="" /> Besoin de bénévoles
+        </p>
+        <p className="flex gap-2">
+          <img src={closeEvent} alt="" /> Événement complet
+        </p>
+      </div>
     </div>
   );
 }

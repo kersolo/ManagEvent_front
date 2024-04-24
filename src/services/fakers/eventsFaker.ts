@@ -43,23 +43,26 @@ export const eventDataFaker: EventDataFaker[] = [
 export const eventsForCalendarFaker: EventForCalendarInterface[] = [
   {
     id: "1",
-    title: "Tournoi des poussins",
+    title: "Apéro",
     start: "2024-04-27",
     end: "2024-04-29",
-    url: `/event/detail/1`,
+    url: "/event/detail/1",
+    status: "close",
   },
   {
     id: "2",
-    title: "Match des régionales",
+    title: "Scéance film",
     start: "2024-04-25",
     end: "2024-04-25",
-    url: `/event/detail/2`,
+    url: "/event/detail/2",
+    status: "open",
   },
   {
     id: "3",
-    title: "Apéro",
+    title: "Feu d'artifice",
     start: "2024-04-25",
     end: "2024-04-25",
-    url: `/event/detail/3`,
+    url: "/event/detail/3",
+    status: "close",
   },
 ];

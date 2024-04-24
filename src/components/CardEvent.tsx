@@ -10,8 +10,8 @@ export type CardEventPropsType = {
 
 export default function CardEvent({ event, events }: CardEventPropsType) {
   return (
-    <Card className="border-dp my-small">
-      <CardBody>
+    <Card className="border-dp mb-small">
+      <CardBody className="mb-2">
         <Typography color="white" className="mb-2">
           {event}
         </Typography>

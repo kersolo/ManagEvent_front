@@ -1,5 +1,6 @@
 import { eventsFaker } from "../../pages/Events/eventsFaker";
 import { eventDataFaker, eventsForCalendarFaker } from "../fakers/eventsFaker";
+import { EventForCalendarInterface } from "../interfaces/EventInterface";
 
 export async function getEventDataForUpdateEventPage(eventId: string) {
   try {
@@ -40,11 +41,14 @@ export async function getEventId() {
   }
 }
 
-export async function findAllEventsForCalendar() {
+export async function findAllEventsForCalendar(): Promise<
+  EventForCalendarInterface[] | undefined
+> {
   try {
     const data = await eventsForCalendarFaker;
-
     //const { data } = await axios.get("/event");
+    // cf EventForCalendarrInterface to know how to convert "events" to "eventsForCalendar"
+    // (dates, status, etc..)
     return data;
   } catch (err) {
     console.log("ERROR");
