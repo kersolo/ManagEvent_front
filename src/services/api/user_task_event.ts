@@ -1,5 +1,5 @@
 // import axios from 'axios';
-import { user_task_event_Faker } from '../../pages/Events/user_task_event_Faker';
+import { user_task_event_Faker } from '../fakers/user_task_event_Faker';
 
 export async function get_user_task_event() {
   try {
