@@ -31,7 +31,7 @@ export default function App() {
   //
 
   // ajouter la logique pour que ce state varie en fonction du rôle du User connecté
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   return (
     <>
@@ -46,7 +46,6 @@ export default function App() {
           element={<NewPasswordPage />}
         />
         <Route path="/inscription" element={<SignUpPage />} />
-        <Route path="/event/calendar" element={<CalendarPage />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/modifications" element={<UpdateProfilePage />} />
         <Route path="/se-connecter" element={<Login />} />
@@ -61,7 +60,19 @@ export default function App() {
         <Route path="*" element={<Page404 />} />
         <Route path="/NotificationPage" element={<NotificationPage />}></Route>
         <Route path="/event/detail/:id" element={<DetailEventPage />} />
-        <Route path="/events" element={<EventsPage />} /> // page de Test
+        <Route path="/events" element={<EventsPage isPanelAdmin={false} />} />
+        <Route
+          path="/events/calendar"
+          element={<CalendarPage isPanelAdmin={false} />}
+        />
+        <Route
+          path="/admin/events"
+          element={<EventsPage isPanelAdmin={true} />}
+        />
+        <Route
+          path="/admin/events/calendar"
+          element={<CalendarPage isPanelAdmin={true} />}
+        />
       </Routes>
       <ReactQueryDevtools />
     </>

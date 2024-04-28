@@ -19,19 +19,22 @@ export default function NavBarAdmin() {
       <nav className="flex justify-around text-sm lg:text-base md:justify-between items-center bg-navBarBlueDP opacity-95 text-white p-large fixed inset-x-0 bottom-0 md:sticky md:top-0 ">
         <div className="hidden md:flex gap-8 lg:gap-12 ">
           <Link
-            to={"/"}
+            to={"/events"}
             className={`text-orangeDP hover:text-darkOrangeDP flex gap-2`}
           >
             <span>Accueil</span>
             <FontAwesomeIcon icon={faUser} size="lg" />
           </Link>
-          <Link to={"/"} className="hover:text-lightBlueDP">
+          <Link to={"/admin/events"} className="hover:text-lightBlueDP">
             Gestion événements
           </Link>
-          <Link to={"/"} className="hover:text-lightBlueDP">
+          <Link
+            to={"/admin/liste-des-taches"}
+            className="hover:text-lightBlueDP"
+          >
             Gestion tâches
           </Link>
-          <Link to={"/"} className="hover:text-lightBlueDP">
+          <Link to={"/admin/users"} className="hover:text-lightBlueDP">
             Gestion utilisateurs
           </Link>
         </div>

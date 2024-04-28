@@ -1,15 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonDefault from "../../components/ButtonDefault";
 import { getProfileById } from "../../services/api/profile";
-import { useRequiredParams } from "../../services/hooks/useRequiredParams";
 import { ProfileInterface } from "../../services/interfaces/ProfileInterface";
 import ProfileEvents from "./ProfileEvents";
 import ProfileSkills from "./ProfileSkills";
 
 export default function ProfilePage() {
-  const { id } = useRequiredParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState<"events" | "skills">("events");
 

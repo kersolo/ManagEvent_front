@@ -46,7 +46,6 @@ export const eventsForCalendarFaker: EventForCalendarInterface[] = [
     title: "Apéro",
     start: "2024-04-27",
     end: "2024-04-29",
-    url: "/event/detail/1",
     status: "close",
   },
   {
@@ -54,7 +53,6 @@ export const eventsForCalendarFaker: EventForCalendarInterface[] = [
     title: "Scéance film",
     start: "2024-04-25",
     end: "2024-04-25",
-    url: "/event/detail/2",
     status: "open",
   },
   {
@@ -62,7 +60,6 @@ export const eventsForCalendarFaker: EventForCalendarInterface[] = [
     title: "Feu d'artifice",
     start: "2024-04-25",
     end: "2024-04-25",
-    url: "/event/detail/3",
     status: "close",
   },
 ];

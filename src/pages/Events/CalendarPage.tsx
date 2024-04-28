@@ -1,13 +1,19 @@
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import closeEvent from "../../assets/closeEvent.svg";
 import openEvent from "../../assets/openEvent.svg";
+import ButtonDefault from "../../components/ButtonDefault";
 import Calendar from "../../components/Calendar/Calendar";
 import { findAllEventsForCalendar } from "../../services/api/event";
 
-export default function CalendarPage() {
+export default function CalendarPage({
+  isPanelAdmin,
+}: {
+  isPanelAdmin: boolean;
+}) {
+  const navigate = useNavigate();
   const { data: eventsForCalendar } = useQuery({
     queryKey: ["events"],
     queryFn: () => findAllEventsForCalendar(),
@@ -27,13 +33,22 @@ export default function CalendarPage() {
 
   return (
     <div className="bg-darkBlueDP md:w-2/3 m-large md:my-8 md:mx-auto">
-      <div className="flex justify-between mb-4">
-        <p className="mb-4 text-sm sm:text-base">Date du jour : {today}</p>
-        <Link to="/events">
+      <ButtonDefault
+        className={isPanelAdmin ? "" : "hidden"}
+        onClick={() => navigate("/admin/event/create-update")}
+      >
+        Créer un nouvel évènement
+      </ButtonDefault>
+      <div className="flex justify-between mt-6">
+        <p className="mb-4 text-sm sm:text-base bg-hoverBlueDP p-1 rounded">
+          Date du jour :{" "}
+          <span style={{ textTransform: "capitalize" }}>{today}</span>
+        </p>
+        <Link to={isPanelAdmin ? "/admin/events" : "/events"}>
           <FontAwesomeIcon icon={faList} size="xl" />
         </Link>
       </div>
-      <Calendar events={eventsForCalendar} isAdmin={false} />
+      <Calendar events={eventsForCalendar} isAdmin={isPanelAdmin} />
       <div className="my-4">
         <p className="flex gap-2">
           <img src={openEvent} alt="" /> Besoin de bénévoles

@@ -2,7 +2,9 @@ import { eventsFaker } from "../../pages/Events/eventsFaker";
 import { eventDataFaker, eventsForCalendarFaker } from "../fakers/eventsFaker";
 import { EventForCalendarInterface } from "../interfaces/EventInterface";
 
-export async function getEventDataForUpdateEventPage(eventId: string) {
+export async function getEventDataForUpdateEventPage(
+  eventId: string | undefined
+) {
   try {
     const data = eventDataFaker[Number(eventId)];
     // REMPLACER par requete get sur (user_task_event JOIN events) by user_id

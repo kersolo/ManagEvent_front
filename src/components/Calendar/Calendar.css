@@ -5,9 +5,14 @@
   border-radius: 10px;
 }
 
+.fc-daygrid-day:hover {
+  background-color: #2e3461 !important;
+  cursor: pointer;
+}
+
 .fc-theme-standard .fc-popover,
 .fc-day-today {
-  background-color: #2e3461 !important;
+  background-color: #4f5aa9 !important;
 }
 .fc-scrollgrid {
   background-color: #0b1247;

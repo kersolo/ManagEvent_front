@@ -1,11 +1,17 @@
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import closeEvent from "../../assets/closeEvent.svg";
 import openEvent from "../../assets/openEvent.svg";
+import ButtonDefault from "../../components/ButtonDefault";
 import EventCardList from "../../components/EventCardList";
 
-export default function EventsPage() {
+export default function EventsPage({
+  isPanelAdmin,
+}: {
+  isPanelAdmin: boolean;
+}) {
+  const navigate = useNavigate();
   function getToday() {
     const today = new Date();
     return today.toLocaleDateString("fr-FR", {
@@ -18,10 +24,19 @@ export default function EventsPage() {
   const today = getToday();
 
   return (
-    <div className="flex flex-col md:w-2/3 m-large md:my-16 md:mx-auto gap-4 ">
-      <div className="flex justify-between">
-        <p className="mb-4">Date du jour : {today}</p>
-        <Link to="/event/calendar">
+    <div className="flex flex-col md:w-2/3 m-large md:my-8 md:mx-auto gap-4 ">
+      <ButtonDefault
+        className={isPanelAdmin ? "" : "hidden"}
+        onClick={() => navigate("/admin/event/create-update")}
+      >
+        Créer un nouvel évènement
+      </ButtonDefault>
+      <div className="flex justify-between mt-2">
+        <p className="mb-4 bg-hoverBlueDP p-1 rounded">
+          Date du jour :{" "}
+          <span style={{ textTransform: "capitalize" }}>{today}</span>
+        </p>
+        <Link to={isPanelAdmin ? "/admin/events/calendar" : "/events/calendar"}>
           <FontAwesomeIcon icon={faCalendarDays} size="xl" />
         </Link>
       </div>

@@ -1,29 +1,27 @@
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons/faTrashCan";
+import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Dialog, Input } from "@material-tailwind/react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonDefault from "../../../components/ButtonDefault";
 import DatePickerDefault from "../../../components/DatePickerDefault";
 import { InputDefault } from "../../../components/InputDefault";
 import { TextareaDefault } from "../../../components/TextareaDefault";
-import { CreateEventFormType } from "../../../services/types/CreateEventPageType";
-
-import { faTrashCan } from "@fortawesome/free-regular-svg-icons/faTrashCan";
-import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dialog, Input } from "@material-tailwind/react";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { getEventDataForUpdateEventPage } from "../../../services/api/event";
 import { getTasksList } from "../../../services/api/task";
-import { useRequiredParams } from "../../../services/hooks/useRequiredParams";
 import { CreateEventFormSchema } from "../../../services/schemas/CreateEventFormSchema";
+import { CreateEventFormType } from "../../../services/types/CreateEventPageType";
 
 export default function CreateUpdateEventPage() {
   const navigate = useNavigate();
 
   //switch Create/Update
-  const { eventId }: { eventId: string } = useRequiredParams();
+  const { eventId } = useParams();
   const isCreateForm = !eventId;
 
   //modal handling
@@ -90,7 +88,7 @@ export default function CreateUpdateEventPage() {
         setPreRegisteredTaskNames([...preRegisteredTaskNames, task.taskName])
       );
     }
-  }, [eventData]);
+  }, [eventData, preRegisteredTaskNames]);
 
   useEffect(() => {
     console.log(3);

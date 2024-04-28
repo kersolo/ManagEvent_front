@@ -18,10 +18,13 @@ export default function Calendar({ events, isAdmin }: CalendarPropsType) {
               : closeEvent
           }
         />
-        <p className="truncate font-bold">{eventInfo.event.title}</p>
+        <p className="hidden sm:block truncate font-bold">
+          {eventInfo.event.title}
+        </p>
       </div>
     );
   }
+
   return (
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
