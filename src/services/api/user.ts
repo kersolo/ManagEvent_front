@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { usersFaker } from '../../pages/SignUp/usersFaker';
+import { usersFaker } from '../fakers/usersFaker';
 
 export async function getUsers() {
   try {
@@ -41,7 +41,7 @@ export async function deleteUser(id: any) {
     const { data } = await axios.delete(`/user`, id);
     return data;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }

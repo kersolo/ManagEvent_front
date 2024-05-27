@@ -1,32 +1,32 @@
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
-import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
-import NavBarAdmin from "./components/NavBar/NavBarAdmin";
-import CreateUpdateEventPage from "./pages/Admin/HandleEvent/CreateUpdateEventPage";
-import TaskList from "./pages/Admin/HandleTask/TaskList";
-import ContactPage from "./pages/Contact/ContactPage";
-import Contact from "./pages/ContctUs/Contact";
-import CalendarPage from "./pages/Events/CalendarPage";
-import DetailEventPage from "./pages/Events/DetailEventPage";
-import EventsPage from "./pages/Events/EventsPage";
-import Homepage from "./pages/Home/Homepage";
-import Login from "./pages/Login/Login";
-import CheckEmailPage from "./pages/Login/ResetPassword/CheckEmailPage";
-import NewPasswordPage from "./pages/Login/ResetPassword/NewPasswordPage";
-import ResetPassPage from "./pages/Login/ResetPassword/ResetPassPage";
-import NotificationPage from "./pages/Notification/NotificationPage";
-import ProfilePage from "./pages/Profil/ProfilePage";
-import UpdateProfilePage from "./pages/Profil/UpdateProfilePage";
-import SignUpPage from "./pages/SignUp/SignUpPage";
-import Page404 from "./services/utils/Page404";
-import PrivateAdminRoute from "./services/utils/PrivateAdminRoute";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useState } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import './App.css';
+import NavBar from './components/NavBar/NavBar';
+import NavBarAdmin from './components/NavBar/NavBarAdmin';
+import CreateUpdateEventPage from './pages/Admin/HandleEvent/CreateUpdateEventPage';
+import TaskList from './pages/Admin/HandleTask/TaskList';
+import ContactPage from './pages/Contact/ContactPage';
+import Contact from './pages/ContctUs/Contact';
+import CalendarPage from './pages/Events/CalendarPage';
+import DetailEventPage from './pages/Events/DetailEventPage';
+import EventsPage from './pages/Events/EventsPage';
+import Homepage from './pages/Home/Homepage';
+import Login from './pages/Login/Login';
+import CheckEmailPage from './pages/Login/ResetPassword/CheckEmailPage';
+import NewPasswordPage from './pages/Login/ResetPassword/NewPasswordPage';
+import ResetPassPage from './pages/Login/ResetPassword/ResetPassPage';
+import NotificationPage from './pages/Notification/NotificationPage';
+import ProfilePage from './pages/Profil/ProfilePage';
+import UpdateProfilePage from './pages/Profil/UpdateProfilePage';
+import SignUpPage from './pages/SignUp/SignUpPage';
+import Page404 from './services/utils/Page404';
+import PrivateAdminRoute from './services/utils/PrivateAdminRoute';
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
   const { pathname } = useLocation();
-  const isAdminPath = new RegExp("^/admin");
+  const isAdminPath = new RegExp('^/admin');
   const isPanelAdmin = pathname.match(isAdminPath);
   //
 
@@ -73,6 +73,7 @@ export default function App() {
           path="/admin/events/calendar"
           element={<CalendarPage isPanelAdmin={true} />}
         />
+        <Route path="/event/:id" element={<DetailEventPage />} />
       </Routes>
       <ReactQueryDevtools />
     </>
