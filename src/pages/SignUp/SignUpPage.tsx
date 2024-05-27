@@ -5,9 +5,9 @@ import { InputDefault } from '../../components/InputDefault';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-tailwind/react';
 import ButtonDefault from '../../components/ButtonDefault';
-import { PopupDefault } from  '../../components/PopupDefault';
+//import { PopupDefault } from  '../../components/PopupDefault';
 import {Dialog,DialogHeader,DialogBody,} from "@material-tailwind/react";
-import { useState } from 'react';
+//import { useState } from 'react';
 import React from 'react';
 import { postUser } from '../../services/api/user';
 
