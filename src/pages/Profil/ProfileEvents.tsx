@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getEventsByUserIdForProfilePage } from "../../services/api/profile";
 import { EventInProfilePageInterface } from "../../services/interfaces/ProfileInterface";
 
-export default function ProfileEvents({ id }: { id: string }) {
+export default function ProfileEvents({ id }: { id: string | undefined }) {
   const {
     data: events,
     isLoading,

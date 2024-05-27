@@ -17,7 +17,7 @@ export async function getUserProfile() {
   }
 }
 
-export async function getProfileById(id: string) {
+export async function getProfileById(id: string | undefined) {
   try {
     const data = profilesFaker.filter(
       (fakeProfile) => fakeProfile.id === id
@@ -33,12 +33,12 @@ export async function getProfileById(id: string) {
   }
 }
 
-export async function getEventsByUserIdForProfilePage(id: string) {
+export async function getEventsByUserIdForProfilePage(id: string | undefined) {
   try {
     const data = eventsProfileFaker;
     // REMPLACER par requete get sur (user_task_event JOIN events) by user_id
     //
-    // const {data} = await axios.get(`/user-task-event/${user_id}`)
+    // const {data} = await axios.get(`/user-task-event/${id}`)
     // return data
     //
     return data;
@@ -47,18 +47,17 @@ export async function getEventsByUserIdForProfilePage(id: string) {
   }
 }
 
-export async function getSkillsByUserIdForProfilePage(id: string) {
+export async function getSkillsByUserIdForProfilePage(id: string | undefined) {
   try {
     const data = skillsProfileFaker;
     // REMPLACER par requete get sur (user_task_event JOIN events) by user_id
     //
-    // const {data} = await axios.get(`/user-task-event/${user_id}`)
+    // const {data} = await axios.get(`/user-task-event/${id}`)
     // return data
     //
     return data;
   } catch (error) {
     console.log(error);
-
   }
 }
 
@@ -70,7 +69,7 @@ export async function getUserProfileId() {
     //const { data } = await axios.get("/profile/id");
     return dataId;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }
@@ -82,10 +81,10 @@ export async function putPorfileUser(updateProfile: any) {
     const data = profileFaker.filter((user) => user.id === 1);
     const newUserProfile = data.fill(updateProfile);
 
-    console.log('newUserProfile::', newUserProfile);
+    console.log("newUserProfile::", newUserProfile);
     return newUserProfile;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSkillsByUserIdForProfilePage } from "../../services/api/profile";
 import { SkillInProfilePageInterface } from "../../services/interfaces/ProfileInterface";
 
-export default function ProfileSkills({ id }: { id: string }) {
+export default function ProfileSkills({ id }: { id: string | undefined }) {
   const {
     data: skills,
     isLoading,

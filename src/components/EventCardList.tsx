@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { getevent } from '../services/api/event';
-import CardEvent from './CardEvent';
+import { useEffect, useState } from "react";
+import { getevent } from "../services/api/event";
+import CardEvent from "./CardEvent";
 
 export type EventType = {
   id: number;
@@ -25,10 +25,10 @@ export default function EventCardList() {
   }, []);
 
   return (
-    <>
+    <div className="mt-small">
       {eventDate?.map((event, index) => (
         <CardEvent key={index} event={event} events={events} />
       ))}
-    </>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Input } from "@material-tailwind/react";
-import { FieldValues} from 'react-hook-form';
+import { FieldValues } from "react-hook-form";
 import { InputDefaultProps } from "../services/types/components-types/InputType";
 
 export function InputDefault<T extends FieldValues>({
@@ -13,7 +13,7 @@ export function InputDefault<T extends FieldValues>({
   className,
 }: InputDefaultProps<T>) {
   return (
-    <div>
+    <>
       <Input
         {...register(name)}
         label={label}

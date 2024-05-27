@@ -1,9 +1,12 @@
-import { eventDataFaker } from "../fakers/eventsFaker";
-import { eventsFaker } from '../../pages/Events/eventsFaker';
+import { eventsFaker } from "../../pages/Events/eventsFaker";
+import { eventDataFaker, eventsForCalendarFaker } from "../fakers/eventsFaker";
+import { EventForCalendarInterface } from "../interfaces/EventInterface";
 
-export async function getEventDataForUpdateEventPage(eventId: number) {
+export async function getEventDataForUpdateEventPage(
+  eventId: string | undefined
+) {
   try {
-    const data = eventDataFaker[eventId];
+    const data = eventDataFaker[Number(eventId)];
     // REMPLACER par requete get sur (user_task_event JOIN events) by user_id
     //
     // const {data} = await axios.get(`/user-task-event/${user_id}`)
@@ -15,7 +18,6 @@ export async function getEventDataForUpdateEventPage(eventId: number) {
   }
 }
 
-
 export async function getevent() {
   try {
     const data = await eventsFaker;
@@ -23,7 +25,7 @@ export async function getevent() {
     //const { data } = await axios.get("/event");
     return data;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }
@@ -36,7 +38,22 @@ export async function getEventId() {
     //const { data } = await axios.get("/profile/id");
     return dataId;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
+    console.log(err);
+  }
+}
+
+export async function findAllEventsForCalendar(): Promise<
+  EventForCalendarInterface[] | undefined
+> {
+  try {
+    const data = await eventsForCalendarFaker;
+    //const { data } = await axios.get("/event");
+    // cf EventForCalendarrInterface to know how to convert "events" to "eventsForCalendar"
+    // (dates, status, etc..)
+    return data;
+  } catch (err) {
+    console.log("ERROR");
     console.log(err);
   }
 }
