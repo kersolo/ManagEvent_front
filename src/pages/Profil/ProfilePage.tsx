@@ -1,25 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import ButtonDefault from "../../components/ButtonDefault";
-import { getProfileById } from "../../services/api/profile";
-import { ProfileInterface } from "../../services/interfaces/ProfileInterface";
-import ProfileEvents from "./ProfileEvents";
-import ProfileSkills from "./ProfileSkills";
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import ButtonDefault from '../../components/ButtonDefault';
+import { getProfileById } from '../../services/api/profile';
+import { ProfileInterface } from '../../services/interfaces/ProfileInterface';
+import ProfileEvents from './ProfileEvents';
+import ProfileSkills from './ProfileSkills';
 
 export default function ProfilePage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [activeLink, setActiveLink] = useState<"events" | "skills">("events");
+  const [activeLink, setActiveLink] = useState<'events' | 'skills'>('events');
 
   const {
     data: profile,
     isLoading,
-    isError,
+    isError
   } = useQuery<ProfileInterface | undefined>({
-    queryKey: ["profile"],
+    queryKey: ['profile'],
     queryFn: () => getProfileById(id),
-    staleTime: 0,
+    staleTime: 0
   });
   const { firstname, lastname, nickname, avatar_url, email } = { ...profile };
 
@@ -47,7 +47,7 @@ export default function ProfilePage() {
           </div>
           <div className="mt-4 flex lg:justify-end">
             <ButtonDefault
-              onClick={() => navigate("/profile/modifications")}
+              onClick={() => navigate('/profile/update')}
               className="h-12 w-32 text-sm md:text-lg"
             >
               Modifier
@@ -58,30 +58,30 @@ export default function ProfilePage() {
       <nav className="flex justify-around md:text-xl">
         <button
           onClick={() => {
-            setActiveLink("events");
+            setActiveLink('events');
           }}
           className={
-            activeLink === "events"
-              ? "underline cursor-default text-orangeDP"
-              : "text-orangeDP hover:underline"
+            activeLink === 'events'
+              ? 'underline cursor-default text-orangeDP'
+              : 'text-orangeDP hover:underline'
           }
         >
           Mes Evénements
         </button>
         <button
           onClick={() => {
-            setActiveLink("skills");
+            setActiveLink('skills');
           }}
           className={
-            activeLink === "skills"
-              ? "underline cursor-default text-orangeDP"
-              : "text-orangeDP hover:underline"
+            activeLink === 'skills'
+              ? 'underline cursor-default text-orangeDP'
+              : 'text-orangeDP hover:underline'
           }
         >
           Mes Compétences
         </button>
       </nav>
-      {activeLink === "events" ? (
+      {activeLink === 'events' ? (
         <ProfileEvents id={id} />
       ) : (
         <ProfileSkills id={id} />
