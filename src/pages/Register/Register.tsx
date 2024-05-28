@@ -1,13 +1,17 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { InputDefault } from '../../components/InputDefault';
-import { Link } from 'react-router-dom';
-import { Typography } from '@material-tailwind/react';
-import ButtonDefault from '../../components/ButtonDefault';
-import { Dialog, DialogHeader, DialogBody } from '@material-tailwind/react';
-import { useState } from 'react';
-import { postUser } from '../../services/api/user';
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Dialog,
+  DialogBody,
+  DialogHeader,
+  Typography,
+} from "@material-tailwind/react";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import * as yup from "yup";
+import ButtonDefault from "../../components/ButtonDefault";
+import { InputDefault } from "../../components/InputDefault";
+import { postUser } from "../../services/api/user";
 
 export type NewUserProps = {
   email: string;
@@ -25,47 +29,47 @@ const schema = yup
     email: yup
       .string()
       .required("L'email est requis")
-      .email('email non valide'),
+      .email("email non valide"),
     password: yup
       .string()
-      .required('Le mot de passe est requis')
-      .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+      .required("Le mot de passe est requis")
+      .min(8, "Le mot de passe doit contenir au moins 8 caractères")
       .matches(
-        RegExp('(.*[a-z].*)'),
-        'Votre mot de passe doit contenir au moins une miniscule'
+        RegExp("(.*[a-z].*)"),
+        "Votre mot de passe doit contenir au moins une miniscule"
       )
       .matches(
-        RegExp('(.*[A-Z].*)'),
-        'Votre mot de passe doit contenir au moins une majuscule'
+        RegExp("(.*[A-Z].*)"),
+        "Votre mot de passe doit contenir au moins une majuscule"
       )
       .matches(
-        RegExp('(.*\\d.*)'),
-        'Votre mot de passe doit contenir au moins un chiffre'
+        RegExp("(.*\\d.*)"),
+        "Votre mot de passe doit contenir au moins un chiffre"
       )
       .matches(
         RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        'Votre mot de passe doit contenir au moins un caracteère special'
+        "Votre mot de passe doit contenir au moins un caracteère special"
       ),
     confirmPassword: yup
       .string()
-      .required('La confirmation du mot de passe est requise')
+      .required("La confirmation du mot de passe est requise")
       .matches(
-        RegExp('(.*[a-z].*)'),
-        'Votre mot de passe doit contenir au moins une miniscule'
+        RegExp("(.*[a-z].*)"),
+        "Votre mot de passe doit contenir au moins une miniscule"
       )
       .matches(
-        RegExp('(.*[A-Z].*)'),
-        'Votre mot de passe doit contenir au moins une majuscule'
+        RegExp("(.*[A-Z].*)"),
+        "Votre mot de passe doit contenir au moins une majuscule"
       )
       .matches(
-        RegExp('(.*\\d.*)'),
-        'Votre mot de passe doit contenir au moins un chiffre'
+        RegExp("(.*\\d.*)"),
+        "Votre mot de passe doit contenir au moins un chiffre"
       )
       .matches(
         RegExp('[!@#$%^&*(),.?":{}|<>]'),
         'Votre mot de passe doit contenir au moins un caracteère special !@#$%^&*(),.?":{}|<>'
       )
-      .oneOf([yup.ref('password')], 'Le mot de passe ne correspond pas')
+      .oneOf([yup.ref("password")], "Le mot de passe ne correspond pas"),
   })
 
   .required();
@@ -74,9 +78,9 @@ export default function SignUpPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<Inputs>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
 
   // state d'ouverture de la modale
@@ -92,9 +96,9 @@ export default function SignUpPage() {
 
     const newUser = {
       email: data.email,
-      password: data.password
+      password: data.password,
     };
-    console.log('data:', newUser);
+    console.log("data:", newUser);
 
     postUser(newUser);
     setOpen(true);
@@ -141,13 +145,13 @@ export default function SignUpPage() {
             <DialogHeader>Validation de l'inscription</DialogHeader>
             <DialogBody>
               Votre inscription à été pris en compte. Consulter vos emails pour
-              finaliser l'inscription.{' '}
+              finaliser l'inscription.{" "}
             </DialogBody>
           </Dialog>
         </form>
         <div className="flex justify-between mt-6">
           <p>Déjà un compte ?</p>
-          <Link className="text-light-blue-600" to="/se-connecter">
+          <Link className="text-light-blue-600" to="/login">
             Se connecter
           </Link>
         </div>
