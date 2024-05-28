@@ -21,7 +21,7 @@ export default function NavBar({ isAdminLogged }: NavBarProps) {
   }
 
   return (
-    <nav className="flex justify-around md:justify-between items-center bg-navBarBlueDP opacity-95 text-white text-sm lg:text-base p-large fixed inset-x-0 bottom-0 md:sticky md:top-0">
+    <nav className="z-50 flex justify-around md:justify-between items-center bg-navBarBlueDP opacity-95 text-white text-sm lg:text-base p-large fixed inset-x-0 bottom-0 md:sticky md:top-0">
       <div className="hidden md:flex gap-8 xl:gap-12 ">
         <Link
           to={"/admin/events"}
