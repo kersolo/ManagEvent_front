@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { usersFaker } from '../fakers/usersFaker';
+import { LoginForm } from '../interfaces/LoginForm';
+import { useApi } from '../hooks/useApi';
+
+const api = useApi();
 
 export async function getUsers() {
   try {
@@ -26,8 +30,19 @@ export async function getUsersId() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function postUser(newUser: any) {
   try {
-    // const { data } = await axios.put(`/user`, newUser);
-    const data = usersFaker.push(newUser);
+    const { data } = await api.post('auth/register', newUser);
+    // const data = usersFaker.push(newUser);
+    return data;
+  } catch (err) {
+    console.log('ERROR');
+    console.log(err);
+  }
+}
+export async function loginUser(values: LoginForm) {
+  try {
+    const { data } = await api.post('auth/login', values);
+
+    // const data = usersFaker.push(newUser);
     return data;
   } catch (err) {
     console.log('ERROR');

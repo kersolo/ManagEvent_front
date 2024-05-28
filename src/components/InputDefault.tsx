@@ -26,6 +26,6 @@ export function InputDefault<T extends FieldValues>({
       {errors && (
         <small className="text-red-600 ml-small">{errors[name]?.message}</small>
       )}
-    </>
+    </div>
   );
 }
