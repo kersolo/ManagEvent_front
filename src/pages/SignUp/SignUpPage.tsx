@@ -5,10 +5,8 @@ import { InputDefault } from '../../components/InputDefault';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-tailwind/react';
 import ButtonDefault from '../../components/ButtonDefault';
-import { PopupDefault } from '../../components/PopupDefault';
 import { Dialog, DialogHeader, DialogBody } from '@material-tailwind/react';
 import { useState } from 'react';
-import React from 'react';
 import { postUser } from '../../services/api/user';
 
 export type NewUserProps = {
@@ -82,7 +80,7 @@ export default function SignUpPage() {
   });
 
   // state d'ouverture de la modale
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(!open);
   };
