@@ -28,10 +28,7 @@ export default function NavBarAdmin() {
           <Link to={"/admin/events"} className="hover:text-lightBlueDP">
             Gestion événements
           </Link>
-          <Link
-            to={"/admin/liste-des-taches"}
-            className="hover:text-lightBlueDP"
-          >
+          <Link to={"/admin/tasks"} className="hover:text-lightBlueDP">
             Gestion tâches
           </Link>
           <Link to={"/admin/users"} className="hover:text-lightBlueDP">
@@ -48,13 +45,13 @@ export default function NavBarAdmin() {
 
         {isMenuOpen ? (
           <div className="md:hidden flex flex-col gap-8 justify-center items-center pt-4 text-base">
-            <Link to={"/"} className="hover:text-lightBlueDP">
+            <Link to={"/admin/events"} className="hover:text-lightBlueDP">
               Gestion événements
             </Link>
-            <Link to={"/"} className="hover:text-lightBlueDP">
+            <Link to={"/admin/tasks"} className="hover:text-lightBlueDP">
               Gestion tâches
             </Link>
-            <Link to={"/"} className="hover:text-lightBlueDP">
+            <Link to={"/admin/users"} className="hover:text-lightBlueDP">
               Gestion utilisateurs
             </Link>
             <Link to={"/"} className="hover:text-lightBlueDP flex gap-2">

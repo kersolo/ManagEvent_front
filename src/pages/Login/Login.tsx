@@ -1,18 +1,18 @@
-import { Input, Typography } from '@material-tailwind/react';
-import ButtonDefault from '../../components/ButtonDefault';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { LoginForm } from '../../services/interfaces/LoginForm';
-import { loginUser } from '../../services/api/user';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Input, Typography } from "@material-tailwind/react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import ButtonDefault from "../../components/ButtonDefault";
+import { loginUser } from "../../services/api/user";
+import { LoginForm } from "../../services/interfaces/LoginForm";
 
 const dataSchema = yup.object({
   email: yup
     .string()
     .email("Votre e-mail n'est pas valide")
-    .required('Ce champ est obligatoire'),
-  password: yup.string().required('Ce champ est obligatoire !!')
+    .required("Ce champ est obligatoire"),
+  password: yup.string().required("Ce champ est obligatoire !!"),
 
   //   checkbox: yup.boolean()
 });
@@ -23,35 +23,38 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<LoginForm>({
     // defaultValues: {
     //   email: '',
     //   password: ''
     //   // checkbox: false,
     // },
-    resolver: yupResolver(dataSchema)
+    resolver: yupResolver(dataSchema),
   });
 
   //console.log(errors);
   const onSubmit = async (values: LoginForm): Promise<any> => {
     const { token } = await loginUser(values);
     if (token) {
-      localStorage.setItem('authToken', token);
-      navigate('/events');
+      localStorage.setItem("authToken", token);
+      navigate("/events");
     }
   };
 
   return (
     <>
       <div className="flex flex-col justify-items-center ">
-        <div className=" mt-10">
-          <form className=" p-5" onSubmit={handleSubmit(onSubmit)}>
-            <div className="sm:w-full md:w-6/12 md:mx-auto lg:w-4/12 lg:mx-auto xl:w-3/12 xl:mx-auto border-2 border-orange-300 rounded p-6 mt-10">
+        <div className=" mt-10 text-center">
+          <Typography variant="h1" color="white">
+            Se connecter
+          </Typography>
+          <form className="p-5" onSubmit={handleSubmit(onSubmit)}>
+            <div className="sm:w-full md:w-6/12 md:mx-auto lg:w-4/12 lg:mx-auto xl:w-3/12 xl:mx-auto border rounded-lg border-gray-800 p-6 mt-10">
               <h2 className="mb-3 flex justify-center">Connexion</h2>
               <div className="mb-1 flex flex-col gap-3">
                 <Input
-                  {...register('email')}
+                  {...register("email")}
                   label="Votre Email"
                   type="email"
                   name="email"
@@ -61,7 +64,7 @@ export default function Login() {
                 </small>
 
                 <Input
-                  {...register('password')}
+                  {...register("password")}
                   type="password"
                   label="Mot de passe"
                   name="password"
@@ -93,10 +96,12 @@ export default function Login() {
                   />
                   <br />
                 </div> */}
-                <div className="mb-3">
-                  <Link to="" className="font-medium text-gray-900">
-                    {' '}
-                    Mot de passe oublié?{' '}
+                <div className="mb-8 mt-4">
+                  <Link
+                    to="/login/reset-pass"
+                    className="font-medium text-light-blue-600 "
+                  >
+                    Mot de passe oublié?
                   </Link>
                 </div>
               </div>
@@ -105,14 +110,17 @@ export default function Login() {
               </div>
               <div>
                 <Typography
-                  color="gray"
+                  color="white"
                   className="mt-4 text-center font-normal"
                   placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
+                  // onPointerEnterCapture={undefined}
+                  // onPointerLeaveCapture={undefined}
                 >
                   Vous n'avez pas de compte?
-                  <Link to="" className="font-medium text-gray-900">
+                  <Link
+                    to="/register"
+                    className="font-medium text-light-blue-600 ml-4"
+                  >
                     Inscrivez-vous
                   </Link>
                 </Typography>
