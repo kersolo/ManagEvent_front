@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ButtonDefault from '../../components/ButtonDefault';
-import { getProfileById } from '../../services/api/profile';
+import { getProfile } from '../../services/api/profile';
 import { ProfileInterface } from '../../services/interfaces/ProfileInterface';
 import ProfileEvents from './ProfileEvents';
 import ProfileSkills from './ProfileSkills';
 
 export default function ProfilePage() {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState<'events' | 'skills'>('events');
 
@@ -18,7 +17,7 @@ export default function ProfilePage() {
     isError
   } = useQuery<ProfileInterface | undefined>({
     queryKey: ['profile'],
-    queryFn: () => getProfileById(id),
+    queryFn: () => getProfile(),
     staleTime: 0
   });
   const { firstname, lastname, nickname, avatar_url, email } = { ...profile };
@@ -26,7 +25,7 @@ export default function ProfilePage() {
   return isLoading ? (
     <p>Loader</p>
   ) : isError ? (
-    <p>Profile not found</p>
+    <p>Vous n'avez pas accès à ce profile</p>
   ) : (
     <div className="flex flex-col md:w-2/3 m-large md:my-16 md:mx-auto gap-12 ">
       <section className="flex p-small lg:p-12 bg-mediumBlueDP rounded-xl">
@@ -47,7 +46,7 @@ export default function ProfilePage() {
           </div>
           <div className="mt-4 flex lg:justify-end">
             <ButtonDefault
-              onClick={() => navigate('/profile/update')}
+              onClick={() => navigate(`/profile/update`)}
               className="h-12 w-32 text-sm md:text-lg"
             >
               Modifier
@@ -81,11 +80,7 @@ export default function ProfilePage() {
           Mes Compétences
         </button>
       </nav>
-      {activeLink === 'events' ? (
-        <ProfileEvents id={id} />
-      ) : (
-        <ProfileSkills id={id} />
-      )}
+      {activeLink === 'events' ? <ProfileEvents /> : <ProfileSkills />}
     </div>
   );
 }

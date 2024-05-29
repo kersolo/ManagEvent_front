@@ -1,9 +1,11 @@
 import {
   eventsProfileFaker,
   profileFaker,
-  profilesFaker,
-  skillsProfileFaker,
-} from "../../pages/Profil/profilFaker";
+  skillsProfileFaker
+} from '../../pages/Profil/profilFaker';
+import { useApi } from '../hooks/useApi';
+
+const api = useApi();
 
 export async function getUserProfile() {
   try {
@@ -12,21 +14,18 @@ export async function getUserProfile() {
     //const { data } = await axios.get("/profile");
     return data;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }
 
-export async function getProfileById(id: string | undefined) {
+export async function getProfile() {
   try {
-    const data = profilesFaker.filter(
-      (fakeProfile) => fakeProfile.id === id
-    )[0];
-    // REMPLACER par requete get sur profile/:id
-    //
-    // const {data} = await axios.get(`/profile/${id}`)
-    // return data
-    //
+    // const data = profilesFaker.filter(
+    //   (fakeProfile) => fakeProfile.id === id
+    // )[0];
+
+    const { data } = await api.get(`profiles`);
     return data;
   } catch (error) {
     console.log(error);
@@ -69,7 +68,7 @@ export async function getUserProfileId() {
     //const { data } = await axios.get("/profile/id");
     return dataId;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }
@@ -81,10 +80,10 @@ export async function putPorfileUser(updateProfile: any) {
     const data = profileFaker.filter((user) => user.id === 1);
     const newUserProfile = data.fill(updateProfile);
 
-    console.log("newUserProfile::", newUserProfile);
+    console.log('newUserProfile::', newUserProfile);
     return newUserProfile;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }

@@ -19,8 +19,28 @@ export async function getUsersId() {
   try {
     const data = usersFaker;
     const dataId = data.filter((user) => user.id === 1);
-    //const { data } = await axios.get("/user");
+    // //const { data } = await axios.get("/user");
+
+    // const { data } = await api.get(`users/${id}`);
+
+    // return data;
     return dataId;
+  } catch (err) {
+    console.log('ERROR');
+    console.log(err);
+  }
+}
+
+export async function getUser() {
+  try {
+    // const data = usersFaker;
+    // const dataId = data.filter((user) => user.id === 1);
+    // //const { data } = await axios.get("/user");
+
+    const { data } = await api.get(`users`);
+
+    return data;
+    // return dataId;
   } catch (err) {
     console.log('ERROR');
     console.log(err);
