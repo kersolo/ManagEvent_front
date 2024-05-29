@@ -3,7 +3,7 @@ export interface ProfileInterface {
   firstname: string;
   lastname: string;
   nickname: string;
-  avatar_url: string;
+  avatarPath: string;
   email: string;
 }
 

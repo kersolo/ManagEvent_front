@@ -20,7 +20,7 @@ export default function ProfilePage() {
     queryFn: () => getProfile(),
     staleTime: 0
   });
-  const { firstname, lastname, nickname, avatar_url, email } = { ...profile };
+  const { firstname, lastname, nickname, avatarPath, email } = { ...profile };
 
   return isLoading ? (
     <p>Loader</p>
@@ -32,7 +32,7 @@ export default function ProfilePage() {
         <div className="shrink-0 w-32 mr-8 sm:mr-12 md:mr-24">
           <img
             className="w-32 h-32 rounded-full"
-            src={avatar_url}
+            src={avatarPath}
             alt="Image de profil"
           />
         </div>

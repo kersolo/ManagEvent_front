@@ -39,7 +39,7 @@ export async function getUser() {
 
     const { data } = await api.get(`users`);
 
-    return data;
+    return data.data;
     // return dataId;
   } catch (err) {
     console.log('ERROR');
@@ -63,7 +63,7 @@ export async function loginUser(values: LoginForm) {
     const { data } = await api.post('auth/login', values);
 
     // const data = usersFaker.push(newUser);
-    return data;
+    return data.data;
   } catch (err) {
     console.log('ERROR');
     console.log(err);
