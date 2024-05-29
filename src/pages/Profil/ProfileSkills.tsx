@@ -1,17 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { getSkillsByUserIdForProfilePage } from "../../services/api/profile";
-import { SkillInProfilePageInterface } from "../../services/interfaces/ProfileInterface";
+import { useQuery } from '@tanstack/react-query';
+import { getUser } from '../../services/api/user';
 
-export default function ProfileSkills({ id }: { id: string | undefined }) {
+export default function ProfileSkills() {
   const {
-    data: skills,
+    data: user,
     isLoading,
-    isError,
-  } = useQuery<SkillInProfilePageInterface[] | undefined>({
-    queryKey: ["skills"],
-    queryFn: () => getSkillsByUserIdForProfilePage(id),
-    staleTime: 0,
+    isError
+  } = useQuery<UserWithIncludesInterface | undefined>({
+    queryKey: ['user'],
+    queryFn: () => getUser(),
+    staleTime: 0
   });
+
+  const userBadges = user?.userBadge;
 
   return isLoading ? (
     <p>Loader</p>
@@ -19,15 +20,15 @@ export default function ProfileSkills({ id }: { id: string | undefined }) {
     <p>Une erreur s'est produite</p>
   ) : (
     <div className="flex flex-col gap-4 md:gap-6">
-      {skills && skills.length > 0 ? (
-        skills.map((skill, index) => (
+      {userBadges && userBadges.length > 0 ? (
+        userBadges.map((userBadge, index) => (
           <div
             key={index}
             className="flex justify-start gap-4 border-dp p-large"
           >
-            <h3 className="h3-size ml-large">{skill.name}</h3>
+            <h3 className="h3-size ml-large">{userBadge.task.skillName}</h3>
             <div className="flex grow justify-end">
-              <p className="underline">level : {skill.level}</p>
+              <p className="underline">level : {userBadge.level}</p>
             </div>
           </div>
         ))
