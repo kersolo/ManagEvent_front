@@ -26,7 +26,7 @@ export async function getProfile() {
     // )[0];
 
     const { data } = await api.get(`profiles`);
-    return data;
+    return data.data;
   } catch (error) {
     console.log(error);
   }
