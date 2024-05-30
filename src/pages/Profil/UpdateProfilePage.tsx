@@ -5,10 +5,10 @@ import { putPorfileUser } from '../../services/api/profile';
 import { useNavigate } from 'react-router-dom';
 import { DialogDeleteUser } from '../../components/Dialog/DialogDeleteUser';
 import { DialogUpdatePassword } from '../../components/Dialog/DialogUpdatePassword';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { DialogUpdateAvatar } from '../../components/Dialog/DialogUpdateAvatar';
 import BackPreviousPage from '../../components/BackPreviousPage';
-import { getUser } from '../../services/api/user';
+import { getUser, putUser } from '../../services/api/user';
 
 interface ProfileInfosPropsInterface {
   firstname: string;
@@ -18,7 +18,6 @@ interface ProfileInfosPropsInterface {
 }
 
 export default function UpdateProfilePage() {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const {
@@ -28,34 +27,26 @@ export default function UpdateProfilePage() {
   } = useForm<ProfileInfosPropsInterface>();
 
   const {
-    data: userProfile,
+    data: user,
     isLoading,
     isError
   } = useQuery<UserWithIncludesInterface | undefined>({
-    queryKey: ['userProfile'],
+    queryKey: ['user'],
     queryFn: () => getUser(),
     staleTime: 0
-  });
-
-  const add = useMutation({
-    mutationFn: (body: ProfileInfosPropsInterface) => putPorfileUser(body),
-    onSuccess: (newUserProfile: any) => {
-      const updatedTodos = [newUserProfile];
-
-      queryClient.setQueryData(['userProfile'], updatedTodos);
-    }
   });
 
   const onSubmit: SubmitHandler<ProfileInfosPropsInterface> = (data) => {
     const UpdateProfile = {
       firstname: data.firstname,
       lastname: data.lastname,
-      nickname: data.nickname,
+      nickname: data.nickname
+    };
+    const UpdateUserEmail = {
       email: data.email
     };
-    console.log('UpdateProfile:', UpdateProfile);
-    // putPorfileUser(UpdateProfile);
-    add.mutate(UpdateProfile);
+    putPorfileUser(UpdateProfile);
+    putUser(UpdateUserEmail);
   };
 
   const handleDelete = () => {
@@ -88,7 +79,7 @@ export default function UpdateProfilePage() {
                 label="Votre Prénom"
                 name="firstname"
                 type="text"
-                defaultValue={userProfile?.profile.firstname}
+                defaultValue={user?.profile.firstname}
                 register={register}
                 errors={errors}
               />
@@ -96,7 +87,7 @@ export default function UpdateProfilePage() {
                 label="Votre Nom"
                 name="lastname"
                 type="text"
-                defaultValue={userProfile?.profile.lastname}
+                defaultValue={user?.profile.lastname}
                 register={register}
                 errors={errors}
               />
@@ -104,7 +95,7 @@ export default function UpdateProfilePage() {
                 label="Votre Pseudo"
                 name="nickname"
                 type="text"
-                defaultValue={userProfile?.profile.nickname}
+                defaultValue={user?.profile.nickname}
                 register={register}
                 errors={errors}
               />
@@ -112,7 +103,7 @@ export default function UpdateProfilePage() {
                 label="Votre email"
                 name="email"
                 type="email"
-                defaultValue={userProfile?.email}
+                defaultValue={user?.email}
                 register={register}
                 errors={errors}
               />

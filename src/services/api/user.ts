@@ -33,25 +33,18 @@ export async function getUsersId() {
 
 export async function getUser() {
   try {
-    // const data = usersFaker;
-    // const dataId = data.filter((user) => user.id === 1);
-    // //const { data } = await axios.get("/user");
-
     const { data } = await api.get(`users`);
 
     return data.data;
-    // return dataId;
   } catch (err) {
     console.log('ERROR');
     console.log(err);
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function postUser(newUser: any) {
   try {
     const { data } = await api.post('auth/register', newUser);
-    // const data = usersFaker.push(newUser);
     return data;
   } catch (err) {
     console.log('ERROR');
@@ -62,7 +55,6 @@ export async function loginUser(values: LoginForm) {
   try {
     const { data } = await api.post('auth/login', values);
 
-    // const data = usersFaker.push(newUser);
     return data.data;
   } catch (err) {
     console.log('ERROR');
@@ -70,11 +62,23 @@ export async function loginUser(values: LoginForm) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function deleteUser(id: any) {
   try {
     const { data } = await axios.delete(`/user`, id);
+    // const { data } = await api.delete(`users`, id);
     return data;
+  } catch (err) {
+    console.log('ERROR');
+    console.log(err);
+  }
+}
+
+export async function putUser(UpdateUser: any) {
+  try {
+    const { data } = await api.patch(`users`, UpdateUser);
+
+    console.log('🚀 ~ putPorfileUser ~ data:', data);
+    return data.data;
   } catch (err) {
     console.log('ERROR');
     console.log(err);
