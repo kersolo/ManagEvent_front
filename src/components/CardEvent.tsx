@@ -3,29 +3,30 @@ import closeEvent from "../assets/closeEvent.svg";
 import openEvent from "../assets/openEvent.svg";
 import { EventType } from "./EventCardList";
 
+type EventsByDate = {
+  date: string;
+  events: EventType[];
+};
 export type CardEventPropsType = {
-  event: string;
-  events: EventType[] | undefined;
+  group: EventsByDate;
 };
 
-export default function CardEvent({ event, events }: CardEventPropsType) {
+export default function CardEvent({ group }: CardEventPropsType) {
   return (
     <Card className="border-dp mb-small">
       <CardBody className="mb-2">
         <Typography color="white" className="mb-2">
-          {event}
+          {group.date}
         </Typography>
-        {events
-          ?.filter((sameEvent) => sameEvent.date_start === event)
-          .map((sameEvent, index) => (
-            <div key={index} className="flex justify-center">
-              <Typography variant="h5" className="text-center mr-5 ">
-                {sameEvent.title}
-              </Typography>
-              {sameEvent.status === "open" && <img src={openEvent} alt="" />}
-              {sameEvent.status === "close" && <img src={closeEvent} alt="" />}
-            </div>
-          ))}
+        {group.events.map((event, index) => (
+          <div key={index} className="flex justify-center">
+            <Typography variant="h5" className="text-center mr-5 ">
+              {event.title}
+            </Typography>
+            {event.status === "Incomplete" && <img src={openEvent} alt="" />}
+            {event.status === "complete" && <img src={closeEvent} alt="" />}
+          </div>
+        ))}
       </CardBody>
     </Card>
   );

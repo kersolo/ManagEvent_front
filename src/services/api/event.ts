@@ -1,6 +1,9 @@
 import { eventsFaker } from "../../pages/Events/eventsFaker";
 import { eventDataFaker, eventsForCalendarFaker } from "../fakers/eventsFaker";
+import { useApi } from "../hooks/useApi";
 import { EventForCalendarInterface } from "../interfaces/EventInterface";
+
+const api = useApi();
 
 export async function getEventDataForUpdateEventPage(
   eventId: string | undefined
@@ -20,10 +23,10 @@ export async function getEventDataForUpdateEventPage(
 
 export async function getevent() {
   try {
-    const data = await eventsFaker;
+    // const data = await eventsFaker;
 
-    //const { data } = await axios.get("/event");
-    return data;
+    const { data } = await api.get("/events");
+    return data.data;
   } catch (err) {
     console.log("ERROR");
     console.log(err);
