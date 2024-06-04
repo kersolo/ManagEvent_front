@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { getevent } from "../services/api/event";
-import CardEvent from "./CardEvent";
+import { useEffect, useState } from 'react';
+import { getevent } from '../services/api/event';
+import CardEvent from './CardEvent';
 
 export type EventType = {
   id: number;
   title: string;
-  date_start: string;
-  date_end: string;
+  startDate: Date;
+  endDate: Date;
   location: string;
   description: string;
   status: string;
@@ -14,7 +14,11 @@ export type EventType = {
 
 export default function EventCardList() {
   const [events, setEvents] = useState<EventType[] | undefined>([]);
-  const eventDate = [...new Set(events?.map((event) => event.date_start))];
+  const eventDate = [
+    ...new Set(
+      events?.map((event) => new Date(event.startDate).toLocaleDateString())
+    )
+  ];
 
   useEffect(() => {
     const loadEvents = async () => {
@@ -26,8 +30,8 @@ export default function EventCardList() {
 
   return (
     <div className="mt-small">
-      {eventDate?.map((event, index) => (
-        <CardEvent key={index} event={event} events={events} />
+      {eventDate?.map((dateStart, index) => (
+        <CardEvent key={index} dateStart={dateStart} events={events} />
       ))}
     </div>
   );
