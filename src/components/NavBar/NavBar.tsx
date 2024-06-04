@@ -20,6 +20,10 @@ export default function NavBar({ isAdminLogged }: NavBarProps) {
     navigate('/notifications');
   }
 
+  const handleDisconnect = () => {
+    localStorage.removeItem('authToken');
+  };
+
   return (
     <nav className="z-50 flex justify-around md:justify-between items-center bg-navBarBlueDP opacity-95 text-white text-sm lg:text-base p-large fixed inset-x-0 bottom-0 md:sticky md:top-0">
       <div className="hidden md:flex gap-8 xl:gap-12 ">
@@ -45,7 +49,11 @@ export default function NavBar({ isAdminLogged }: NavBarProps) {
           Messagerie
         </Link>
       </div>
-      <Link to={'/'} className="hover:text-lightBlueDP hidden md:flex md:gap-2">
+      <Link
+        onClick={handleDisconnect}
+        to={'/'}
+        className="hover:text-lightBlueDP hidden md:flex md:gap-2"
+      >
         <span>Déconnexion </span>
         <FontAwesomeIcon icon={faPowerOff} size="lg" />
       </Link>
@@ -70,7 +78,11 @@ export default function NavBar({ isAdminLogged }: NavBarProps) {
           <Link to={'notifications'} className="hover:text-lightBlueDP">
             Messagerie
           </Link>
-          <Link to={'/'} className="hover:text-lightBlueDP flex gap-2">
+          <Link
+            onClick={handleDisconnect}
+            to={'/'}
+            className="hover:text-lightBlueDP flex gap-2"
+          >
             <span>Déconnexion </span>
             <FontAwesomeIcon icon={faPowerOff} size="lg" />
           </Link>
