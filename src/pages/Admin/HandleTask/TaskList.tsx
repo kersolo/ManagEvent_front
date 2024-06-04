@@ -38,10 +38,9 @@ export default function TaskList() {
     const { register, handleSubmit, reset, formState: { errors } } =
         useForm<taskList>({
         resolver: yupResolver(dataSchema),
-    });
-    //console.log(errors);
+        });
+    
     const onSubmit = (data: taskList): void => {
-        // console.log(values);
         const newTask = {
             nom: data.nom,
             description: data.description,
