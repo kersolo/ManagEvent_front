@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { usersFaker } from '../fakers/usersFaker';
 import { LoginForm } from '../interfaces/LoginForm';
 import { useApi } from '../hooks/useApi';
@@ -71,9 +70,10 @@ export async function loginUser(values: LoginForm) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function deleteUser(id: any) {
+export async function deleteUser() {
   try {
-    const { data } = await axios.delete(`/user`, id);
+    // const { data } = await axios.delete(`/user`, id);
+    const { data } = await api.delete('users');
     return data;
   } catch (err) {
     console.log('ERROR');

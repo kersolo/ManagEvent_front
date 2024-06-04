@@ -2,7 +2,6 @@ import { InputDefault } from '../../components/InputDefault';
 import ButtonDefault from '../../components/ButtonDefault';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { putPorfileUser } from '../../services/api/profile';
-import { useNavigate } from 'react-router-dom';
 import { DialogDeleteUser } from '../../components/Dialog/DialogDeleteUser';
 import { DialogUpdatePassword } from '../../components/Dialog/DialogUpdatePassword';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -19,7 +18,6 @@ interface ProfileInfosPropsInterface {
 
 export default function UpdateProfilePage() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -56,12 +54,6 @@ export default function UpdateProfilePage() {
     console.log('UpdateProfile:', UpdateProfile);
     // putPorfileUser(UpdateProfile);
     add.mutate(UpdateProfile);
-  };
-
-  const handleDelete = () => {
-    // deleteUser(id)
-    console.log('Votre compte a bien été supprimé');
-    navigate('/');
   };
 
   return isLoading ? (
@@ -121,7 +113,7 @@ export default function UpdateProfilePage() {
                 Valider les modifications
               </ButtonDefault>
             </form>
-            <DialogDeleteUser handleDelete={handleDelete} />
+            <DialogDeleteUser />
           </div>
         </>
       </div>
