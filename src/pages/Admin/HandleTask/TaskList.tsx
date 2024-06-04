@@ -100,10 +100,10 @@ export default function TaskList() {
             </div>
             {/*-------------------*/}
             {tasks.length ? (<div className="text-white mt-5">
-                <div className="flex justify-center ">
+                <div className="flex justify-center">
                     <ul className=""> {tasks.map((task, index) => (
-                        <div key={index} className="flex mt-3 items-center  border border-orange-300 p-2 gap-1 rounded-lg" >
-                           <div className=" w-6/12 p-1"><Link to="" title="">{task.nom}</Link></div>
+                        <div key={index} className="flex mt-3 items-center  border border-orange-300 p-2 gap-1 rounded-lg " >
+                           <div className=" w-6/12 p-1 mx-10"><Link to="" title="">{task.nom}</Link></div>
                             <div className="flex gap-5 mx-auto">
                                 <FontAwesomeIcon title="Voir la tache" icon={faEye} />
                                 <FontAwesomeIcon title="Modifier la tache" icon={faPencil} />

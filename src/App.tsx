@@ -21,6 +21,7 @@ import UpdateProfilePage from './pages/Profil/UpdateProfilePage';
 import Register from './pages/Register/Register';
 import Page404 from './services/utils/Page404';
 import PrivateAdminRoute from './services/utils/PrivateAdminRoute';
+import UserList from './pages/Admin/HandleUser/UserList';
 
 export default function App() {
   // checking route path to display NavBar or NavBarAdmin
@@ -80,6 +81,7 @@ export default function App() {
           />
         </Route>
         <Route path="/admin/tasks" element={<TaskList />} />
+        <Route path="/admin/users" element={<UserList />} />
 
         <Route path="*" element={<Page404 />} />
       </Routes>
