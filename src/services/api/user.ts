@@ -37,7 +37,6 @@ export async function getUser() {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function postUser(newUser: any) {
   try {
     const { data } = await api.post('auth/register', newUser);
@@ -58,9 +57,20 @@ export async function loginUser(values: LoginForm) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function deleteUser() {
   try {
-    // const { data } = await axios.delete(`/user`, id);
     const { data } = await api.delete('users');
     return data;
+  } catch (err) {
+    console.log('ERROR');
+    console.log(err);
+  }
+}
+
+export async function putUser(UpdateUser: any) {
+  try {
+    const { data } = await api.patch(`users`, UpdateUser);
+
+    console.log('🚀 ~ putPorfileUser ~ data:', data);
+    return data.data;
   } catch (err) {
     console.log('ERROR');
     console.log(err);

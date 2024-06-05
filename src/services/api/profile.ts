@@ -21,10 +21,6 @@ export async function getUserProfile() {
 
 export async function getProfile() {
   try {
-    // const data = profilesFaker.filter(
-    //   (fakeProfile) => fakeProfile.id === id
-    // )[0];
-
     const { data } = await api.get(`profiles`);
     return data.data;
   } catch (error) {
@@ -73,15 +69,12 @@ export async function getUserProfileId() {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function putPorfileUser(updateProfile: any) {
   try {
-    // const { data } = await axios.put(`/profile`, UpdateProfile);
-    const data = profileFaker.filter((user) => user.id === 1);
-    const newUserProfile = data.fill(updateProfile);
+    const { data } = await api.patch(`profiles`, updateProfile);
 
-    console.log('newUserProfile::', newUserProfile);
-    return newUserProfile;
+    console.log('🚀 ~ putPorfileUser ~ data:', data);
+    return data.data;
   } catch (err) {
     console.log('ERROR');
     console.log(err);

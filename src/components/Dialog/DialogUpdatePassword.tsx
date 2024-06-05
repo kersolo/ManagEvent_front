@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Dialog, DialogHeader, DialogBody } from '@material-tailwind/react';
 import ButtonDefault from '../ButtonDefault';
 import { InputDefault } from '../InputDefault';
-import { getUsersId } from '../../services/api/user';
+import { putUser } from '../../services/api/user';
 import close_icon from '../../assets/close_icon.svg';
 
 export type Inputs = {
@@ -22,26 +22,12 @@ export type UserProps = {
 
 export function DialogUpdatePassword() {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState<UserProps[] | undefined>([]);
   const handleOpen = () => setOpen(!open);
-
-  useEffect(() => {
-    const loadUser = async () => {
-      const response = await getUsersId();
-      setUser(response);
-    };
-    loadUser();
-  }, []);
-
-  const userPassword = user?.map((user) => user.password);
-  const goodPassword = userPassword && userPassword[0];
 
   const schema = yup
     .object({
-      actualPassword: yup
-        .string()
-        .required('Le mot de passe est requis')
-        .oneOf([goodPassword!], "Ceci n'est pas votre mot de passe actuel"),
+      actualPassword: yup.string().required('Le mot de passe est requis'), // mettre en place error venant de l'api
+
       newPassword: yup
         .string()
         .required('Le mot de passe est requis')
@@ -96,15 +82,16 @@ export function DialogUpdatePassword() {
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (goodPassword === data.actualPassword) {
+    if (!errors) {
       const newPassword = {
-        password: data.newPassword
+        password: data.newPassword,
+        actualPassword: data.actualPassword
       };
-      console.log('data:', newPassword);
-    }
+      putUser(newPassword);
 
-    // postUser(newPassword);
-    handleOpen();
+      // postUser(newPassword);
+      handleOpen();
+    }
   };
 
   const handleResetForm = () => {
