@@ -1,7 +1,6 @@
-import axios from "axios";
-import { usersFaker } from "../fakers/usersFaker";
-import { useApi } from "../hooks/useApi";
-import { LoginForm } from "../interfaces/LoginForm";
+import { usersFaker } from '../fakers/usersFaker';
+import { LoginForm } from '../interfaces/LoginForm';
+import { useApi } from '../hooks/useApi';
 
 const api = useApi();
 
@@ -11,7 +10,7 @@ export async function getUsers() {
     //const { data } = await axios.get("/user");
     return data;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }
@@ -24,7 +23,7 @@ export async function getUsersId() {
     // return data;
     return dataId;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }
@@ -41,7 +40,7 @@ export async function getUser() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function postUser(newUser: any) {
   try {
-    const { data } = await api.post("auth/register", newUser);
+    const { data } = await api.post('auth/register', newUser);
     return data;
   } catch (error) {
     return error;
@@ -49,7 +48,7 @@ export async function postUser(newUser: any) {
 }
 export async function loginUser(values: LoginForm) {
   try {
-    const { data } = await api.post("auth/login", values);
+    const { data } = await api.post('auth/login', values);
     return data.data;
   } catch (error) {
     return error;
@@ -57,12 +56,13 @@ export async function loginUser(values: LoginForm) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function deleteUser(id: any) {
+export async function deleteUser() {
   try {
-    const { data } = await axios.delete(`/user`, id);
+    // const { data } = await axios.delete(`/user`, id);
+    const { data } = await api.delete('users');
     return data;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }

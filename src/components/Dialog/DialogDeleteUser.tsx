@@ -1,17 +1,21 @@
-import React from 'react';
 import { Dialog, DialogHeader, DialogFooter } from '@material-tailwind/react';
 import ButtonDefault from '../ButtonDefault';
 import close_icon from '../../assets/close_icon.svg';
+import { deleteUser } from '../../services/api/user';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-interface DialogDeleteUserProps {
-  handleDelete: () => void;
-}
-
-export function DialogDeleteUser({ handleDelete }: DialogDeleteUserProps) {
-  const [open, setOpen] = React.useState(false);
+export function DialogDeleteUser() {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpen = () => setOpen(!open);
 
+  const handleDelete = async () => {
+    await deleteUser();
+    navigate('/');
+    localStorage.removeItem('authToken');
+  };
   return (
     <>
       <ButtonDefault variant="delete" onClick={handleOpen}>
