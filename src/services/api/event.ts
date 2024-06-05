@@ -1,6 +1,9 @@
-import { eventsFaker } from "../../pages/Events/eventsFaker";
-import { eventDataFaker, eventsForCalendarFaker } from "../fakers/eventsFaker";
-import { EventForCalendarInterface } from "../interfaces/EventInterface";
+import { eventsFaker } from '../../pages/Events/eventsFaker';
+import { eventDataFaker, eventsForCalendarFaker } from '../fakers/eventsFaker';
+import { useApi } from '../hooks/useApi';
+import { EventForCalendarInterface } from '../interfaces/EventInterface';
+
+const api = useApi();
 
 export async function getEventDataForUpdateEventPage(
   eventId: string | undefined
@@ -20,12 +23,14 @@ export async function getEventDataForUpdateEventPage(
 
 export async function getevent() {
   try {
-    const data = await eventsFaker;
+    // const data = await eventsFaker;
+
+    const { data } = await api.get('/events');
 
     //const { data } = await axios.get("/event");
-    return data;
+    return data.data;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }
@@ -38,7 +43,7 @@ export async function getEventId() {
     //const { data } = await axios.get("/profile/id");
     return dataId;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }
@@ -53,7 +58,7 @@ export async function findAllEventsForCalendar(): Promise<
     // (dates, status, etc..)
     return data;
   } catch (err) {
-    console.log("ERROR");
+    console.log('ERROR');
     console.log(err);
   }
 }
