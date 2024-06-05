@@ -23,11 +23,7 @@ export async function getEventDataForUpdateEventPage(
 
 export async function getevent() {
   try {
-    // const data = await eventsFaker;
-
     const { data } = await api.get('/events');
-
-    //const { data } = await axios.get("/event");
     return data.data;
   } catch (err) {
     console.log('ERROR');
