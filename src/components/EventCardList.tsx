@@ -43,7 +43,6 @@ export default function EventCardList() {
       },
       []
     );
-    console.log(groupedEvents);
     return groupedEvents;
   };
 
