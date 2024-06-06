@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getevent } from '../services/api/event';
-import CardEvent from './CardEvent';
+import { DialogSelectEvent } from './Dialog/DialogSelectEvent';
 
 export type EventType = {
   id: number;
@@ -54,7 +54,7 @@ export default function EventCardList() {
     <div className="mt-small">
       {events &&
         transformEvents(events).map((group, index) => (
-          <CardEvent key={index} group={group} />
+          <DialogSelectEvent key={index} group={group} />
         ))}
     </div>
   );
