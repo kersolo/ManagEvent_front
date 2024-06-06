@@ -41,7 +41,7 @@ export async function registerUser(newUser: any) {
   try {
     const { data } = await api.post("auth/register", newUser);
     return data;
-  } catch (error) {
+  } catch (error: any) {
     throw error;
   }
 }

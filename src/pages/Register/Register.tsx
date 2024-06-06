@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ButtonDefault from "../../components/ButtonDefault";
 import { InputDefault } from "../../components/InputDefault";
 import { registerUser } from "../../services/api/user";
@@ -25,12 +25,11 @@ export type Inputs = {
 };
 
 export default function SignUpPage() {
-  const [isError, setIsError] = useState("");
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<Inputs>({
     resolver: yupResolver(RegisterFormSchema),
   });
@@ -45,17 +44,20 @@ export default function SignUpPage() {
     if (!data.email) {
       return;
     }
-
     const newUser = {
       email: data.email,
       password: data.password,
     };
-
     try {
       await registerUser(newUser);
       setOpen(true);
-    } catch (error) {
-      setIsError(error.response.data.message);
+    } catch (error: any) {
+      if (error.response.data.message === "Email already exists") {
+        setError("email", {
+          type: "custom",
+          message: "L'email existe déja",
+        });
+      }
     }
   };
 
@@ -92,7 +94,7 @@ export default function SignUpPage() {
             register={register}
             errors={errors}
           />
-          {isError && <small className="text-red-500">{isError}</small>}
+          {/* {isError && <small className="text-red-500">{isError}</small>} */}
           {/* bouton d'affichage de la modale  */}
           <ButtonDefault type="submit">M'inscrire</ButtonDefault>
           {/*Modale d'information aprés inscription */}
