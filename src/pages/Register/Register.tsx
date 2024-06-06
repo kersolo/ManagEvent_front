@@ -7,11 +7,11 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import * as yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonDefault from "../../components/ButtonDefault";
 import { InputDefault } from "../../components/InputDefault";
-import { postUser } from "../../services/api/user";
+import { registerUser } from "../../services/api/user";
+import { RegisterFormSchema } from "../../services/schemas/RegisterFormSchema";
 
 export type NewUserProps = {
   email: string;
@@ -24,63 +24,15 @@ export type Inputs = {
   confirmPassword: string;
 };
 
-const schema = yup
-  .object({
-    email: yup
-      .string()
-      .required("L'email est requis")
-      .email("email non valide"),
-    password: yup
-      .string()
-      .required("Le mot de passe est requis")
-      .min(8, "Le mot de passe doit contenir au moins 8 caractères")
-      .matches(
-        RegExp("(.*[a-z].*)"),
-        "Votre mot de passe doit contenir au moins une miniscule"
-      )
-      .matches(
-        RegExp("(.*[A-Z].*)"),
-        "Votre mot de passe doit contenir au moins une majuscule"
-      )
-      .matches(
-        RegExp("(.*\\d.*)"),
-        "Votre mot de passe doit contenir au moins un chiffre"
-      )
-      .matches(
-        RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        "Votre mot de passe doit contenir au moins un caracteère special"
-      ),
-    confirmPassword: yup
-      .string()
-      .required("La confirmation du mot de passe est requise")
-      .matches(
-        RegExp("(.*[a-z].*)"),
-        "Votre mot de passe doit contenir au moins une miniscule"
-      )
-      .matches(
-        RegExp("(.*[A-Z].*)"),
-        "Votre mot de passe doit contenir au moins une majuscule"
-      )
-      .matches(
-        RegExp("(.*\\d.*)"),
-        "Votre mot de passe doit contenir au moins un chiffre"
-      )
-      .matches(
-        RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        'Votre mot de passe doit contenir au moins un caracteère special !@#$%^&*(),.?":{}|<>'
-      )
-      .oneOf([yup.ref("password")], "Le mot de passe ne correspond pas"),
-  })
-
-  .required();
-
 export default function SignUpPage() {
+  const [isError, setIsError] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(RegisterFormSchema),
   });
 
   // state d'ouverture de la modale
@@ -89,7 +41,7 @@ export default function SignUpPage() {
     setOpen(!open);
   };
   // fonction de validation du formulaire
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (!data.email) {
       return;
     }
@@ -98,10 +50,13 @@ export default function SignUpPage() {
       email: data.email,
       password: data.password,
     };
-    console.log("data:", newUser);
 
-    postUser(newUser);
-    setOpen(true);
+    try {
+      await registerUser(newUser);
+      setOpen(true);
+    } catch (error) {
+      setIsError(error.response.data.message);
+    }
   };
 
   return (
@@ -137,15 +92,21 @@ export default function SignUpPage() {
             register={register}
             errors={errors}
           />
-
+          {isError && <small className="text-red-500">{isError}</small>}
           {/* bouton d'affichage de la modale  */}
           <ButtonDefault type="submit">M'inscrire</ButtonDefault>
           {/*Modale d'information aprés inscription */}
-          <Dialog open={open} handler={handleOpen}>
+          <Dialog
+            open={open}
+            handler={handleOpen}
+            dismiss={{
+              outsidePress: () => false,
+            }}
+          >
             <DialogHeader>Validation de l'inscription</DialogHeader>
             <DialogBody>
               Votre inscription à été pris en compte. Consulter vos emails pour
-              finaliser l'inscription.{" "}
+              finaliser l'inscription.
             </DialogBody>
           </Dialog>
         </form>

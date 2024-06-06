@@ -1,6 +1,6 @@
-import { usersFaker } from '../fakers/usersFaker';
-import { LoginForm } from '../interfaces/LoginForm';
-import { useApi } from '../hooks/useApi';
+import { usersFaker } from "../fakers/usersFaker";
+import { useApi } from "../hooks/useApi";
+import { LoginForm } from "../interfaces/LoginForm";
 
 const api = useApi();
 
@@ -10,7 +10,7 @@ export async function getUsers() {
     //const { data } = await axios.get("/user");
     return data;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }
@@ -23,7 +23,7 @@ export async function getUsersId() {
     // return data;
     return dataId;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }
@@ -37,17 +37,17 @@ export async function getUser() {
   }
 }
 
-export async function postUser(newUser: any) {
+export async function registerUser(newUser: any) {
   try {
-    const { data } = await api.post('auth/register', newUser);
+    const { data } = await api.post("auth/register", newUser);
     return data;
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 export async function loginUser(values: LoginForm) {
   try {
-    const { data } = await api.post('auth/login', values);
+    const { data } = await api.post("auth/login", values);
     return data.data;
   } catch (error) {
     return error;
@@ -57,10 +57,10 @@ export async function loginUser(values: LoginForm) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function deleteUser() {
   try {
-    const { data } = await api.delete('users');
+    const { data } = await api.delete("users");
     return data;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }
@@ -69,10 +69,10 @@ export async function putUser(UpdateUser: any) {
   try {
     const { data } = await api.patch(`users`, UpdateUser);
 
-    console.log('🚀 ~ putPorfileUser ~ data:', data);
+    console.log("🚀 ~ putPorfileUser ~ data:", data);
     return data.data;
   } catch (err) {
-    console.log('ERROR');
+    console.log("ERROR");
     console.log(err);
   }
 }
