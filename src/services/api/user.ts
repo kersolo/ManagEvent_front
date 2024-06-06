@@ -30,7 +30,10 @@ export async function getUsersId() {
 
 export async function getUser() {
   try {
-    const { data } = await api.get(`users`);
+    const { data } = await api.get(`profiles`);
+    
+   // const { data } = await api.get(`users`);
+
     return data.data;
   } catch (error) {
     return error;
