@@ -1,20 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getevent } from '../services/api/event';
 import { DialogSelectEvent } from './Dialog/DialogSelectEvent';
-
-export type EventType = {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  description: string;
-  status: string;
-};
-type EventsByDate = {
-  date: string;
-  events: EventType[];
-};
+import { EventType, EventsByDate } from '../services/interfaces/EventInterface';
 
 export default function EventCardList() {
   const {

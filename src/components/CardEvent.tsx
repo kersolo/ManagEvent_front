@@ -1,24 +1,12 @@
 import { Card, CardBody, Typography } from '@material-tailwind/react';
 import closeEvent from '../assets/closeEvent.svg';
 import openEvent from '../assets/openEvent.svg';
-import { EventType } from './EventCardList';
-
-export type EventsByDate = {
-  date: string;
-  events: EventType[];
-};
-export type GoupPropsType = {
-  group: EventsByDate;
-};
-export type CardEventPropsType = {
-  group: EventsByDate;
-  onClick: () => void;
-};
+import { CardEventPropsType } from '../services/interfaces/EventInterface';
 
 export default function CardEvent({ group, onClick }: CardEventPropsType) {
   return (
     <>
-      <Card onClick={onClick} className="border-dp mb-small">
+      <Card onClick={onClick} className="border-dp mb-small cursor-pointer">
         <CardBody className="mb-2">
           <Typography color="white" className="mb-2">
             {group.date}

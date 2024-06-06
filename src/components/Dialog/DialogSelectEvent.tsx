@@ -6,15 +6,19 @@ import {
 } from '@material-tailwind/react';
 import close_icon from '../../assets/close_icon.svg';
 import { useState } from 'react';
-import CardEvent, { GoupPropsType } from '../CardEvent';
 import closeEventLine from '../../assets/closeEventLine.svg';
 import openEventLine from '../../assets/openEventLine.svg';
 import { useNavigate } from 'react-router-dom';
+import { dayDate } from '../../services/utils/DateDayFrFormat';
+import { GoupPropsType } from '../../services/interfaces/EventInterface';
+import CardEvent from '../CardEvent';
 
 export function DialogSelectEvent({ group }: GoupPropsType) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleOpen = () => setOpen(!open);
+
+  const eventdate = dayDate(group.date);
 
   return (
     <>
@@ -26,7 +30,7 @@ export function DialogSelectEvent({ group }: GoupPropsType) {
         </button>
         <DialogHeader className="flex justify-center">
           <Typography color="white" className="mb-2">
-            {group.date}
+            {String(eventdate)}
           </Typography>
         </DialogHeader>
         <hr className="w-3/4 m-auto border-dashed" />
