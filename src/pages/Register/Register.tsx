@@ -10,7 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import ButtonDefault from "../../components/ButtonDefault";
 import { InputDefault } from "../../components/InputDefault";
-import { registerUser } from "../../services/api/user";
+import { registerUser } from "../../services/api/auth";
 import { RegisterFormSchema } from "../../services/schemas/RegisterFormSchema";
 
 export type NewUserProps = {
@@ -34,12 +34,10 @@ export default function SignUpPage() {
     resolver: yupResolver(RegisterFormSchema),
   });
 
-  // state d'ouverture de la modale
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(!open);
   };
-  // fonction de validation du formulaire
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (!data.email) {
       return;
@@ -94,10 +92,7 @@ export default function SignUpPage() {
             register={register}
             errors={errors}
           />
-          {/* {isError && <small className="text-red-500">{isError}</small>} */}
-          {/* bouton d'affichage de la modale  */}
           <ButtonDefault type="submit">M'inscrire</ButtonDefault>
-          {/*Modale d'information aprés inscription */}
           <Dialog
             open={open}
             handler={handleOpen}

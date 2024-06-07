@@ -55,7 +55,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/register/confirm-email"
+          path="/register/confirm-email/:token"
           element={<RegisterConfirmEmail />}
         />
         <Route path="/login" element={<Login />} />
