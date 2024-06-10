@@ -98,7 +98,7 @@ export default function SignUpPage() {
       email: data.email,
       password: data.password,
     };
-    console.log("data:", newUser);
+    //console.log("data:", newUser);
 
     postUser(newUser);
     setOpen(true);

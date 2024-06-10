@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPencil } from "@fortawesome/free-solid-svg-icons"
 import * as yup from "yup";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+//import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import "./TaskList.css";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,9 @@ import {
 } from "@material-tailwind/react";
 import ButtonDefault from "../../../components/ButtonDefault";
 import { InputDefault } from "../../../components/InputDefault";
-export interface taskList {
+
+export interface Task {
+    id?: number,
     nom: string,
     description: string
 }
@@ -27,20 +29,21 @@ const dataSchema = yup.object({
     description: yup.string().required("Ce champ est obligatoire").min(1, "1 caractère minimum"),
 })
 
-export default function TaskList() {
+export default function TaskList({ }) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(!open);
         reset();
     }
-    const [tasks, setTasks] = useState<taskList[]>([])
+
+    const [tasks, setTasks] = useState<Task[]>([])
 
     const { register, handleSubmit, reset, formState: { errors } } =
-        useForm<taskList>({
-        resolver: yupResolver(dataSchema),
+        useForm<Task>({
+            resolver: yupResolver(dataSchema),
         });
-    
-    const onSubmit = (data: taskList): void => {
+
+    const onSubmit = (data: Task): void => {
         const newTask = {
             nom: data.nom,
             description: data.description,
@@ -54,6 +57,17 @@ export default function TaskList() {
         reset()
         handleOpen();
     }
+
+    function deleteTask(id: number| null | undefined): void {
+        setTasks(tasks.filter(task => task.id !== id))
+    }
+
+   // function editTask(id: number | null | undefined) {
+      //  console.log('Modifier une tache')
+       // setTasks(tasks.filter(task => task.id == id))
+       // handleOpen();
+   // }
+   
     return (
         <>
             <h1 className=" font-bold text-center text-xl mt-10">Espace Admin </h1>
@@ -98,23 +112,23 @@ export default function TaskList() {
                     </DialogBody>
                 </Dialog>
             </div>
+            {/*------------------- */}
             {/*-------------------*/}
             {tasks.length ? (<div className="text-white mt-5">
                 <div className="flex justify-center">
-                    <ul className=""> {tasks.map((task, index) => (
-                        <div key={index} className="flex mt-3 items-center  border border-orange-300 p-2 gap-1 rounded-lg " >
-                           <div className=" w-6/12 p-1 mx-10"><Link to="" title="">{task.nom}</Link></div>
+                    <ul className=""> {tasks.map((task: Task, index:number) => (
+                        <li key={index} className="flex mt-3 items-center  border border-orange-300 p-2 gap-1 rounded-lg " >
+                            <div className=" w-6/12 p-1 mx-10"><Link to="" title="">{task.nom}</Link></div>
                             <div className="flex gap-5 mx-auto">
-                                <FontAwesomeIcon title="Voir la tache" icon={faEye} />
-                                <FontAwesomeIcon title="Modifier la tache" icon={faPencil} />
-                                <FontAwesomeIcon icon={faTrash} title="Supprimer la tache" />
+                                  {/*----- <FontAwesomeIcon title="Voir la tache" icon={faEye}/>--------------*/}
+                                <FontAwesomeIcon title="Modifier la tache" icon={faPencil} /*onClick={() => editTask(task.id)}*//>
+                                <FontAwesomeIcon icon={faTrash} title="Supprimer la tache" onClick={() => deleteTask(task.id)} />
                             </div>
-                        </div>
+                        </li>
                     ))}
                     </ul>
                 </div>
             </div>) : (<p className="text-center text-md mt-10 text-orangeDP ">Aucune tache pour l'instant</p>)}
-
         </>
     )
 }

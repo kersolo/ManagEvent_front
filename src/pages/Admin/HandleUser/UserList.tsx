@@ -54,7 +54,6 @@ export default function UserList() {
         }
     ]);
 
-
         const { register, handleSubmit, reset, formState: { errors } } =
         useForm<User>({
         resolver: yupResolver(dataSchema),
