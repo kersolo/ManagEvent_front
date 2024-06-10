@@ -17,7 +17,7 @@ export async function loginUser(values: LoginForm) {
     const { data } = await api.post("auth/login", values);
     return data.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 
@@ -25,6 +25,18 @@ export async function verifyConfirmToken(token: string) {
   try {
     return await api.get(`auth/register-confirm/${token}`);
   } catch (error) {
+    throw error;
+  }
+}
+
+export async function postEmailToResetPassword(email: string) {
+  try {
+    await api.post("/auth/reset-password", {
+      email,
+    });
+    return { message: "Email send !" };
+  } catch (error) {
+    console.log("🚀 ~ postEmailToResetPassword ~ error:", error);
     throw error;
   }
 }

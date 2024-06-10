@@ -84,7 +84,7 @@ export default function Login() {
                   className="mt-4 text-center font-normal"
                   placeholder={undefined}
                 >
-                  Vous n'avez pas de compte?
+                  Vous n'avez pas de compte? <br />
                   <Link
                     to="/register"
                     className="font-medium text-light-blue-600 ml-4"
