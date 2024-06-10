@@ -1,36 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
-import { getEvents } from "../services/api/event";
-import CardEvent from "./CardEvent";
-
-export type EventType = {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  description: string;
-  status: string;
-};
-type EventsByDate = {
-  date: string;
-  events: EventType[];
-};
+import { useQuery } from '@tanstack/react-query';
+import { getEvents } from '../services/api/event';
+import { DialogSelectEvent } from './Dialog/DialogSelectEvent';
+import { EventType, EventsByDate } from '../services/interfaces/EventInterface';
 
 export default function EventCardList() {
   const {
     data: events,
     isPending,
     isError,
-    error,
+    error
   } = useQuery({
-    queryKey: ["events"],
+    queryKey: ['events'],
     queryFn: () => getEvents(),
-    staleTime: 0,
+    staleTime: 0
   });
 
   const transformEvents = (events: EventType[]): EventsByDate[] => {
     events.forEach(
-      (event) => (event.startDate = event.startDate.split("T")[0])
+      (event) => (event.startDate = event.startDate.split('T')[0])
     );
     const groupedEvents = events.reduce(
       (acc: EventsByDate[], currentEvent: EventType) => {
@@ -43,7 +30,6 @@ export default function EventCardList() {
       },
       []
     );
-    console.log(groupedEvents);
     return groupedEvents;
   };
 
@@ -53,9 +39,10 @@ export default function EventCardList() {
 
   return (
     <div className="mt-small">
-      {transformEvents(events).map((group, index) => (
-        <CardEvent key={index} group={group} />
-      ))}
+      {events &&
+        transformEvents(events).map((group, index) => (
+          <DialogSelectEvent key={index} group={group} />
+        ))}
     </div>
   );
 }
