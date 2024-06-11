@@ -3,37 +3,51 @@ import TaskEvent from '../../components/TaskEvent';
 import { get_task_event } from '../../services/api/task_event';
 import BackPreviousPage from '../../components/BackPreviousPage';
 import { useParams } from 'react-router-dom';
-import { DetailEventInterface } from '../../services/interfaces/DetailEventInterface';
+import {
+  DetailEventInterface,
+  EventDetailInterface
+} from '../../services/interfaces/DetailEventInterface';
 import { UserTaskEventInterface } from '../../services/interfaces/UserTaskEventInterface';
 import { get_user_task_event } from '../../services/api/user_task_event';
+import { useQuery } from '@tanstack/react-query';
+import { getEvents } from '../../services/api/event';
+import { getUser } from '../../services/api/user';
 // import { useNavigate } from 'react-router-dom';
 
 export default function DetailEventPage() {
+  const {
+    data: events,
+    isPending,
+    isError,
+    error
+  } = useQuery<EventDetailInterface[]>({
+    queryKey: ['events'],
+    queryFn: () => getEvents(),
+    staleTime: 0
+  });
+
   const [taskEvents, setTaskEvents] = useState<
     DetailEventInterface[] | undefined
   >([]);
-  const [users, setUsers] = useState<UserTaskEventInterface[] | undefined>([]);
+  const [user, setUser] = useState<UserWithIncludesInterface | undefined>();
   const [value, setValue] = useState<number | null>(null);
   // const navigate = useNavigate();
   const eventId = useParams();
-  const taskEventId = taskEvents?.filter(
-    (el) => el.event_id.id === Number(eventId.id)
+  const taskEventId = events?.filter(
+    (event) => event.id === Number(eventId.id)
   );
 
-  const USER_ID = 2; // id user connecté
-  const toParticipe = users?.find(
-    (user) =>
-      user.user_id.id === USER_ID &&
-      user.event_id.id === taskEventId?.map((el) => el.event_id.id)[0]
-  );
+  const toParticipe = taskEventId
+    ?.map((el) => el.userTaskEvent.map((el) => el.userId)[0])
+    .find((el) => el === user?.id);
 
   useEffect(() => {
     const loadEvent = async () => {
       const response = await get_task_event();
-      const response2 = await get_user_task_event();
+      const response2 = await getUser();
 
       setTaskEvents(response);
-      setUsers(response2);
+      setUser(response2);
     };
     loadEvent();
   }, []);
@@ -79,7 +93,7 @@ export default function DetailEventPage() {
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           value={value}
-          users={users}
+          user={user}
           toParticipe={toParticipe}
         />
       ))}

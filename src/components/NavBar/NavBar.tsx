@@ -22,6 +22,7 @@ export default function NavBar({ isAdminLogged }: NavBarProps) {
 
   const handleDisconnect = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
   };
 
   return (

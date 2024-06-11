@@ -5,17 +5,20 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Pencil from '../assets/pencil.svg';
 import { DialogUnsubscribeEvent } from './Dialog/DialogUnsubscribeEvent';
-import { DetailEventInterface } from '../services/interfaces/DetailEventInterface';
+import {
+  DetailEventInterface,
+  EventDetailInterface
+} from '../services/interfaces/DetailEventInterface';
 import FormRadioButton from './FormRadioButton';
 import { UserTaskEventInterface } from '../services/interfaces/UserTaskEventInterface';
 
 export type TaskEventPropsType = {
-  taskEvent: DetailEventInterface;
+  taskEvent: EventDetailInterface;
   handleSubmit: (e: React.FormEvent) => void;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   value: number | null;
-  users: UserTaskEventInterface[] | undefined;
-  toParticipe: UserTaskEventInterface | undefined;
+  user: UserWithIncludesInterface | undefined;
+  toParticipe: any;
 };
 
 export default function TaskEvent({
@@ -23,10 +26,10 @@ export default function TaskEvent({
   handleSubmit,
   handleChange,
   value,
-  users,
+  user,
   toParticipe
 }: TaskEventPropsType) {
-  const { task_id, event_id } = taskEvent;
+  // const { task_id } = taskEvent.taskEvent.map((el) => el.taskId);
   const navigate = useNavigate();
   const [showTaskChoose, setShowTaskChoose] = useState(true);
 
@@ -56,13 +59,13 @@ export default function TaskEvent({
                 <div>
                   <p className="underline">Votre mission</p>
                   <div className="flex gap-3 mt-3 justify-center ">
-                    <p>
+                    {/* <p>
                       {users
                         ?.filter(
                           (event) => event.user_id === toParticipe.user_id
                         )
                         .map((event) => event.task_id.title)}
-                    </p>
+                    </p> */}
                     <img src={Pencil} alt="" onClick={handleShowTaskChoose} />
                   </div>
                 </div>
@@ -72,28 +75,29 @@ export default function TaskEvent({
                 </ButtonDefault>
               </>
             ) : (
-              <FormRadioButton
-                handleSubmit={handleSubmit}
-                task_id={task_id}
-                value={value}
-                handleChange={handleChange}
-              />
+              <h1>TEST</h1>
+              // <FormRadioButton
+              //   handleSubmit={handleSubmit}
+              //   task_id={task_id}
+              //   value={value}
+              //   handleChange={handleChange}
+              // />
             )}
           </>
         ) : (
           <>
-            {event_id.status === 'open' && (
+            {taskEvent.status === 'Incomplete' && (
               <>
                 <EventDetail taskEvent={taskEvent} />
-                <FormRadioButton
+                {/* <FormRadioButton
                   handleSubmit={handleSubmit}
                   task_id={task_id}
                   value={value}
                   handleChange={handleChange}
-                />
+                /> */}
               </>
             )}
-            {event_id.status === 'close' && (
+            {taskEvent.status === 'Complete' && (
               <>
                 <EventDetail taskEvent={taskEvent} />
                 <ButtonDefault variant="disabled">Je participe</ButtonDefault>

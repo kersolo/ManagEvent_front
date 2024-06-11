@@ -16,3 +16,23 @@ export interface DetailEventInterface {
     skill_name: string;
   }[];
 }
+
+export interface EventDetailInterface {
+  id: number;
+  title: string;
+  lastname: string;
+  description: string;
+  adress: string;
+  startDate: Date;
+  endDate: Date;
+  status: string;
+  taskEvent: {
+    taskId: number;
+    volunteerNumber: number;
+    needValidation: boolean;
+  }[];
+  userTaskEvent: {
+    userId: string;
+    status: string;
+  }[];
+}
