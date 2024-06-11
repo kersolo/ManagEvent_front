@@ -1,7 +1,7 @@
 import { eventsFaker } from "../../pages/Events/eventsFaker";
-import { eventDataFaker, eventsForCalendarFaker } from "../fakers/eventsFaker";
+import { eventDataFaker } from "../fakers/eventsFaker";
 import { useApi } from "../hooks/useApi";
-import { EventForCalendarInterface } from "../interfaces/EventInterface";
+import { transformIsoStringDateToDayAfter } from "../utils/DateDayFrFormat";
 
 const api = useApi();
 
@@ -26,7 +26,6 @@ export async function getEvents() {
     const { data } = await api.get("/events");
     return data.data;
   } catch (err) {
-    console.log("ERROR");
     console.log(err);
   }
 }
@@ -44,17 +43,33 @@ export async function getEventId() {
   }
 }
 
-export async function findAllEventsForCalendar(): Promise<
-  EventForCalendarInterface[] | undefined
-> {
+export async function getEventsForCalendar() {
   try {
-    const data = await eventsForCalendarFaker;
-    //const { data } = await axios.get("/event");
-    // cf EventForCalendarrInterface to know how to convert "events" to "eventsForCalendar"
-    // (dates, status, etc..)
-    return data;
+    const { data } = await api.get("/events");
+    const events = data.data;
+
+    const eventsForCalendar = events.map(
+      (event: {
+        id: string;
+        title: string;
+        startDate: string;
+        endDate: string;
+        status: "Complete" | "Incomplete";
+      }) => {
+        let newEndDate = transformIsoStringDateToDayAfter(event.endDate);
+        // this is because event calendar endDate is exclusive so we have to give it the day after endDate
+        return {
+          id: event.id,
+          title: event.title,
+          start: event.startDate.split("T")[0],
+          end: newEndDate.split("T")[0],
+          status: event.status,
+        };
+      }
+    );
+
+    return eventsForCalendar;
   } catch (err) {
-    console.log("ERROR");
     console.log(err);
   }
 }

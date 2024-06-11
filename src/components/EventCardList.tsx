@@ -1,23 +1,23 @@
-import { useQuery } from '@tanstack/react-query';
-import { getEvents } from '../services/api/event';
-import { DialogSelectEvent } from './Dialog/DialogSelectEvent';
-import { EventType, EventsByDate } from '../services/interfaces/EventInterface';
+import { useQuery } from "@tanstack/react-query";
+import { getEvents } from "../services/api/event";
+import { EventType, EventsByDate } from "../services/interfaces/EventInterface";
+import { DialogSelectEvent } from "./Dialog/DialogSelectEvent";
 
 export default function EventCardList() {
   const {
     data: events,
     isPending,
     isError,
-    error
+    error,
   } = useQuery({
-    queryKey: ['events'],
+    queryKey: ["events"],
     queryFn: () => getEvents(),
-    staleTime: 0
+    staleTime: 0,
   });
 
   const transformEvents = (events: EventType[]): EventsByDate[] => {
     events.forEach(
-      (event) => (event.startDate = event.startDate.split('T')[0])
+      (event) => (event.startDate = event.startDate.split("T")[0])
     );
     const groupedEvents = events.reduce(
       (acc: EventsByDate[], currentEvent: EventType) => {

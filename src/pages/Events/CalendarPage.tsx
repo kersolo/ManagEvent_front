@@ -6,7 +6,7 @@ import closeEvent from "../../assets/closeEvent.svg";
 import openEvent from "../../assets/openEvent.svg";
 import ButtonDefault from "../../components/ButtonDefault";
 import Calendar from "../../components/Calendar/Calendar";
-import { findAllEventsForCalendar } from "../../services/api/event";
+import { getEventsForCalendar } from "../../services/api/event";
 
 export default function CalendarPage({
   isPanelAdmin,
@@ -15,8 +15,8 @@ export default function CalendarPage({
 }) {
   const navigate = useNavigate();
   const { data: eventsForCalendar } = useQuery({
-    queryKey: ["events"],
-    queryFn: () => findAllEventsForCalendar(),
+    queryKey: ["eventsForCalendar"],
+    queryFn: () => getEventsForCalendar(),
     staleTime: 0,
   });
 
@@ -48,7 +48,7 @@ export default function CalendarPage({
           <FontAwesomeIcon icon={faList} size="xl" />
         </Link>
       </div>
-      <Calendar events={eventsForCalendar} isAdmin={isPanelAdmin} />
+      <Calendar events={eventsForCalendar} isPanelAdmin={isPanelAdmin} />
       <div className="my-4">
         <p className="flex gap-2">
           <img src={openEvent} alt="" /> Besoin de bénévoles

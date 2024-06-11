@@ -1,17 +1,17 @@
 import {
   Dialog,
-  DialogHeader,
   DialogBody,
-  Typography
-} from '@material-tailwind/react';
-import close_icon from '../../assets/close_icon.svg';
-import { useState } from 'react';
-import closeEventLine from '../../assets/closeEventLine.svg';
-import openEventLine from '../../assets/openEventLine.svg';
-import { useNavigate } from 'react-router-dom';
-import { dayDate } from '../../services/utils/DateDayFrFormat';
-import { GoupPropsType } from '../../services/interfaces/EventInterface';
-import CardEvent from '../CardEvent';
+  DialogHeader,
+  Typography,
+} from "@material-tailwind/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import closeEventLine from "../../assets/closeEventLine.svg";
+import close_icon from "../../assets/close_icon.svg";
+import openEventLine from "../../assets/openEventLine.svg";
+import { GoupPropsType } from "../../services/interfaces/EventInterface";
+import { dayDate } from "../../services/utils/DateDayFrFormat";
+import CardEvent from "../CardEvent";
 
 export function DialogSelectEvent({ group }: GoupPropsType) {
   const [open, setOpen] = useState(false);
@@ -37,10 +37,10 @@ export function DialogSelectEvent({ group }: GoupPropsType) {
         <DialogBody className="m-auto ">
           {group.events.map((event, index) => (
             <div key={index} className="flex  items-center p-2">
-              {event.status === 'Incomplete' && (
+              {event.status === "Incomplete" && (
                 <img src={openEventLine} alt="" />
               )}
-              {event.status === 'complete' && (
+              {event.status === "Complete" && (
                 <img src={closeEventLine} alt="" />
               )}
               <Typography

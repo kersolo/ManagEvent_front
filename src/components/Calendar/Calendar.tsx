@@ -7,13 +7,13 @@ import openEvent from "../../assets/openEvent.svg";
 import { CalendarPropsType } from "../../services/types/components-types/CalendarType";
 import "./Calendar.css";
 
-export default function Calendar({ events, isAdmin }: CalendarPropsType) {
+export default function Calendar({ events, isPanelAdmin }: CalendarPropsType) {
   function renderEventContent(eventInfo) {
     return (
       <div className="flex gap-2">
         <img
           src={
-            eventInfo.event.extendedProps.status == "open"
+            eventInfo.event.extendedProps.status === "Incomplete"
               ? openEvent
               : closeEvent
           }
@@ -29,7 +29,7 @@ export default function Calendar({ events, isAdmin }: CalendarPropsType) {
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
-      editable={isAdmin}
+      editable={isPanelAdmin}
       weekends={true}
       firstDay={1}
       events={events}
