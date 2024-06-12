@@ -1,6 +1,10 @@
 import { eventsFaker } from "../../pages/Events/eventsFaker";
 import { eventDataFaker } from "../fakers/eventsFaker";
 import { useApi } from "../hooks/useApi";
+import {
+  EventForCalendarInterface,
+  EventType,
+} from "../interfaces/EventInterface";
 import { transformIsoStringDateToDayAfter } from "../utils/DateDayFrFormat";
 
 const api = useApi();
@@ -9,7 +13,7 @@ export async function getEventDataForUpdateEventPage(
   eventId: string | undefined
 ) {
   try {
-    const data = eventDataFaker[Number(eventId)];
+    const data = eventDataFaker[Number(eventId) - 1];
     // REMPLACER par requete get sur (user_task_event JOIN events) by user_id
     //
     // const {data} = await axios.get(`/user-task-event/${user_id}`)
@@ -46,20 +50,14 @@ export async function getEventId() {
 export async function getEventsForCalendar() {
   try {
     const { data } = await api.get("/events");
-    const events = data.data;
+    const events: EventType[] = data.data;
 
     const eventsForCalendar = events.map(
-      (event: {
-        id: string;
-        title: string;
-        startDate: string;
-        endDate: string;
-        status: "Complete" | "Incomplete";
-      }) => {
+      (event: EventType): EventForCalendarInterface => {
         let newEndDate = transformIsoStringDateToDayAfter(event.endDate);
-        // this is because event calendar endDate is exclusive so we have to give it the day after endDate
+        // this is because in fullcalendar 'end' is exclusive, so we have to give it the day after endDate
         return {
-          id: event.id,
+          id: event.id.toString(),
           title: event.title,
           start: event.startDate.split("T")[0],
           end: newEndDate.split("T")[0],
@@ -67,7 +65,6 @@ export async function getEventsForCalendar() {
         };
       }
     );
-
     return eventsForCalendar;
   } catch (err) {
     console.log(err);

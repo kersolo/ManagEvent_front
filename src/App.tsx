@@ -76,7 +76,11 @@ export default function App() {
             element={<CalendarPage isPanelAdmin={isPanelAdmin} />}
           />
           <Route
-            path="/admin/events/create-update/:eventId?"
+            path="/admin/events/create-update"
+            element={<CreateUpdateEventPage />}
+          />
+          <Route
+            path="/admin/events/create-update/:eventId"
             element={<CreateUpdateEventPage />}
           />
         </Route>

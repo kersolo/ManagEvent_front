@@ -1,6 +1,6 @@
 import { EventForCalendarInterface } from "../../interfaces/EventInterface";
 
 export type CalendarPropsType = {
-  events: EventForCalendarInterface[] | undefined;
+  eventsForCalendar: EventForCalendarInterface[];
   isPanelAdmin: boolean;
 };

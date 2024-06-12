@@ -35,7 +35,7 @@ export default function CalendarPage({
     <div className="bg-darkBlueDP md:w-2/3 m-large md:my-8 md:mx-auto">
       <ButtonDefault
         className={isPanelAdmin ? "" : "hidden"}
-        onClick={() => navigate("/admin/event/create-update")}
+        onClick={() => navigate("/admin/events/create-update")}
       >
         Créer un nouvel évènement
       </ButtonDefault>
@@ -48,7 +48,14 @@ export default function CalendarPage({
           <FontAwesomeIcon icon={faList} size="xl" />
         </Link>
       </div>
-      <Calendar events={eventsForCalendar} isPanelAdmin={isPanelAdmin} />
+      {eventsForCalendar ? (
+        <Calendar
+          eventsForCalendar={eventsForCalendar}
+          isPanelAdmin={isPanelAdmin}
+        />
+      ) : (
+        <p>Aucun événement à afficher</p>
+      )}
       <div className="my-4">
         <p className="flex gap-2">
           <img src={openEvent} alt="" /> Besoin de bénévoles
