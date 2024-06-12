@@ -37,9 +37,15 @@ export async function createUserTaskEvent(newUserTaskEvent: any) {
   }
 }
 
-export async function deleteUserTaskEvent(id: number) {
+export async function deleteUserTaskEvent(
+  taskId: number,
+  eventId: number,
+  userId: string
+) {
   try {
-    const { data } = await api.delete('user-task-events/' + id);
+    const { data } = await api.delete(
+      `user-task-events/${taskId}/${eventId}/${userId}`
+    );
     return data;
   } catch (error) {
     return error;

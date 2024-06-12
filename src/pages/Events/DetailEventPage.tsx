@@ -6,7 +6,10 @@ import { EventDetailInterface } from '../../services/interfaces/DetailEventInter
 import { useQuery } from '@tanstack/react-query';
 import { getEvents } from '../../services/api/event';
 import { getUser } from '../../services/api/user';
-import { createUserTaskEvent } from '../../services/api/user_task_event';
+import {
+  createUserTaskEvent,
+  deleteUserTaskEvent
+} from '../../services/api/user_task_event';
 
 export default function DetailEventPage() {
   const { data: events } = useQuery<EventDetailInterface[] | undefined>({
@@ -21,6 +24,19 @@ export default function DetailEventPage() {
   const taskEventId = events?.filter(
     (event) => event.id === Number(eventId.id)
   );
+
+  let usertaskId = 0;
+  const userTaskEvent = user?.userTaskEvent;
+  if (taskEventId !== undefined) {
+    for (const event of taskEventId) {
+      if (userTaskEvent !== undefined) {
+        usertaskId = userTaskEvent
+          ?.filter((el) => el.event.id === event.id)
+          .map((el) => el.task.id)[0];
+      }
+    }
+  }
+  console.log('🚀 ~ DetailEventPage ~ usertaskId:', usertaskId);
 
   const toParticipe = taskEventId?.map((el) =>
     el.userTaskEvent
@@ -49,11 +65,12 @@ export default function DetailEventPage() {
     if (value === null) {
       alert('Veuillez choisir une tâche pour cet évènement');
     } else if (toParticipe![0] !== undefined) {
-      // deleteUserTaskEvent(taskEventId![0].id);
-      // createUserTaskEvent(newUserTaskEvent);
+      deleteUserTaskEvent(usertaskId, taskEventId![0].id, user?.id!);
+      createUserTaskEvent(newUserTaskEvent);
       alert('je particpe');
     } else {
       createUserTaskEvent(newUserTaskEvent);
+      // taskEvent volunteers number -1
     }
   };
 
@@ -73,6 +90,7 @@ export default function DetailEventPage() {
           value={value}
           user={user}
           toParticipe={toParticipe}
+          usertaskId={usertaskId}
         />
       ))}
     </>

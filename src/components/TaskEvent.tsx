@@ -7,6 +7,7 @@ import Pencil from '../assets/pencil.svg';
 import { DialogUnsubscribeEvent } from './Dialog/DialogUnsubscribeEvent';
 import { EventDetailInterface } from '../services/interfaces/DetailEventInterface';
 import FormRadioButton from './FormRadioButton';
+import { deleteUserTaskEvent } from '../services/api/user_task_event';
 
 export type TaskEventPropsType = {
   event: EventDetailInterface;
@@ -15,6 +16,7 @@ export type TaskEventPropsType = {
   value: number | null;
   user: UserWithIncludesInterface | undefined;
   toParticipe: any;
+  usertaskId: number;
 };
 
 export default function TaskEvent({
@@ -23,7 +25,8 @@ export default function TaskEvent({
   handleChange,
   value,
   user,
-  toParticipe
+  toParticipe,
+  usertaskId
 }: TaskEventPropsType) {
   const task_id = event.taskEvent.map((el) => el.task);
 
@@ -37,10 +40,8 @@ export default function TaskEvent({
   const userTaskEvent = user?.userTaskEvent;
 
   const handleDelete = () => {
-    // delete_user_task_event(toParticipe?.user_id);
-    // const updateTaskEvent = {
-    //   volunteers_number: 3 + 1 //4:previousValue
-    // };
+    deleteUserTaskEvent(usertaskId, event.id, user?.id!);
+    // taskEvent volunteers number -1
     navigate('/events');
   };
 
