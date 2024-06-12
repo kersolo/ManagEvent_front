@@ -5,15 +5,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Pencil from '../assets/pencil.svg';
 import { DialogUnsubscribeEvent } from './Dialog/DialogUnsubscribeEvent';
-import {
-  DetailEventInterface,
-  EventDetailInterface
-} from '../services/interfaces/DetailEventInterface';
+import { EventDetailInterface } from '../services/interfaces/DetailEventInterface';
 import FormRadioButton from './FormRadioButton';
-import { UserTaskEventInterface } from '../services/interfaces/UserTaskEventInterface';
 
 export type TaskEventPropsType = {
-  taskEvent: EventDetailInterface;
+  event: EventDetailInterface;
   handleSubmit: (e: React.FormEvent) => void;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   value: number | null;
@@ -22,20 +18,23 @@ export type TaskEventPropsType = {
 };
 
 export default function TaskEvent({
-  taskEvent,
+  event,
   handleSubmit,
   handleChange,
   value,
   user,
   toParticipe
 }: TaskEventPropsType) {
-  // const { task_id } = taskEvent.taskEvent.map((el) => el.taskId);
+  const task_id = event.taskEvent.map((el) => el.task);
+
   const navigate = useNavigate();
   const [showTaskChoose, setShowTaskChoose] = useState(true);
 
   const handleShowTaskChoose = () => {
     setShowTaskChoose(false);
   };
+
+  const userTaskEvent = user?.userTaskEvent;
 
   const handleDelete = () => {
     // delete_user_task_event(toParticipe?.user_id);
@@ -48,24 +47,22 @@ export default function TaskEvent({
   return (
     <>
       <div className="flex flex-col gap-7 items-center text-center mt-8 w-3/4 m-auto">
-        {toParticipe ? (
+        {toParticipe[0] !== undefined ? (
           <>
             <Typography variant="lead">
               Vous êtes inscrit à l'évènement :
             </Typography>
-            <EventDetail taskEvent={taskEvent} />
+            <EventDetail event={event} />
             {showTaskChoose ? (
               <>
                 <div>
                   <p className="underline">Votre mission</p>
                   <div className="flex gap-3 mt-3 justify-center ">
-                    {/* <p>
-                      {users
-                        ?.filter(
-                          (event) => event.user_id === toParticipe.user_id
-                        )
-                        .map((event) => event.task_id.title)}
-                    </p> */}
+                    <p>
+                      {userTaskEvent
+                        ?.filter((el) => el.event.id === event.id)
+                        .map((el) => el.task.name)}
+                    </p>
                     <img src={Pencil} alt="" onClick={handleShowTaskChoose} />
                   </div>
                 </div>
@@ -75,31 +72,30 @@ export default function TaskEvent({
                 </ButtonDefault>
               </>
             ) : (
-              <h1>TEST</h1>
-              // <FormRadioButton
-              //   handleSubmit={handleSubmit}
-              //   task_id={task_id}
-              //   value={value}
-              //   handleChange={handleChange}
-              // />
+              <FormRadioButton
+                handleSubmit={handleSubmit}
+                task_id={task_id}
+                value={value}
+                handleChange={handleChange}
+              />
             )}
           </>
         ) : (
           <>
-            {taskEvent.status === 'Incomplete' && (
+            {event.status === 'Incomplete' && (
               <>
-                <EventDetail taskEvent={taskEvent} />
-                {/* <FormRadioButton
+                <EventDetail event={event} />
+                <FormRadioButton
                   handleSubmit={handleSubmit}
                   task_id={task_id}
                   value={value}
                   handleChange={handleChange}
-                /> */}
+                />
               </>
             )}
-            {taskEvent.status === 'Complete' && (
+            {event.status === 'Complete' && (
               <>
-                <EventDetail taskEvent={taskEvent} />
+                <EventDetail event={event} />
                 <ButtonDefault variant="disabled">Je participe</ButtonDefault>
               </>
             )}

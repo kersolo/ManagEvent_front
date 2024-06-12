@@ -7,10 +7,10 @@ import { EventDetailInterface } from '../services/interfaces/DetailEventInterfac
 import { dayDate } from '../services/utils/DateDayFrFormat';
 
 export type EventDetailPropsType = {
-  taskEvent: EventDetailInterface;
+  event: EventDetailInterface;
 };
 
-export default function EventDetail({ taskEvent }: EventDetailPropsType) {
+export default function EventDetail({ event }: EventDetailPropsType) {
   const [showComponent, setShowComponent] = useState(false);
   const buttonNameClose = 'voir plus';
   const buttonNameOpen = 'voir moins';
@@ -19,14 +19,14 @@ export default function EventDetail({ taskEvent }: EventDetailPropsType) {
     setShowComponent(!showComponent);
   };
 
-  const location_google_maps = taskEvent.adress.replace(' ', '+');
+  const location_google_maps = event.adress.replace(' ', '+');
 
-  const startDate = dayDate(taskEvent.startDate);
-  const endDate = dayDate(taskEvent.endDate);
+  const startDate = dayDate(event.startDate);
+  const endDate = dayDate(event.endDate);
 
   return (
     <>
-      <Typography variant="h2">{taskEvent.title}</Typography>
+      <Typography variant="h2">{event.title}</Typography>
       <>
         <div className="border-t border-b border-orangeDP pt-7 flex flex-col gap-5 pb-7">
           <div className="flex gap-5 justify-center">
@@ -43,14 +43,14 @@ export default function EventDetail({ taskEvent }: EventDetailPropsType) {
                 <img src={location_icon} alt="" />
               </button>
             </Link>
-            {taskEvent.adress}
+            {event.adress}
           </Typography>
-          {taskEvent.description.length > 100 ? (
+          {event.description.length > 100 ? (
             <>
               {showComponent ? (
                 <>
                   <Typography variant="paragraph">
-                    {taskEvent.description}
+                    {event.description}
                   </Typography>
                   <button className="text-lightBlueDP" onClick={handleClick}>
                     {buttonNameOpen}
@@ -62,7 +62,7 @@ export default function EventDetail({ taskEvent }: EventDetailPropsType) {
                     className="h-12 text-ellipsis overflow-hidden "
                     variant="paragraph"
                   >
-                    {taskEvent.description}
+                    {event.description}
                   </Typography>
                   <button className="text-lightBlueDP" onClick={handleClick}>
                     {buttonNameClose}
@@ -71,10 +71,10 @@ export default function EventDetail({ taskEvent }: EventDetailPropsType) {
               )}
             </>
           ) : (
-            <Typography variant="paragraph">{taskEvent.description}</Typography>
+            <Typography variant="paragraph">{event.description}</Typography>
           )}
 
-          {taskEvent.status === 'Complete' && (
+          {event.status === 'Complete' && (
             <Typography className="mb-5 mt-7" variant="paragraph">
               Cet évènement est complet !
             </Typography>

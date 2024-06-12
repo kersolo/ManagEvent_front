@@ -1,3 +1,5 @@
+import { TaskIdInterface } from './TaskInterface';
+
 export interface DetailEventInterface {
   volunteers_number: number;
   event_id: {
@@ -30,6 +32,7 @@ export interface EventDetailInterface {
     taskId: number;
     volunteerNumber: number;
     needValidation: boolean;
+    task: TaskIdInterface;
   }[];
   userTaskEvent: {
     userId: string;

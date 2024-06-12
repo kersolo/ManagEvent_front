@@ -27,10 +27,9 @@ export default function Login() {
   });
 
   const onSubmit = async (values: LoginForm): Promise<any> => {
-    const { token, user } = await loginUser(values);
+    const { token } = await loginUser(values);
     if (token) {
       localStorage.setItem('authToken', token);
-      localStorage.setItem('userId', user.id);
       navigate('/events');
     }
   };
