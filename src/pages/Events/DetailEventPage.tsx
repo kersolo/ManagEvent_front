@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TaskEvent from '../../components/TaskEvent';
 import BackPreviousPage from '../../components/BackPreviousPage';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EventDetailInterface } from '../../services/interfaces/DetailEventInterface';
 import { useQuery } from '@tanstack/react-query';
 import { getEvents } from '../../services/api/event';
@@ -13,6 +13,8 @@ import {
 import { putTaskEvent } from '../../services/api/task_event';
 
 export default function DetailEventPage() {
+  const navigate = useNavigate();
+
   const [value, setValue] = useState<number | null>(null);
   const eventId = useParams();
   const { data: events } = useQuery<EventDetailInterface[] | undefined>({
@@ -49,7 +51,7 @@ export default function DetailEventPage() {
       .find((el) => el === user?.id)
   )[0];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newUserTaskEvent = {
@@ -78,15 +80,17 @@ export default function DetailEventPage() {
         alert('Vous êtes déjà inscrit sur cette tâche');
       } else {
         //delete
-        deleteUserTaskEvent(usertaskId, taskEventId![0].id, user?.id!);
-        putTaskEvent(usertaskId, taskEventId![0].id, addVolunteerNumber);
+        await deleteUserTaskEvent(usertaskId, taskEventId![0].id, user?.id!);
+        await putTaskEvent(usertaskId, taskEventId![0].id, addVolunteerNumber);
         //create
-        createUserTaskEvent(newUserTaskEvent);
-        putTaskEvent(value, taskEventId![0].id, pullVolunteerNumber);
+        await createUserTaskEvent(newUserTaskEvent);
+        await putTaskEvent(value, taskEventId![0].id, pullVolunteerNumber);
+        navigate('/profile');
       }
     } else {
-      createUserTaskEvent(newUserTaskEvent);
-      putTaskEvent(value, taskEventId![0].id, pullVolunteerNumber);
+      await createUserTaskEvent(newUserTaskEvent);
+      await putTaskEvent(value, taskEventId![0].id, pullVolunteerNumber);
+      navigate('/profile');
     }
   };
 

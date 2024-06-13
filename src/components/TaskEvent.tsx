@@ -40,7 +40,7 @@ export default function TaskEvent({
 
   const userTaskEvent = user?.userTaskEvent;
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const ActualtaskEventObject = event.taskEvent
       .map((el) => el)
       .find((el) => el.taskId === usertaskId);
@@ -48,9 +48,9 @@ export default function TaskEvent({
     const addVolunteerNumber = {
       volunteerNumber: ActualtaskEventObject?.volunteerNumber! + 1
     };
-    deleteUserTaskEvent(usertaskId, event.id, user?.id!);
-    putTaskEvent(usertaskId, event.id, addVolunteerNumber);
-    navigate('/events');
+    await deleteUserTaskEvent(usertaskId, event.id, user?.id!);
+    await putTaskEvent(usertaskId, event.id, addVolunteerNumber);
+    navigate('/profile');
   };
 
   return (
