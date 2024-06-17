@@ -20,12 +20,12 @@ export default function Homepage() {
           </p>
         </div>
         <div className="mb-5 mt-5">
-          <div className="sm:w-4/12 sm:mx-auto md:w-3/12 md:mx-auto lg:w-3/12 lg:mx-auto xl:w-2/12 xl:mx-auto mb-2">
+          <div className="w-4/12  md:w-3/12 md:lg:w-3/12 lg:mx-auto xl:w-2/12  mb-2 mx-auto">
             <Link to={'/login'}>
               <ButtonDefault>Se connecter</ButtonDefault>
             </Link>
           </div>
-          <div className="sm:w-4/12 sm:mx-auto md:w-3/12 md:mx-auto lg:w-3/12 lg:mx-auto xl:w-2/12 xl:mx-auto">
+          <div className="w-4/12  md:w-3/12 lg:w-3/12  xl:w-2/12 mx-auto">
             <Link to={'/register'}>
               <ButtonDefault>S'inscrire</ButtonDefault>
             </Link>
