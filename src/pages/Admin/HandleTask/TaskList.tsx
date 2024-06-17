@@ -29,6 +29,7 @@ export default function TaskList({ }) {
 
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    
     const [open, setOpen] = useState<boolean>(false);
     const handleOpen = () => {
         setOpen(!open);
@@ -58,7 +59,9 @@ export default function TaskList({ }) {
         <>
             <h1 className=" font-bold text-center text-xl mt-10">Espace Admin </h1>
             <h2 className=" font-bold text-center text-md mt-10">Liste des taches :</h2>
+
             <div className=" flex justify-center  rounded-md mt-5 mb-5 relative">
+                {/*----------BARRE DE RECHERCHE A  REVOIR CAR PAS ENCORE IMPLEMENTE CORRECTEMENT--------- */}
                 <input type="text" placeholder="Recherche par nom" className="px-10 text-black" />
                 <FontAwesomeIcon title="Voir la tache" icon={faSearch} className=" absolute text-black top-1 ms-60" />
             </div>
