@@ -45,6 +45,7 @@ export default function NavBar() {
 
   const handleDisconnect = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("refreshToken");
   };
 
   return (
