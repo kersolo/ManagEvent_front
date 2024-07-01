@@ -10,4 +10,5 @@ export type Variant =
 export type ButtonDefaultProps = ComponentPropsWithoutRef<"button"> &
   PropsWithChildren<{
     variant?: Variant;
+    isRipple?: boolean;
   }>;

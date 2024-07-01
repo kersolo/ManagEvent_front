@@ -10,4 +10,6 @@ export type InputDefaultProps<T extends FieldValues> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors?: any;
   className?: string;
+  onClick?: () => void;
+  onChange?: () => void;
 };
