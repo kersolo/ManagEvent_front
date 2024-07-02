@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogBody,
   DialogHeader,
+  Spinner,
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
@@ -25,11 +26,13 @@ export type Inputs = {
 };
 
 export default function SignUpPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
+    clearErrors,
   } = useForm<Inputs>({
     resolver: yupResolver(RegisterFormSchema),
   });
@@ -39,6 +42,7 @@ export default function SignUpPage() {
     setOpen(!open);
   };
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsLoading(true);
     if (!data.email) {
       return;
     }
@@ -49,13 +53,17 @@ export default function SignUpPage() {
     try {
       await registerUser(newUser);
       setOpen(true);
+      setIsLoading(false);
+      clearErrors();
     } catch (error: any) {
       if (error.response.data.message === "Email already exists") {
         setError("email", {
           type: "custom",
-          message: "L'email existe déja",
+          message: "Cet email est déja utilisé",
         });
-      }
+      } else console.log(error);
+      setIsLoading(false);
+      clearErrors();
     }
   };
 
@@ -77,6 +85,7 @@ export default function SignUpPage() {
             type="text"
             register={register}
             errors={errors}
+            onChange={() => clearErrors()}
           />
           <InputDefault
             label="Mot de passe"
@@ -84,6 +93,7 @@ export default function SignUpPage() {
             type="password"
             register={register}
             errors={errors}
+            onChange={() => clearErrors()}
           />
           <InputDefault
             label="Confirmer le mot de passe"
@@ -91,8 +101,22 @@ export default function SignUpPage() {
             type="password"
             register={register}
             errors={errors}
+            onChange={() => clearErrors()}
           />
-          <ButtonDefault type="submit">M'inscrire</ButtonDefault>
+          {isLoading ? (
+            <ButtonDefault
+              variant="disabled"
+              className="flex justify-center"
+              isRipple={false}
+            >
+              <Spinner
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            </ButtonDefault>
+          ) : (
+            <ButtonDefault type="submit">M'inscrire</ButtonDefault>
+          )}
           <Dialog
             open={open}
             handler={handleOpen}

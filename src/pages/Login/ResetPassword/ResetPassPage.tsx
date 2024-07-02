@@ -1,4 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Spinner } from "@material-tailwind/react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ButtonDefault from "../../../components/ButtonDefault";
@@ -8,31 +10,25 @@ import { ResetPassFormSchema } from "../../../services/schemas/ResetPasswordForm
 import { ResetPasswordForm } from "../../../services/types/ResetPasswordPagesType";
 
 export default function ResetPassPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
+    clearErrors,
   } = useForm<ResetPasswordForm>({
     resolver: yupResolver(ResetPassFormSchema),
   });
 
-  //gérer la récup de l'erreur si l'email n'existe pas
-
   const onSubmit: SubmitHandler<ResetPasswordForm> = async (data) => {
+    setIsLoading(true);
     try {
       await postEmailToResetPassword(data.email);
-      navigate("/login/check-email");
-    } catch (error: any) {
-      if (error.response.data.message === "No user with this email") {
-        setError("email", {
-          type: "custom",
-          message: "L'email n'existe pas",
-        });
-      } else console.log(error);
-    }
+    } catch (error: any) {}
+    setIsLoading(false);
+    navigate("/login/check-email");
   };
 
   return (
@@ -56,10 +52,25 @@ export default function ResetPassPage() {
           type={"email"}
           register={register}
           errors={errors}
+          onChange={() => clearErrors()}
         />
-        <ButtonDefault type="submit" className="mt-small">
-          Valider
-        </ButtonDefault>
+
+        {isLoading ? (
+          <ButtonDefault
+            variant="disabled"
+            className="mt-small flex justify-center"
+            isRipple={false}
+          >
+            <Spinner
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
+          </ButtonDefault>
+        ) : (
+          <ButtonDefault type="submit" className="mt-small">
+            Valider
+          </ButtonDefault>
+        )}
       </form>
     </div>
   );

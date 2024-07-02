@@ -15,6 +15,7 @@ export default function ButtonDefault({
   className,
   type,
   onClick,
+  isRipple,
 }: ButtonDefaultProps) {
   let buttonTheme;
   switch (variant) {
@@ -33,8 +34,7 @@ export default function ButtonDefault({
       buttonTheme = "bg-redDP text-white hover:bg-darkRedDP";
       break;
     case "disabled":
-      buttonTheme =
-        "bg-orangeDP text-darkBlueDP active:opacity-40 focus:opacity-40 opacity-40 cursor-not-allowed";
+      buttonTheme = "bg-orangeDP text-darkBlueDP opacity-40 cursor-default";
       break;
   }
 
@@ -44,6 +44,7 @@ export default function ButtonDefault({
       className={`normal-case text-base rounded-xl ${buttonTheme} ${className}`}
       onClick={onClick}
       type={type}
+      ripple={isRipple}
     >
       {children}
     </Button>

@@ -24,22 +24,6 @@ export const RegisterFormSchema = object({
       "Le mot de passe doit contenir au moins un caractère special"
     ),
   confirmPassword: string()
-    .required("La confirmation du mot de passe est requise")
-    .matches(
-      RegExp("(.*[a-z].*)"),
-      "Le mot de passe doit contenir au moins une minuscule"
-    )
-    .matches(
-      RegExp("(.*[A-Z].*)"),
-      "Votre mot de passe doit contenir au moins une majuscule"
-    )
-    .matches(
-      RegExp("(.*\\d.*)"),
-      "Votre mot de passe doit contenir au moins un chiffre"
-    )
-    .matches(
-      RegExp('[!@#$%^&*(),.?":{}|<>]'),
-      'Votre mot de passe doit contenir au moins un caractère special !@#$%^&*(),.?":{}|<>'
-    )
+    .required()
     .oneOf([ref("password")], "Les mots de passe ne correspondent pas"),
 }).required();

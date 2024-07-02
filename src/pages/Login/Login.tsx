@@ -1,37 +1,54 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, Typography } from '@material-tailwind/react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
-import ButtonDefault from '../../components/ButtonDefault';
-import { loginUser } from '../../services/api/auth';
-import { LoginForm } from '../../services/interfaces/LoginForm';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Input, Spinner, Typography } from "@material-tailwind/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import ButtonDefault from "../../components/ButtonDefault";
+import { loginUser } from "../../services/api/auth";
+import { LoginForm } from "../../services/interfaces/LoginForm";
 
 const dataSchema = yup.object({
   email: yup
     .string()
     .email("Votre e-mail n'est pas valide")
-    .required('Ce champ est obligatoire'),
-  password: yup.string().required('Ce champ est obligatoire !!')
+    .required("Ce champ est obligatoire"),
+  password: yup.string().required("Ce champ est obligatoire !!"),
 });
 
 export default function Login() {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    setError,
+    formState: { errors },
+    clearErrors,
   } = useForm<LoginForm>({
-    resolver: yupResolver(dataSchema)
+    resolver: yupResolver(dataSchema),
   });
 
   const onSubmit = async (values: LoginForm): Promise<any> => {
-    const { token, refreshToken } = await loginUser(values);
-    if (token) {
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('refreshToken',refreshToken);
-      navigate('/events');
+    setIsLoading(true);
+    try {
+      const { token, refreshToken } = await loginUser(values);
+      if (token) {
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("refreshToken", refreshToken);
+        setIsLoading(false);
+        clearErrors();
+        navigate("/events");
+      }
+    } catch (error: any) {
+      if (error.response.data.message === "Bad credentials") {
+        setError("password", {
+          type: "custom",
+          message: "Email ou mot de passe incorrects",
+        });
+      } else console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -47,20 +64,22 @@ export default function Login() {
               <h2 className="mb-3 flex justify-center">Connexion</h2>
               <div className="mb-1 flex flex-col gap-3">
                 <Input
-                  {...register('email')}
+                  {...register("email")}
                   label="Votre Email"
                   type="email"
                   name="email"
+                  onChange={() => clearErrors()}
                 />
                 <small className="text-sm text-red-500">
                   {errors.email?.message}
                 </small>
 
                 <Input
-                  {...register('password')}
+                  {...register("password")}
                   type="password"
                   label="Mot de passe"
                   name="password"
+                  onChange={() => clearErrors()}
                 />
                 <small className="text-sm text-red-500">
                   {errors.password?.message}
@@ -77,7 +96,20 @@ export default function Login() {
                 </div>
               </div>
               <div className="sm:w-full sm:mx-auto md:w-7/12 md:mx-auto lg:w-8/12 lg:mx-auto ">
-                <ButtonDefault type="submit">Se connecter</ButtonDefault>
+                {isLoading ? (
+                  <ButtonDefault
+                    variant="disabled"
+                    className="flex justify-center"
+                    isRipple={false}
+                  >
+                    <Spinner
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    />
+                  </ButtonDefault>
+                ) : (
+                  <ButtonDefault type="submit">Se connecter</ButtonDefault>
+                )}
               </div>
               <div>
                 <Typography

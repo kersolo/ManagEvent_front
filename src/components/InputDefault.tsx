@@ -1,6 +1,6 @@
-import { Input } from '@material-tailwind/react';
-import { FieldValues } from 'react-hook-form';
-import { InputDefaultProps } from '../services/types/components-types/InputType';
+import { Input } from "@material-tailwind/react";
+import { FieldValues } from "react-hook-form";
+import { InputDefaultProps } from "../services/types/components-types/InputType";
 
 export function InputDefault<T extends FieldValues>({
   label,
@@ -10,7 +10,9 @@ export function InputDefault<T extends FieldValues>({
   errors,
   value,
   defaultValue,
-  className
+  className,
+  onClick,
+  onChange,
 }: InputDefaultProps<T>) {
   return (
     <>
@@ -22,6 +24,8 @@ export function InputDefault<T extends FieldValues>({
         value={value}
         defaultValue={defaultValue}
         className={className}
+        onClick={onClick}
+        onChange={onChange}
       />
       {errors && (
         <small className="text-red-600 ml-small">{errors[name]?.message}</small>
