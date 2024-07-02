@@ -64,22 +64,24 @@ export default function Login() {
               <h2 className="mb-3 flex justify-center">Connexion</h2>
               <div className="mb-1 flex flex-col gap-3">
                 <Input
-                  {...register("email")}
+                  {...register("email", {
+                    onChange: () => clearErrors(),
+                  })}
                   label="Votre Email"
                   type="email"
                   name="email"
-                  onChange={() => clearErrors()}
                 />
                 <small className="text-sm text-red-500">
                   {errors.email?.message}
                 </small>
 
                 <Input
-                  {...register("password")}
+                  {...register("password", {
+                    onChange: () => clearErrors(),
+                  })}
                   type="password"
                   label="Mot de passe"
                   name="password"
-                  onChange={() => clearErrors()}
                 />
                 <small className="text-sm text-red-500">
                   {errors.password?.message}

@@ -56,14 +56,14 @@ export default function SignUpPage() {
       setIsLoading(false);
       clearErrors();
     } catch (error: any) {
+      console.log(error.response.data.message);
       if (error.response.data.message === "Email already exists") {
         setError("email", {
           type: "custom",
           message: "Cet email est déja utilisé",
         });
+        setIsLoading(false);
       } else console.log(error);
-      setIsLoading(false);
-      clearErrors();
     }
   };
 
