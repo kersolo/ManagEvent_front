@@ -17,7 +17,7 @@ export function InputDefault<T extends FieldValues>({
   return (
     <>
       <Input
-        {...register(name)}
+        {...register(name, { onChange: onChange })}
         label={label}
         name={name}
         type={type}
@@ -25,7 +25,6 @@ export function InputDefault<T extends FieldValues>({
         defaultValue={defaultValue}
         className={className}
         onClick={onClick}
-        onChange={onChange}
       />
       {errors && (
         <small className="text-red-600 ml-small">{errors[name]?.message}</small>

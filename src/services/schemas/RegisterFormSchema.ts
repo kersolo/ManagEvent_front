@@ -23,7 +23,8 @@ export const RegisterFormSchema = object({
       RegExp('[!@#$%^&*(),.?":{}|<>]'),
       "Le mot de passe doit contenir au moins un caractère special"
     ),
-  confirmPassword: string()
-    .required()
-    .oneOf([ref("password")], "Les mots de passe ne correspondent pas"),
+  confirmPassword: string().oneOf(
+    [ref("password")],
+    "Les mots de passe ne correspondent pas"
+  ),
 }).required();
